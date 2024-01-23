@@ -5,7 +5,7 @@ import { CardWrapper } from '@/components/auth/card-wrapper';
 import { FormError } from '@/components/form-error';
 import { FormSuccess } from '@/components/form-success';
 import { useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import { BeatLoader } from 'react-spinners';
 
 const NewVerificationForm = ({}) => {
@@ -36,17 +36,19 @@ const NewVerificationForm = ({}) => {
     onSubmit();
   }, [onSubmit]);
   return (
-    <CardWrapper
-      headerLabel='Confirming your verification'
-      backButtonLabel='Back to login'
-      backButtonHref='/auth/login'
-    >
-      <div className='flex items-center w-full justify-center'>
-        {!success && !error && <BeatLoader />}
-        <FormSuccess message={success} />
-        {!success && <FormError message={error} />}
-      </div>
-    </CardWrapper>
+    <Suspense>
+      <CardWrapper
+        headerLabel='Confirming your verification'
+        backButtonLabel='Back to login'
+        backButtonHref='/auth/login'
+      >
+        <div className='flex items-center w-full justify-center'>
+          {!success && !error && <BeatLoader />}
+          <FormSuccess message={success} />
+          {!success && <FormError message={error} />}
+        </div>
+      </CardWrapper>
+    </Suspense>
   );
 };
 
