@@ -26,6 +26,7 @@ model User {
   accounts              Account[]
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
+  UserProfile           UserProfile[]
 }
 
 model Account {
@@ -80,4 +81,64 @@ model TwoFactorConfirmation {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId])
+}
+
+
+model UserProfile {
+  id             String @id @default(cuid()) @map("_id")
+  userId         String
+  age            Int
+  name           String
+  gender         String
+  bio            String
+  language       String
+  profileImage   String
+  height         Float
+  weight         Float
+  bodyType       String
+  physicalStatus String
+
+  interests String[]
+  hobbies   String[]
+
+  eatingHabits   String
+  drinkingHabits String
+  smokingHabits  String
+
+  state             String
+  country           String
+  city              String
+  citizenship       String
+  residentialStatus String
+
+  religion  String
+  ethnicity String
+  caste     String
+
+  education        String
+  educationDetails String
+  college          String
+  institue         String
+
+  employedSector    String
+  companyName       String
+  employmentDetails String
+  jobTitle          String
+  annualIncome      Float
+
+  relationshipType   String
+  martialStatus      String
+  numberOfDependents Int?   @default(0)
+
+  familyValues    String
+  familyType      String
+  familyStatus    String
+  familyDetails   String
+  siblings        Boolean
+  numberOfSibling Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
