@@ -1,36 +1,109 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
+import { UserProfile } from '@prisma/client';
 
-const BasicDetails = () => {
+interface BasicDetailsProps {
+  user: UserProfile | undefined;
+}
+
+const BasicDetails: FC<BasicDetailsProps> = ({ user }) => {
   return (
     <div className="container p-5 mt-10 shadow-md rounded-md">
-      <div className="flex justify-between p-10">
-        <div className="flex flex-row">
-          <div className="mr-8">
-            <Image
-              src="/alexander.jpeg"
-              alt="Image"
-              width={150}
-              height={150}
-              className="rounded-lg"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <h1 className="text-2xl font-semibold">Jon Doe</h1>
-            <span>25 Years, 5 Ft 7 In / 170 Cms</span>
-            <span>Buddhist, (Caste No Bar)</span>
-            <span>Kandy, Central Province, Sri Lanka</span>
-            <span>B.Sc IT/ Computer Science, Software Engineer</span>
-          </div>
-        </div>
-        <div className="flex flex-col gap-2">
+      <div className="justify-between p-10">
+        <div className="flex justify-between">
+          <span className="text-2xl">Basic Details</span>
           <Button variant="secondary" size="lg">
-            Preview
+            Edit
           </Button>
-          <span className="text-gray-400">
-            How your profile looks to others
-          </span>
+        </div>
+        <div className="grid grid-cols-3 justify-between">
+          <div className="flex flex-col gap-5 mt-4">
+            <div className="flex gap-x-2 items-center">
+              <span>Name: </span>
+              <span className=" text-gray-600">
+                {user?.name || 'Not defined'}
+              </span>
+            </div>
+
+            <div className="flex gap-x-2 items-center">
+              <span>Age: </span>
+              <span className=" text-gray-600">
+                {user?.name || 'Not defined'}
+              </span>
+            </div>
+
+            <div className="flex gap-x-2 items-center">
+              <span>Address: </span>
+              <span className=" text-gray-600">
+                {user?.name || 'Not defined'}
+              </span>
+            </div>
+
+            <div className="flex gap-x-2 items-center">
+              <span>Language: </span>
+              <span className=" text-gray-600">
+                {user?.name || 'Not defined'}
+              </span>
+            </div>
+          </div>
+          <div className="flex flex-col gap-5 mt-4">
+            <div className="flex gap-x-2 items-center">
+              <span>Hieght: </span>
+              <span className=" text-gray-600">
+                {user?.name || 'Not defined'}
+              </span>
+            </div>
+
+            <div className="flex gap-x-2 items-center">
+              <span>Weight: </span>
+              <span className=" text-gray-600">
+                {user?.name || 'Not defined'}
+              </span>
+            </div>
+
+            <div className="flex gap-x-2 items-center">
+              <span>Body Type: </span>
+              <span className=" text-gray-600">
+                {user?.name || 'Not defined'}
+              </span>
+            </div>
+
+            <div className="flex gap-x-2 items-center">
+              <span>Physical Status: </span>
+              <span className=" text-gray-600">
+                {user?.name || 'Not defined'}
+              </span>
+            </div>
+          </div>
+          <div className="flex flex-col gap-5 mt-4">
+            <div className="flex gap-x-2 items-center">
+              <span>Marital Status: </span>
+              <span className=" text-gray-600">
+                {user?.name || 'Not defined'}
+              </span>
+            </div>
+
+            <div className="flex gap-x-2 items-center">
+              <span>Eating Habits: </span>
+              <span className=" text-gray-600">
+                {user?.name || 'Not defined'}
+              </span>
+            </div>
+
+            <div className="flex gap-x-2 items-center">
+              <span>Drinking Habits: </span>
+              <span className=" text-gray-600">
+                {user?.name || 'Not defined'}
+              </span>
+            </div>
+
+            <div className="flex gap-x-2 items-center">
+              <span>Smoking Habits: </span>
+              <span className=" text-gray-600">
+                {user?.name || 'Not defined'}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

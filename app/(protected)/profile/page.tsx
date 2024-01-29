@@ -1,13 +1,15 @@
 import AboutMe from './components/about-me';
 import BasicDetails from './components/basic-details';
+import MainDetails from './components/main-details';
 import PhotosCarousel from './components/photos-carousel';
 
-const DashboardPage = () => {
+const DashboardPage = ({user}) => {
   return (
     <>
-      <BasicDetails />
+      <MainDetails />
       <PhotosCarousel />
       <AboutMe />
+      <BasicDetails user={user} />
     </>
   );
 };
