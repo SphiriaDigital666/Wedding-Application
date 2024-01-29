@@ -1,3 +1,4 @@
+import AboutMe from './components/about-me';
 import BasicDetails from './components/basic-details';
 import PhotosCarousel from './components/photos-carousel';
 
@@ -6,6 +7,7 @@ const DashboardPage = () => {
     <>
       <BasicDetails />
       <PhotosCarousel />
+      <AboutMe />
     </>
   );
 };
