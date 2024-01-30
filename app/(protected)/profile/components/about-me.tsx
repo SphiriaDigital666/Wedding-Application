@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
+import EditAbout from '../edit/edit-about';
 
 const AboutMe = () => {
   return (
@@ -7,9 +7,7 @@ const AboutMe = () => {
       <div className="justify-between p-10">
         <div className="flex justify-between">
           <span className="text-2xl">About Me</span>
-          <Button variant="secondary" size="lg">
-            Edit
-          </Button>
+          <EditAbout />
         </div>
         <div className="flex gap-5 mt-4">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur quos
