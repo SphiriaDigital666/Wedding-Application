@@ -167,7 +167,7 @@ export default function Home() {
                   counterfeit), the progression of individuals as they move
                   around, variety plans and how you can customize the stylistic
                   layout. Picking the ideal choices is vital to make the ideal
-                  scene past its area
+                  scene past its areaa.
                 </p>
               </div>
               <div className="col-span-5 ">
