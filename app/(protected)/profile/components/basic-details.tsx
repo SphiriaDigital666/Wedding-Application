@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Button } from '@/components/ui/button';
 import { UserProfile } from '@prisma/client';
+import EditBasic from '../edit/edit-basic';
 
 interface BasicDetailsProps {
   user: UserProfile | undefined;
@@ -12,9 +13,7 @@ const BasicDetails: FC<BasicDetailsProps> = ({ user }) => {
       <div className="justify-between p-10">
         <div className="flex justify-between">
           <span className="text-2xl">Basic Details</span>
-          <Button variant="secondary" size="lg">
-            Edit
-          </Button>
+          <EditBasic user={user} />
         </div>
         <div className="grid grid-cols-3 justify-between">
           <div className="flex flex-col gap-5 mt-4">
