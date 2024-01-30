@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Button } from '@/components/ui/button';
 import { UserProfile } from '@prisma/client';
+import EditProfessional from '../edit/edit-professional';
 
 interface ProfessionalDetailsProps {
   user: UserProfile | undefined;
@@ -12,9 +13,7 @@ const ProfessionalDetails: FC<ProfessionalDetailsProps> = ({ user }) => {
       <div className="justify-between p-10">
         <div className="flex justify-between">
           <span className="text-2xl">Professional Details</span>
-          <Button variant="secondary" size="lg">
-            Edit
-          </Button>
+          <EditProfessional user={user} />
         </div>
         <div className="grid grid-cols-3 justify-between gap-5 mt-4">
           <div className="flex gap-x-2 items-center">
