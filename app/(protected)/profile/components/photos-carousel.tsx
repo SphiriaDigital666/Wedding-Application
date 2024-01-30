@@ -1,5 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import EditPhotos from '../edit/edit-photos';
 
 const PhotosCarousel = () => {
   return (
@@ -7,9 +8,7 @@ const PhotosCarousel = () => {
       <div className="justify-between p-10">
         <div className="flex justify-between">
           <span className="text-2xl">Photos</span>
-          <Button variant="secondary" size="lg">
-            Edit
-          </Button>
+          <EditPhotos />
         </div>
         <div className="flex gap-5 mt-4">
           <Card className="w-full">
