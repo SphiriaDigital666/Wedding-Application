@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import { SessionProvider } from 'next-auth/react';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import ProfileModal from '@/components/modals/profile-modal';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,13 +21,14 @@ export default async function RootLayout({
 }>) {
   const session = await auth();
   return (
-    <html lang='en'>
+    <html lang="en">
       <SessionProvider session={session}>
         <body className={inter.className}>
-          <div className='container'>
+          <div className="container">
             <Navbar />
             {children}
           </div>
+          <ProfileModal />
           <Toaster />
         </body>
       </SessionProvider>
