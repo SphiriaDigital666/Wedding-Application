@@ -1,13 +1,25 @@
-import AboutMe from './components/about-me';
-import BasicDetails from './components/basic-details';
-import FamilyDetails from './components/family-details';
-import LocationDetails from './components/location-details';
-import MainDetails from './components/main-details';
-import PhotosCarousel from './components/photos-carousel';
-import ProfessionalDetails from './components/professional-details';
-import ReligionDetails from './components/religion-details';
+import db from '@/lib/db';
+import AboutMe from './_components/about-me';
+import BasicDetails from './_components/basic-details';
+import FamilyDetails from './_components/family-details';
+import LocationDetails from './_components/location-details';
+import MainDetails from './_components/main-details';
+import PhotosCarousel from './_components/photos-carousel';
+import ProfessionalDetails from './_components/professional-details';
+import ReligionDetails from './_components/religion-details';
+import { currentUser } from '@/lib/auth';
 
-const DashboardPage = ({ user }) => {
+const DashboardPage = async() => {
+
+  const sessionUser = await currentUser()
+
+  const user = await db.userProfile.findFirst({
+    where:{
+      userId: sessionUser?.id,
+    }
+  })
+
+  console.log(user)
   return (
     <>
       <MainDetails />

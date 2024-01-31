@@ -25,6 +25,7 @@ model User {
   role                  UserRole               @default(USER)
   accounts              Account[]
   isTwoFactorEnabled    Boolean                @default(false)
+  isNewUser             Boolean                @default(true)
   twoFactorConfirmation TwoFactorConfirmation?
   UserProfile           UserProfile[]
 }
@@ -82,7 +83,6 @@ model TwoFactorConfirmation {
 
   @@unique([userId])
 }
-
 
 model UserProfile {
   id             String @id @default(cuid()) @map("_id")

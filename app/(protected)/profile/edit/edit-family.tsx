@@ -22,13 +22,36 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+const { format, parseISO } = require('date-fns');
 
 interface EditFamilyDetailsProps {
   user: UserProfile | undefined;
 }
 
+
+
 const EditFamily: FC<EditFamilyDetailsProps> = ({ user }) => {
   const form = useForm();
+
+  const inputDate = new Date().toISOString();
+  const parsedDate = parseISO(inputDate);
+  const formattedDate = format(parsedDate, 'EEEE, MMMM dd, yyyy h:mm a');
+
+
+  const handleSave = () => {
+    try {
+      toast('Family Details Updated Successfully', {
+        description: formattedDate,
+      //   action: {
+      //     label: 'Undo',
+      //     onClick: () => console.log('Undo'),
+      //   },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -44,7 +67,10 @@ const EditFamily: FC<EditFamilyDetailsProps> = ({ user }) => {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <div className="grid grid-cols-3 gap-2">
+          <form
+            className="grid grid-cols-3 gap-2"
+            onSubmit={form.handleSubmit(handleSave)}
+          >
             <FormField
               control={form.control}
               name="familyValues"
@@ -143,11 +169,9 @@ const EditFamily: FC<EditFamilyDetailsProps> = ({ user }) => {
                 </FormItem>
               )}
             />
-          </div>
+            <Button type="submit">Save changes</Button>
+          </form>
         </Form>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
