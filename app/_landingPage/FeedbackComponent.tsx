@@ -65,7 +65,7 @@ const FeedbackComponent = () => {
       setSelectedFeedback(feedbackData[index]);
       setTimeout(() => {
         setIsAnimating(false);
-      }, 500); // Adjust the duration of the animation (in milliseconds)
+      }, 500);
     }
   };
 
