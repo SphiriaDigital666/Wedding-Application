@@ -6,7 +6,6 @@ import Accordion from "./_landingPage/accordion";
 import Image from "next/image";
 
 import { Input } from "@/components/ui/input";
-import Feedback from "./_landingPage/feedback";
 import FeedbackComponent from "./_landingPage/FeedbackComponent";
 // import ProfileGallery from "./_landingPage/ProfileGallery";
 
@@ -209,11 +208,49 @@ export default function Home() {
       </section>
 
       <section>
-        <p className="text-[#445159] text-[48px] font-bold text-center">
+        <p className="text-[#445159] text-[48px] font-bold text-center mb-16 mt-32">
           Story of finding soulmate
         </p>
 
         <FeedbackComponent />
+      </section>
+
+      <section>
+        <p className="text-[#445159] text-[48px] font-bold  text-center mb-8 mt-16">
+          About us
+        </p>
+
+        <div className="flex items-center border-8 border-[#5BACE3]">
+          <div className="-ml-[130px] bg-[#fff] h-[600px] my-16">
+            <p className="text-[150px] -mb-[110px] text-[#445159]">Who</p>
+            <div className="flex items-center">
+              <div>
+                <p className="text-[128px] leading-tight text-[#445159]">We</p>
+                <p className="text-[128px] leading-tight text-[#445159]">Are</p>
+              </div>
+
+              <p className=" text-[350px] text-[#445159]">?</p>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-[#445159] text-[27px] font-medium text-right mb-16 mx-16">
+              We are providing matchmaking platform to users to find their
+              perfect matching partners. Through this website users can plan
+              their weddings under professional guidance. We ( name of the site)
+              will kept your personal details and authorized not to share with
+              any other third party
+            </p>
+
+            <p className="text-[#445159] text-[27px] font-medium text-right mx-16">
+              We love to find your best matchmaker. We keep our integrity with
+              all your trust. Our professional team always respect to your
+              preferences and personal details. We are here to guide you to your
+              dating journey. With our services you can arrange future events
+              with qualified guidance in every special occasion in your life
+            </p>
+          </div>
+        </div>
       </section>
     </div>
   );
