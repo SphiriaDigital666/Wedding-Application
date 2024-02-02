@@ -70,36 +70,55 @@ const FeedbackComponent = () => {
   };
 
   return (
-    <div>
-      <div
-        className={`grid grid-cols-2 ${
-          isAnimating ? "opacity-0" : "opacity-100"
-        }`}
-      >
-        <div className="">
-          <p className="text-[#211919] text-[48px] font-bold mb-4">
-            {selectedFeedback.name}
-          </p>
-          <p className="text-[#919293] text-[20px] mb-8">
-            {selectedFeedback.paragraph1}
-          </p>
-          <p className="text-[#919293] text-[20px]">
-            {selectedFeedback.paragraph2}
-          </p>
-        </div>
+    <div className="">
+      <div className="bg-[#aee2ee]">
+        <div className="container mx-auto">
+          <div
+            className={`grid grid-cols-2 gap-0  ${
+              isAnimating ? "opacity-0" : "opacity-100"
+            }`}
+          >
+            <div className=" bg-[#effafc]">
+              <p className="text-[#211919] text-[48px] font-bold mb-4 mt-8 mx-[70px]">
+                {selectedFeedback.name}
+              </p>
 
-        <div
-          className={`transition-opacity duration-500 ease-in-out ${
-            isAnimating ? "opacity-0" : "opacity-100"
-          }`}
-        >
-          <Image
-            src={selectedFeedback.imageSrc}
-            alt="Main Image"
-            width={624}
-            height={487}
-            className=""
-          />
+              <div className="flex items-center gap-6 mx-[70px] mb-8">
+                <p className="text-[#919293] text-[20px] font-bold">
+                  Star Rating 5/5
+                </p>
+
+                <Image
+                  src="/landingPage/rating-icons.png"
+                  alt="Main Image"
+                  width={152}
+                  height={23}
+                  className=""
+                />
+              </div>
+
+              <p className="text-[#919293] text-[20px] font-bold mb-8 mx-[70px]">
+                {selectedFeedback.paragraph1}
+              </p>
+              <p className="text-[#919293] text-[20px] font-bold mx-[70px] mb-8">
+                {selectedFeedback.paragraph2}
+              </p>
+            </div>
+
+            <div
+              className={`transition-opacity duration-500 ease-in-out   ${
+                isAnimating ? "opacity-0" : "opacity-100"
+              }`}
+            >
+              <Image
+                src={selectedFeedback.imageSrc}
+                alt="Main Image"
+                width={624}
+                height={487}
+                className=""
+              />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -113,7 +132,7 @@ const FeedbackComponent = () => {
         />
       </div>
 
-      <div className="flex items-center justify-center gap-8">
+      <div className="flex items-center justify-center gap-8 bg-[#d0dfe2] py-10">
         {feedbackData.map((feedback, index) => (
           <div
             key={index}

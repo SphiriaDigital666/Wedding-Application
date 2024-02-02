@@ -5,12 +5,11 @@ import React, { useState, useEffect } from "react";
 const Carousel: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const photos = ["/1.png", "/2.jpg", "/3.jpg"];
-
-  // const paragraphs = [
-  //   "The biggest and most trusted Matrimony service for Tamils!",
-  //   // Add more paragraphs if needed
-  // ];
+  const photos = [
+    "/landingPage/main-carousel 01.jpg",
+    "/landingPage/main-carousel 02.jpg",
+    "/landingPage/main-carousel 03.jpg",
+  ];
 
   const goToPrevSlide = () => {
     setCurrentSlide(
@@ -33,11 +32,11 @@ const Carousel: React.FC = () => {
       style={{
         position: "relative",
         width: "100%",
-        height: "100vh",
+        height: "90vh",
         overflow: "hidden",
       }}
     >
-      <h1
+      {/* <h1
         style={{
           textAlign: "center",
           zIndex: 1,
@@ -47,7 +46,7 @@ const Carousel: React.FC = () => {
         }}
       >
         Photo Carousel
-      </h1>
+      </h1> */}
       <div
         style={{
           display: "flex",

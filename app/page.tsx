@@ -12,16 +12,60 @@ export default function HomePage() {
       <div className='bg-[#665577] relative'>
         <Carousel />
 
-        <div className='absolute bottom-[80px] left-[20px]'>
-          <p className='text-[#fff] text-[30px]'>
-            The biggest and most trusted Matrimony service for Tamils!
+
+        <div className="absolute bottom-[60px] left-[40px]">
+          <p className="text-[#fff] text-[48px] sofia font-bold border-b-4 border-[#D9D9D9]">
+            The biggest and most trusted<br></br> Matrimony service for Tamils!
           </p>
-          <p className='text-[#fff] text-[20px] font-regular'>
+          <p className="text-[#fff] text-[27px] font-light mt-2">
+
             Now find matches based on your hobbies & interests
           </p>
         </div>
-      </div>
 
+        <div className="absolute bottom-[-80px] right-[200px]">
+          <div className="flex items-center justify-end gap-4 mb-6">
+            <p className="text-[#fff] text-[24px] font-medium">
+              Already a member ?
+            </p>
+            <p className="text-[#fff] text-[24px] font-bold border border-[#fff] rounded-md w-max px-5 cursor-pointer">
+              Login
+            </p>
+          </div>
+
+          <div className="w-[577px] drop-shadow-xl pb-[30px]">
+            <div className="bg-[#5BACE3] rounded-t-lg">
+              <h1 className="text-[#fff] text-[36px] text-center font-bold py-8">
+                Create a Matrimony Profile
+              </h1>
+            </div>
+
+            <div className="bg-[#fff] rounded-b-lg">
+              <h1 className="text-[#445159] text-[30px] text-center font-medium py-4 mx-10 border-b border-[#D9D9D9] ">
+                Place to find your soulmate
+              </h1>
+
+              <div className="mb-8 px-10 mt-12">
+                <Input type="email" placeholder="Name" />
+              </div>
+
+              <div className="mb-8 px-10">
+                <Input type="email" placeholder="Email" />
+              </div>
+
+              <div className="mb-12 px-10">
+                <Input type="email" placeholder="Password" />
+              </div>
+
+              <div className="flex items-center justify-center">
+                <div className="bg-[#5BACE3] w-[400px] h-[50px] flex items-center justify-center mb-16">
+                  <div className="py-2">
+                    <p className="text-[#FFF] font-medium text-[30px]">
+                      Register
+                    </p>
+                  </div>
+                </div>
+              </div>
       <div className='bg-[#fff] w-[600px] drop-shadow-xl pb-[30px]'>
         <div className='bg-[#5BACE3] rounded-t-lg'>
           <h1 className='text-[#fff] text-[30px] text-center font-semibold py-6'>
@@ -54,11 +98,11 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div className='container mx-auto'>
-        <div className='flex items-center justify-between mx-[20px]'>
-          <div className='border-r-4 border-[#5BACE3] px-[80px]'>
-            <p className='font-bold text-[96px] text-center'>100%</p>
-            <p className='font-medium text-[32px]'>mobile verified accounts</p>
+      <div className="container mx-auto mt-[200px] mb-[200px]">
+        <div className="flex items-center justify-between mx-[20px] ">
+          <div className="border-r-4 border-[#5BACE3] px-[80px]">
+            <p className="font-bold text-[96px] text-center">100%</p>
+            <p className="font-medium text-[32px]">mobile verified accounts</p>
           </div>
 
           <div className='border-r-4 border-[#5BACE3]  px-[80px]'>
@@ -75,30 +119,35 @@ export default function HomePage() {
         </div>
       </div>
 
-      <section>
-        <p className='text-[64px] font-bold text-center text-[#445159]'>
-          01. Wedding venues
-        </p>
-        {/* <p className="text-[20px] font-medium text-[#445159] text-center">
-          weddingmettro.com
-        </p> */}
+      <section className="mb-16">
+        <div className="grid grid-cols-12 mb-8">
+          <div className="col-span-5 h-[40px]"></div>
+          <div className="col-span-7 ">
+            <p className="text-[60px] font-bold text-[#445159] mb-[-20px]">
+              01. Wedding venues
+            </p>
+            <p className="text-[20px] font-medium text-[#445159]">
+              weddingmettro.com
+            </p>
+          </div>
+        </div>
 
         <div className='bg-[#5BACE3] relative'>
           <div>
             <div className='grid grid-cols-12'>
               <div className='col-span-5'>
                 <Image
-                  src='/images/landing-page/laptop.png'
-                  alt='Description of the image'
-                  width={795}
-                  height={531}
-                  className='mt-[-130px]'
+                  src="/landingPage/laptop-img.png"
+                  alt="Description of the image"
+                  width={676}
+                  height={393}
+                  className="mt-[-130px] ml-[80px]"
                 />
               </div>
-              <div className='col-span-7 mr-[70px]'>
-                <p className='font-medium text-[20px] text-[#fff] mb-6'>
-                  <span className='font-bold text-[24px] text-[#fff]'>
-                    Deciding a wedding{' '}
+              <div className="col-span-7 mr-[70px]">
+                <p className="font-medium text-[20px] text-[#fff] mb-6 mt-6">
+                  <span className="font-bold text-[24px] text-[#fff]">
+                    Deciding a wedding{" "}
                   </span>
                   venue is one of important and challenging part. It mainly
                   express the tone of your special day. If the venue pick that
@@ -122,73 +171,73 @@ export default function HomePage() {
             </div>
           </div>
 
-          <p className='font-medium text-[20px] text-[#fff] mb-6 mx-[350px]'>
-            <span className='font-bold text-[24px] text-[#fff]'>
-              Indoor venues{' '}
+
+          <p className="font-medium text-[20px] text-[#fff] mx-[350px]">
+            <span className="font-bold text-[24px] text-[#fff]">
+              Indoor venues{" "}
             </span>
             banquet Halls Outdoor venues- sea venues, gardens, winery, ships,
             historical sites and religious venues. These outdoor venues are not
-            only unique also add glamour to your special day.
+            only unique also add glamour to your special day. ffsd
+            <div className="mb-16 h-5"></div>
           </p>
         </div>
       </section>
 
       <section>
-        <p className='text-[64px] font-bold text-center text-[#445159]'>
-          02.Decorations
-        </p>
-        {/* <p className="text-[20px] font-medium text-[#445159] text-center">
-          weddingmettro.com
-        </p> */}
+        <div className="grid grid-cols-12 mb-8">
+          <div className="col-span-5 h-[40px]"></div>
+          <div className="col-span-7">
+            <p className="text-[60px] font-bold text-[#445159] mb-[-20px]">
+              02.Decorations
+            </p>
+            <p className="text-[20px] font-medium text-[#445159]">
+              weddingmettro.com
+            </p>
+          </div>
+        </div>
 
         <div className='bg-[#5BACE3] relative'>
           <div>
-            <div className='grid grid-cols-12 '>
-              <div className='col-span-7 ml-[70px]'>
-                <p className='font-medium text-[20px] text-[#fff] mb-6'>
-                  <span className='font-bold text-[24px] text-[#fff]'>
-                    Deciding a wedding{' '}
-                  </span>
-                  venue is one of important and challenging part. It mainly
-                  express the tone of your special day. If the venue pick that
-                  pretty it might be expensive. To help you out, there are some
-                  attractive venues you can select according to your budget.
+            <div className="grid grid-cols-12 ">
+              <div className="col-span-7 ">
+                <p className="font-medium text-[20px] text-[#fff] mb-6 mt-6 ml-[80px]">
+                  This takes an important part in every wedding. Decorations are
+                  depend according to venues. Mostly in banquets event planners
+                  use floral and elegant arrangements. In outside venues welcome
+                  mirrors, hanging candles and lights are use. Table decorations
+                  are also included.
                 </p>
-
-                <p className='font-medium text-[20px] text-[#fff] mb-6'>
-                  The place not just should have the option to oblige your
-                  visitors, yet it likewise needs to make an air that fits with
-                  your own style. You might not have settled on the sort of
-                  wedding you re having, however the actual scene will just go
-                  such a long ways towards assisting you with making the state
-                  of mind. Contemplate things like the lighting (both normal and
-                  counterfeit), the progression of individuals as they move
-                  around, variety plans and how you can customize the stylistic
-                  layout. Picking the ideal choices is vital to make the ideal
-                  scene past its areaa.
+                <p className="font-medium text-[20px] text-[#fff] mb-6 ml-[80px]">
+                  Weddings will generally be extraordinary occasions for the
+                  couple and every one of their visitors. How a wedding is
+                  enhanced significantly affects the look and feel of those
+                  recollections. For this reason wedding design is a
+                  particularly significant piece of arranging a wedding
+                  occasion. The varieties you pick and the style you make lays
+                  everything out for these milestone recollections..
                 </p>
               </div>
-              <div className='col-span-5 '>
+              <div className="col-span-5 mr-[70px]">
                 <Image
-                  src='/images/landing-page/laptop.png'
-                  alt='Description of the image'
-                  width={795}
-                  height={531}
-                  className='mt-[-130px]'
+                  src="/landingPage/laptop-img.png"
+                  alt="Description of the image"
+                  width={650}
+                  height={393}
+                  className="mt-[-130px] ml-[80px]"
                 />
               </div>
             </div>
           </div>
         </div>
       </section>
-
       <section>
-        <div className='flex items-center justify-center mt-[70px]'>
-          <div className='w-[990px] h-[673px] bg-[#fff] rounded-[30px] px-[100px] shadow-xl'>
-            <div className='flex items-center gap-8 pt-[40px] pb-[50px]'>
+        <div className="flex items-center justify-center mt-[130px]">
+          <div className="w-[990px] h-[673px] bg-[#fff] rounded-[30px] px-[100px] shadow-xl">
+            <div className="flex items-center gap-8 pt-[40px] pb-[50px]">
               <Image
-                src='/images/landing-page/question-icon.png'
-                alt='Description of the image'
+                src="/landingPage/question-icon.png"
+                alt="Description of the image"
                 width={70}
                 height={70}
                 className=''
@@ -212,39 +261,45 @@ export default function HomePage() {
       </section>
 
       <section>
-        <p className='text-[#445159] text-[48px] font-bold  text-center mb-8 mt-16'>
-          About us
-        </p>
+        <div className="container mx-auto">
+          <p className="text-[#445159] text-[48px] font-bold  text-center mb-8 mt-16">
+            About us
+          </p>
 
-        <div className='flex items-center border-8 border-[#5BACE3]'>
-          <div className='-ml-[130px] bg-[#fff] h-[600px] my-16'>
-            <p className='text-[150px] -mb-[110px] text-[#445159]'>Who</p>
-            <div className='flex items-center'>
-              <div>
-                <p className='text-[128px] leading-tight text-[#445159]'>We</p>
-                <p className='text-[128px] leading-tight text-[#445159]'>Are</p>
+          <div className="flex items-center border-8 border-[#5BACE3]">
+            <div className="-ml-[130px] bg-[#fff] h-[600px] my-16">
+              <p className="text-[150px] -mb-[110px] text-[#445159]">Who</p>
+              <div className="flex items-center">
+                <div>
+                  <p className="text-[128px] leading-tight text-[#445159]">
+                    We
+                  </p>
+                  <p className="text-[128px] leading-tight text-[#445159]">
+                    Are
+                  </p>
+                </div>
+
+                <p className=" text-[350px] text-[#445159]">?</p>
               </div>
-
-              <p className=' text-[350px] text-[#445159]'>?</p>
             </div>
-          </div>
+            <div>
+              <p className="text-[#445159] text-[27px] font-medium text-right mb-16 mx-16">
+                We are providing matchmaking platform to users to find their
+                perfect matching partners. Through this website users can plan
+                their weddings under professional guidance. We ( name of the
+                site) will kept your personal details and authorized not to
+                share with any other third party
+              </p>
 
-          <div>
-            <p className='text-[#445159] text-[27px] font-medium text-right mb-16 mx-16'>
-              We are providing matchmaking platform to users to find their
-              perfect matching partners. Through this website users can plan
-              their weddings under professional guidance. We ( name of the site)
-              will kept your personal details and authorized not to share with
-              any other third party
-            </p>
-
-            <p className='text-[#445159] text-[27px] font-medium text-right mx-16'>
-              We love to find your best matchmaker. We keep our integrity with
-              all your trust. Our professional team always respect to your
-              preferences and personal details. We are here to guide you to your
-              dating journey. With our services you can arrange future events
-              with qualified guidance in every special occasion in your life
-            </p>
+              <p className="text-[#445159] text-[27px] font-medium text-right mx-16">
+                We love to find your best matchmaker. We keep our integrity with
+                all your trust. Our professional team always respect to your
+                preferences and personal details. We are here to guide you to
+                your dating journey. With our services you can arrange future
+                events with qualified guidance in every special occasion in your
+                life
+              </p>
+            </div>
           </div>
         </div>
       </section>
