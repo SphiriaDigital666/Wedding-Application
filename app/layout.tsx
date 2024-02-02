@@ -1,3 +1,4 @@
+
 import { auth } from "@/auth";
 import Navbar from "@/components/navbar";
 import { Toaster } from "@/components/ui/sonner";
@@ -6,6 +7,7 @@ import { Sofia, Sofia_Sans } from "next/font/google";
 import { SessionProvider } from "next-auth/react";
 import { Inter } from "next/font/google";
 import "./globals.css";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,12 +31,12 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <SessionProvider session={session}>
+
         <body className={sofia_init.className}>
           <div className="">
             {/* <Navbar /> */}
             {children}
           </div>
-
           <Toaster />
         </body>
       </SessionProvider>
