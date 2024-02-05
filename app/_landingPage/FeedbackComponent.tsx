@@ -97,10 +97,10 @@ const FeedbackComponent = () => {
                 />
               </div>
 
-              <p className="text-[#919293] text-[20px] font-bold mb-8 mx-[70px]">
+              <p className="text-[#919293] text-[20px] 2xl:text-[20px] xl:text-[18px] lg:text-[16px] font-bold mb-8 mx-[70px]">
                 {selectedFeedback.paragraph1}
               </p>
-              <p className="text-[#919293] text-[20px] font-bold mx-[70px] mb-8">
+              <p className="text-[#919293] text-[20px] 2xl:text-[20px] xl:text-[18px] lg:text-[16px] font-bold mx-[70px] mb-8">
                 {selectedFeedback.paragraph2}
               </p>
             </div>
@@ -115,7 +115,7 @@ const FeedbackComponent = () => {
                 alt="Main Image"
                 width={624}
                 height={487}
-                className=""
+                className="2xl:w-[624px] 2xl:h-auto xl:w-[624px] xl:h-auto"
               />
             </div>
           </div>
@@ -139,13 +139,13 @@ const FeedbackComponent = () => {
             onClick={() => handleImageClick(index)}
             className="transition-opacity duration-500 ease-in-out opacity-100 hover:opacity-80 cursor-pointer"
           >
-            <div className="h-[130px] w-[130px] bg-gray-300 rounded-full flex items-center justify-center border-4 border-[#5BACE3]">
+            <div className="2xl:h-[130px] 2xl:w-[130px] xl:h-[120px] xl:w-[120px] lg:h-[110px] lg:w-[110px] bg-gray-300 rounded-full flex items-center justify-center border-4 border-[#5BACE3]">
               <Image
                 src={feedback.imageSrc}
                 alt={`feedback image ${index + 1}`}
                 width={300}
                 height={300}
-                className="h-[120px] w-[120px] rounded-full"
+                className="2xl:h-[120px] 2xl:w-[120px] xl:h-[110px] xl:w-[110px] lg:h-[100px] lg:w-[100px] rounded-full"
               />
             </div>
           </div>

@@ -258,7 +258,7 @@ export default function Home() {
         <FeedbackComponent />
       </section>
 
-      {/* <section>
+      <section>
         <div className="container mx-auto">
           <p className="text-[#445159] text-[48px] font-bold  text-center mb-8 mt-16">
             About us
@@ -301,7 +301,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
     </div>
   );
 }
