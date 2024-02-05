@@ -71,36 +71,48 @@ export default function Home() {
           </div>
         </div>
       </div>
+      {/* ------------------------------------------------------------------------------------------- */}
 
       <div className="container mx-auto mt-[200px] mb-[200px]">
-        <div className="flex items-center justify-between mx-[20px] ">
-          <div className="border-r-4 border-[#5BACE3] px-[80px]">
-            <p className="font-bold text-[96px] text-center">100%</p>
-            <p className="font-medium text-[32px]">mobile verified accounts</p>
-          </div>
-
-          <div className="border-r-4 border-[#5BACE3]  px-[80px]">
-            <p className="font-bold text-[96px] text-center">200+</p>
-            <p className="font-medium text-[32px] text-center">
-              cities covered
+        <div className="grid grid-cols-3 gap-4">
+          <div className="">
+            <p className="font-bold text-[96px] 2xl:text-[96px] xl:text-[86px] lg:text-[76px] md:text-[66px] sm:text-[56px] text-center">
+              100%
+            </p>
+            <p className="font-medium text-[32px] 2xl:text-[32px] xl:text-[30px] lg:text-[28px] md:text-[26px] sm:text-[24px] text-center">
+              mobile verified accounts
             </p>
           </div>
 
+          <div className="border-x-4 border-[#5BACE3]">
+            <p className="font-bold text-[96px] 2xl:text-[96px] xl:text-[86px] lg:text-[76px] md:text-[66px] sm:text-[56px] text-center">
+              200+
+            </p>
+            <p className="font-medium text-[32px] 2xl:text-[32px] xl:text-[30px] lg:text-[28px] md:text-[26px] sm:text-[24px] text-center">
+              cities covered
+            </p>
+          </div>
           <div className="">
-            <p className="font-bold text-[96px] text-center">5K</p>
-            <p className="font-medium text-[32px] text-center">star reviews</p>
+            <p className="font-bold text-[96px] 2xl:text-[96px] xl:text-[86px] lg:text-[76px] md:text-[66px] sm:text-[56px] text-center">
+              5K
+            </p>
+            <p className="font-medium text-[32px] 2xl:text-[32px] xl:text-[30px] lg:text-[28px] md:text-[26px] sm:text-[24px] text-center">
+              star reviews
+            </p>
           </div>
         </div>
       </div>
 
+      {/* ------------------------------------------------------------------------------------------- */}
+
       <section className="mb-16">
-        <div className="grid grid-cols-12 mb-8">
-          <div className="col-span-5 h-[40px]"></div>
-          <div className="col-span-7 ">
-            <p className="text-[60px] font-bold text-[#445159] mb-[-20px]">
+        <div className="grid grid-cols-12 2xl:mb-8 sm:mb-[180px] ">
+          <div className="col-span-6 h-[40px]"></div>
+          <div className="2xl:col-span-6 xl:col-span-12 sm:col-span-12 ">
+            <p className="text-[60px] font-bold text-[#445159] mb-[-20px] 2xl:text-left  sm:text-center">
               01. Wedding venues
             </p>
-            <p className="text-[20px] font-medium text-[#445159]">
+            <p className="text-[20px] font-medium text-[#445159] 2xl:text-left  sm:text-center">
               weddingmettro.com
             </p>
           </div>
@@ -109,16 +121,16 @@ export default function Home() {
         <div className="bg-[#5BACE3] relative">
           <div>
             <div className="grid grid-cols-12 ">
-              <div className="col-span-5">
+              <div className="2xl:col-span-6 xl:col-span-12 lg:col-span-12 md:col-span-12 sm:col-span-12 2xl:justify-self-left xl:justify-self-center sm:justify-self-center">
                 <Image
                   src="/landingPage/laptop-img.png"
                   alt="Description of the image"
-                  width={676}
+                  width={659}
                   height={393}
-                  className="mt-[-130px] ml-[80px]"
+                  className="mt-[-130px] 2xl:ml-[80px] 2xl:w-[659px] 2xl:h-[393px] xl:w-[659px] xl:h-[393px] "
                 />
               </div>
-              <div className="col-span-7 mr-[70px]">
+              <div className="2xl:col-span-6 xl:col-span-12 lg:col-span-12 sm:col-span-12 2xl:mr-[70px]   2xl:px-[0px]  sm:px-[40px]">
                 <p className="font-medium text-[20px] text-[#fff] mb-6 mt-6">
                   <span className="font-bold text-[24px] text-[#fff]">
                     Deciding a wedding{" "}
@@ -145,26 +157,26 @@ export default function Home() {
             </div>
           </div>
 
-          <p className="font-medium text-[20px] text-[#fff] mx-[350px]">
+          <p className="font-medium text-[20px] text-[#fff] 2xl:mx-[350px]  sm:px-[40px]">
             <span className="font-bold text-[24px] text-[#fff]">
               Indoor venues{" "}
             </span>
             banquet Halls Outdoor venues- sea venues, gardens, winery, ships,
             historical sites and religious venues. These outdoor venues are not
-            only unique also add glamour to your special day. ffsd
+            only unique also add glamour to your special day.
             <div className="mb-16 h-5"></div>
           </p>
         </div>
       </section>
 
-      <section>
-        <div className="grid grid-cols-12 mb-8">
-          <div className="col-span-5 h-[40px]"></div>
-          <div className="col-span-7">
-            <p className="text-[60px] font-bold text-[#445159] mb-[-20px]">
-              02.Decorations
+      <section className="mb-16">
+        <div className="grid grid-cols-12 2xl:mb-8 sm:mb-[180px] ">
+          <div className="col-span-4 h-[40px] "></div>
+          <div className="2xl:col-span-8 xl:col-span-12 sm:col-span-12">
+            <p className="text-[60px] font-bold text-[#445159] mb-[-20px] 2xl:text-left  sm:text-center">
+              02. Decorations
             </p>
-            <p className="text-[20px] font-medium text-[#445159]">
+            <p className="text-[20px] font-medium text-[#445159] 2xl:text-left  sm:text-center">
               weddingmettro.com
             </p>
           </div>
@@ -173,39 +185,52 @@ export default function Home() {
         <div className="bg-[#5BACE3] relative">
           <div>
             <div className="grid grid-cols-12 ">
-              <div className="col-span-7 ">
-                <p className="font-medium text-[20px] text-[#fff] mb-6 mt-6 ml-[80px]">
+              <div className="2xl:col-span-6 xl:col-span-12 lg:col-span-12 sm:col-span-12 2xl:ml-[70px]   2xl:px-[0px]  sm:px-[40px]">
+                <div className="flex justify-center">
+                  <Image
+                    src="/landingPage/laptop-img.png"
+                    alt="Description of the image"
+                    width={659}
+                    height={393}
+                    className="mt-[-130px] 2xl:ml-[80px] 2xl:w-[659px] 2xl:h-[393px] xl:w-[659px] xl:h-[393px] block 2xl:hidden"
+                  />
+                </div>
+
+                <p className="font-medium text-[20px] text-[#fff] mb-6 mt-6">
                   This takes an important part in every wedding. Decorations are
                   depend according to venues. Mostly in banquets event planners
                   use floral and elegant arrangements. In outside venues welcome
                   mirrors, hanging candles and lights are use. Table decorations
                   are also included.
                 </p>
-                <p className="font-medium text-[20px] text-[#fff] mb-6 ml-[80px]">
+
+                <p className="font-medium text-[20px] text-[#fff] mb-6">
                   Weddings will generally be extraordinary occasions for the
                   couple and every one of their visitors. How a wedding is
                   enhanced significantly affects the look and feel of those
                   recollections. For this reason wedding design is a
                   particularly significant piece of arranging a wedding
                   occasion. The varieties you pick and the style you make lays
-                  everything out for these milestone recollections..
+                  everything out for these milestone recollections.
                 </p>
               </div>
-              <div className="col-span-5 mr-[70px]">
+
+              <div className="2xl:col-span-6 xl:col-span-12 lg:col-span-12 md:col-span-12 sm:col-span-12 2xl:justify-self-left xl:justify-self-center sm:justify-self-center">
                 <Image
                   src="/landingPage/laptop-img.png"
                   alt="Description of the image"
-                  width={650}
+                  width={659}
                   height={393}
-                  className="mt-[-130px] ml-[80px]"
+                  className="mt-[-130px] 2xl:ml-[80px] 2xl:w-[659px] 2xl:h-[393px] xl:w-[659px] xl:h-[393px] hidden 2xl:block"
                 />
               </div>
             </div>
           </div>
         </div>
       </section>
+
       <section>
-        <div className="flex items-center justify-center mt-[130px]">
+        <div className="flex items-center justify-center mt-[130px] mx-[40px]">
           <div className="w-[990px] h-[673px] bg-[#fff] rounded-[30px] px-[100px] shadow-xl">
             <div className="flex items-center gap-8 pt-[40px] pb-[50px]">
               <Image
@@ -233,7 +258,7 @@ export default function Home() {
         <FeedbackComponent />
       </section>
 
-      <section>
+      {/* <section>
         <div className="container mx-auto">
           <p className="text-[#445159] text-[48px] font-bold  text-center mb-8 mt-16">
             About us
@@ -276,7 +301,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }

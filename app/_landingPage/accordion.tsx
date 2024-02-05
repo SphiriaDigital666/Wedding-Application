@@ -57,7 +57,7 @@ export function AccordionDemo() {
 
       <AccordionItem value="item-5">
         <AccordionTrigger>
-          <p className="text-[24px] text-[#445159]">
+          <p className="text-[24px] text-[#445159] text-left">
             05. What is the site membership including?
           </p>
         </AccordionTrigger>
