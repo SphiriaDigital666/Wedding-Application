@@ -3,7 +3,7 @@ import { signIn } from '@/auth';
 import { getTwoFactorConfirmationByUserId } from '@/data/two-factor-confirmation';
 import { getTwoFactorTokenByEmail } from '@/data/two-factor-token';
 import { getUserByEmail } from '@/data/user';
-import { db } from '@/lib/db';
+import db  from '@/lib/db';
 import { sendTwoFactorTokenEmail, sendVerificationEmail } from '@/lib/mail';
 import {
   generateTwoFactorToken,
