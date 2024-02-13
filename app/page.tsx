@@ -92,34 +92,34 @@ export default function Home() {
         </div>
       </div>
 
-      <section className="mb-16">
-        <div className="grid grid-cols-12 mb-8">
-          <div className="col-span-5 h-[40px]"></div>
-          <div className="col-span-7 ">
-            <p className="text-[60px] font-bold text-[#445159] mb-[-20px]">
+      <section className="mt-[-280px] md:mt-[200px] mb-16">
+        <div className="grid md:grid-cols-12 mb-16 md:mb-10">
+          <div className="md:col-span-5 h-[40px]"></div>
+          <div className="md:col-span-7 flex flex-col text-center md:text-left gap-4">
+            <p className="text-[24px] md:text-[60px] font-bold text-[#445159] mb-[-20px]">
               01. Wedding venues
             </p>
-            <p className="text-[20px] font-medium text-[#445159]">
+            <p className="text-[10px] md:text-[20px] font-medium text-[#445159]">
               weddingmettro.com
             </p>
           </div>
         </div>
 
-        <div className="bg-[#5BACE3] relative">
+        <div className="bg-[#5BACE3] h-[10vh] md:h-full md:relative">
           <div>
-            <div className="grid grid-cols-12 ">
-              <div className="col-span-5">
+            <div className="md:grid md:grid-cols-12 ">
+              <div className="relative md:col-span-5 mr-[130px] md:mr-[70px] top-[-20px]">
                 <Image
                   src="/landingPage/laptop-img.png"
                   alt="Description of the image"
                   width={676}
                   height={393}
-                  className="mt-[-130px] ml-[80px]"
+                  className="md:mt-[-130px] md:ml-[80px] mt-[-30px] ml-[70px]"
                 />
               </div>
-              <div className="col-span-7 mr-[70px]">
-                <p className="font-medium text-[20px] text-[#fff] mb-6 mt-6">
-                  <span className="font-bold text-[24px] text-[#fff]">
+              <div className="bg-white m-8 p-3 md:bg-inherit md:border-none md:shadow-none rounded-lg shadow-xl text-center md:text-left md:col-span-7 md:mr-[70px] mt-[-10px] md:mt-[10px]">
+                <p className="font-medium text-[10px] md:text-[20px] md:text-[#fff] m-6">
+                  <span className="font-bold text-[14px] md:text-[24px] md:text-[#fff]">
                     Deciding a wedding{' '}
                   </span>
                   venue is one of important and challenging part. It mainly
@@ -128,7 +128,7 @@ export default function Home() {
                   attractive venues you can select according to your budget.
                 </p>
 
-                <p className="font-medium text-[20px] text-[#fff] mb-6">
+                <p className="font-medium text-[10px] text-center md:text-left md:text-[20px] md:text-[#fff] m-6">
                   The place not just should have the option to oblige your
                   visitors, yet it likewise needs to make an air that fits with
                   your own style. You might not have settled on the sort of
@@ -140,24 +140,23 @@ export default function Home() {
                   layout. Picking the ideal choices is vital to make the ideal
                   scene past its area
                 </p>
+                <p className="font-medium text-[10px] text-center md:text-left md:text-[20px] md:text-[#fff] md:mx-[-450px] m-6">
+                  <span className="font-bold text-[14px] md:text-[24px] md:text-[#fff]">
+                    Indoor venues{' '}
+                  </span>
+                  banquet Halls Outdoor venues- sea venues, gardens, winery,
+                  ships, historical sites and religious venues. These outdoor
+                  venues are not only <br /> unique also add glamour to your
+                  special day.
+                </p>
               </div>
             </div>
           </div>
-
-          <p className="font-medium text-[20px] text-[#fff] mx-[350px]">
-            <span className="font-bold text-[24px] text-[#fff]">
-              Indoor venues{' '}
-            </span>
-            banquet Halls Outdoor venues- sea venues, gardens, winery, ships,
-            historical sites and religious venues. These outdoor venues are not
-            only unique also add glamour to your special day. ffsd
-            <div className="mb-16 h-5"></div>
-          </p>
         </div>
       </section>
 
       <section>
-        <div className="grid grid-cols-12 mb-8">
+        <div className="mt-[500px] grid grid-cols-12 mb-8">
           <div className="col-span-5 h-[40px]"></div>
           <div className="col-span-7">
             <p className="text-[60px] font-bold text-[#445159] mb-[-20px]">
