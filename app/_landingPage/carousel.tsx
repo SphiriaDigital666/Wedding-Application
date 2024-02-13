@@ -28,7 +28,7 @@ const Carousel: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full md:h-[90vh] overflow-hidden">
+    <div className="relative w-full h-[40vh] md:h-[90vh] overflow-hidden">
       <div
         className="flex transition-transform duration-1000 ease-in-out"
         style={{
@@ -41,7 +41,7 @@ const Carousel: React.FC = () => {
             <img
               src={photo}
               alt={`Slide ${index + 1}`}
-              className="w-full h-full object-cover"
+              className="w-full h-[40vh] md:h-full object-cover"
             />
           </div>
         ))}
