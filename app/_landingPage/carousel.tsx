@@ -28,7 +28,7 @@ const Carousel: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-[90vh] overflow-hidden">
+    <div className="relative w-full md:h-[90vh] overflow-hidden">
       <div
         className="flex transition-transform duration-1000 ease-in-out"
         style={{
@@ -43,9 +43,6 @@ const Carousel: React.FC = () => {
               alt={`Slide ${index + 1}`}
               className="w-full h-full object-cover"
             />
-            <div className="absolute bottom-10% left-1/2 transform -translate-x-1/2 text-center text-white z-10">
-              {/* Your additional content */}
-            </div>
           </div>
         ))}
       </div>
