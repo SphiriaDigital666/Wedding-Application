@@ -117,7 +117,7 @@ export default function Home() {
                   className="md:mt-[-130px] md:ml-[80px] mt-[-30px] ml-[70px]"
                 />
               </div>
-              <div className="bg-white m-8 p-3 md:bg-inherit md:border-none md:shadow-none rounded-lg shadow-xl text-center md:text-left md:col-span-7 md:mr-[70px] mt-[-10px] md:mt-[10px]">
+              <div className="bg-white m-8 p-3 md:bg-inherit md:shadow-none rounded-lg shadow-xl text-center md:text-left md:col-span-7 md:mr-[70px] mt-[-10px] md:mt-[10px]">
                 <p className="font-medium text-[10px] md:text-[20px] md:text-[#fff] m-6">
                   <span className="font-bold text-[14px] md:text-[24px] md:text-[#fff]">
                     Deciding a wedding{' '}
@@ -156,30 +156,40 @@ export default function Home() {
       </section>
 
       <section>
-        <div className="mt-[500px] grid grid-cols-12 mb-8">
-          <div className="col-span-5 h-[40px]"></div>
-          <div className="col-span-7">
+        {/* <div className="mt-[500px] md:mt-[100px] grid grid-cols-12 mb-8">
+          <div className="col-span-5 h-[40px]"></div> */}
+        {/* <div className="col-span-7">
             <p className="text-[60px] font-bold text-[#445159] mb-[-20px]">
               02.Decorations
             </p>
             <p className="text-[20px] font-medium text-[#445159]">
               weddingmettro.com
             </p>
+          </div> */}
+        <div className="mt-[480px] md:mt-[100px] grid md:grid-cols-12 mb-8 md:mb-10">
+          <div className="md:col-span-5 h-[40px]"></div>
+          <div className="md:col-span-7 flex flex-col text-center md:text-left gap-4">
+            <p className="text-[24px] md:text-[60px] font-bold text-[#445159] mb-[-20px]">
+              02. Decorations
+            </p>
+            <p className="text-[10px] md:text-[20px] font-medium text-[#445159]">
+              weddingmettro.com
+            </p>
           </div>
         </div>
 
-        <div className="bg-[#5BACE3] relative">
+        <div className="bg-[#5BACE3] h-[10vh] md:h-full md:relative">
           <div>
-            <div className="grid grid-cols-12 ">
-              <div className="col-span-7 ">
-                <p className="font-medium text-[20px] text-[#fff] mb-6 mt-6 ml-[80px]">
+            <div className="md:grid md:grid-cols-12 ">
+              <div className="relative m-8 p-3 shadow-xl rounded-lg md:bg-inherit md:shadow-none top-[150px] md:top-[0px] md:col-span-7 ">
+                <p className="font-medium text-[10px] md:text-[20px] text-center md:text-left md:text-[#fff] m-6 md:ml-[80px]">
                   This takes an important part in every wedding. Decorations are
                   depend according to venues. Mostly in banquets event planners
                   use floral and elegant arrangements. In outside venues welcome
                   mirrors, hanging candles and lights are use. Table decorations
                   are also included.
                 </p>
-                <p className="font-medium text-[20px] text-[#fff] mb-6 ml-[80px]">
+                <p className="font-medium text-[10px] md:text-[20px] text-center md:text-left md:text-[#fff] m-6 md:ml-[80px]">
                   Weddings will generally be extraordinary occasions for the
                   couple and every one of their visitors. How a wedding is
                   enhanced significantly affects the look and feel of those
@@ -189,7 +199,8 @@ export default function Home() {
                   everything out for these milestone recollections..
                 </p>
               </div>
-              <div className="col-span-5 mr-[70px]">
+
+              <div className="relative md:col-span-5 md:mr-[70px] mr-[140px] top-[-200px] md:top-[0px]">
                 <Image
                   src="/landingPage/laptop-img.png"
                   alt="Description of the image"
@@ -202,8 +213,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
       <section>
-        <div className="flex items-center justify-center mt-[130px]">
+        <div className="mt-[350px] md:mt-[100px] flex items-center justify-center">
           <div className="w-[990px] h-[673px] bg-[#fff] rounded-[30px] px-[100px] shadow-xl">
             <div className="flex items-center gap-8 pt-[40px] pb-[50px]">
               <Image
