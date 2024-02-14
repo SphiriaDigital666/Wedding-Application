@@ -215,17 +215,17 @@ export default function Home() {
       </section>
 
       <section>
-        <div className="mt-[350px] md:mt-[100px] flex items-center justify-center">
-          <div className="w-[990px] h-[673px] bg-[#fff] rounded-[30px] px-[100px] shadow-xl">
-            <div className="flex items-center gap-8 pt-[40px] pb-[50px]">
+        <div className="mt-[350px] md:mt-[100px] flex items-center justify-center m-8">
+          <div className="w-full md:w-[990px] md:h-[673px] bg-[#fff] rounded-lg md:px-[100px] shadow-xl">
+            <div className="flex items-center justify-center gap-8 pt-[40px] md:pb-[50px]">
               <Image
                 src="/landingPage/question-icon.png"
                 alt="Description of the image"
                 width={70}
                 height={70}
-                className=""
+                className="w-[30px]"
               />
-              <p className="text-[48px] text-[#445159] font-bold">
+              <p className="text-[20px] md:text-[48px] text-[#445159] font-bold">
                 FAQ s of Wedding Site?
               </p>
             </div>
