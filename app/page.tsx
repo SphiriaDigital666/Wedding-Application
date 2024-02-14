@@ -156,16 +156,6 @@ export default function Home() {
       </section>
 
       <section>
-        {/* <div className="mt-[500px] md:mt-[100px] grid grid-cols-12 mb-8">
-          <div className="col-span-5 h-[40px]"></div> */}
-        {/* <div className="col-span-7">
-            <p className="text-[60px] font-bold text-[#445159] mb-[-20px]">
-              02.Decorations
-            </p>
-            <p className="text-[20px] font-medium text-[#445159]">
-              weddingmettro.com
-            </p>
-          </div> */}
         <div className="mt-[480px] md:mt-[100px] grid md:grid-cols-12 mb-8 md:mb-10">
           <div className="md:col-span-5 h-[40px]"></div>
           <div className="md:col-span-7 flex flex-col text-center md:text-left gap-4">

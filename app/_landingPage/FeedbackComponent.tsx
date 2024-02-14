@@ -78,7 +78,7 @@ const FeedbackComponent = () => {
               isAnimating ? 'opacity-0' : 'opacity-100'
             }`}
           >
-            <div className="flex bg-white rounded-lg p-2 shadow-2xl md:bg-[#effafc] gap-4 items-center m-[-45px] md:m-0 md:rounded-none md:shadow-none">
+            <div className="flex bg-white w-[350px] rounded-lg p-2 shadow-2xl md:bg-[#effafc] gap-2 justify-center items-center m-[-32px] md:m-0 md:rounded-none md:shadow-none">
               <div
                 className={`md:hidden transition-opacity duration-500 ease-in-out w-[250px] ${
                   isAnimating ? 'opacity-0' : 'opacity-100'
@@ -113,7 +113,7 @@ const FeedbackComponent = () => {
                   </div>
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-4 mr-5">
                   <p className="text-[#919293] text-[7px] md:text-[20px] font-bold mb-2 md:mb-8 md:mx-[70px]">
                     {selectedFeedback.paragraph1}
                   </p>
