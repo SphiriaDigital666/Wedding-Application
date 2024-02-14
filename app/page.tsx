@@ -1,3 +1,4 @@
+'use client';
 import LoginButton from '@/components/auth/login-button';
 import { Button } from '@/components/ui/button';
 import Carousel from './_landingPage/carousel';
@@ -7,7 +8,52 @@ import Image from 'next/image';
 
 import { Input } from '@/components/ui/input';
 import FeedbackComponent from './_landingPage/FeedbackComponent';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 // import ProfileGallery from "./_landingPage/ProfileGallery";
+
+interface CounterProps {
+  value: number;
+  label: string;
+}
+
+const Counter: React.FC<CounterProps> = ({ value, label }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (count < value) {
+        setCount((prevCount) => prevCount + 1);
+      }
+    }, 10);
+
+    return () => clearInterval(interval);
+  }, [count, value]);
+
+  return (
+    <motion.div
+      className="border-[#5BACE3] border-r-4 overflow-hidden"
+      style={{ width: '400px' }}
+    >
+      <motion.p
+        className="font-bold text-[96px] text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+      >
+        {count}+
+      </motion.p>
+      <motion.p
+        className="font-medium text-[32px] text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.7 }}
+      >
+        {label}
+      </motion.p>
+    </motion.div>
+  );
+};
 
 export default function Home() {
   return (
@@ -73,22 +119,9 @@ export default function Home() {
 
       <div className="hidden md:block container mx-auto mt-[200px] mb-[200px]">
         <div className="flex items-center justify-between mx-[20px] ">
-          <div className="border-r-4 border-[#5BACE3] px-[80px]">
-            <p className="font-bold text-[96px] text-center">100%</p>
-            <p className="font-medium text-[32px]">mobile verified accounts</p>
-          </div>
-
-          <div className="border-r-4 border-[#5BACE3]  px-[80px]">
-            <p className="font-bold text-[96px] text-center">200+</p>
-            <p className="font-medium text-[32px] text-center">
-              cities covered
-            </p>
-          </div>
-
-          <div className="">
-            <p className="font-bold text-[96px] text-center">5K</p>
-            <p className="font-medium text-[32px] text-center">star reviews</p>
-          </div>
+          <Counter value={100} label="mobile verified accounts" />
+          <Counter value={100} label="cities covered" />
+          <Counter value={100} label="star reviews" />
         </div>
       </div>
 
