@@ -61,14 +61,19 @@ export default function Home() {
       <div className="flex flex-col md:relative">
         <Carousel />
       </div>
-      <div className="relative flex flex-col justify-center top-[-200px] items-center md:top-[480px] md:absolute md:bottom-[60px] md:left-[80px]">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        className="relative flex flex-col justify-center top-[-200px] items-center md:top-[480px] md:absolute md:bottom-[60px] md:left-[80px]"
+      >
         <p className="text-[#fff] text-[24px] 2xl:text-[48px] xl:text-[40px] lg:text-[36px] md:text-[20px] sofia font-bold border-b-4 border-[#D9D9D9] w-max">
           The biggest and most trusted<br></br> Matrimony service for Tamils!
         </p>
         <p className="text-[#fff] text-[14px] 2xl:text-[27px] xl:text-[23px] lg:text-[20.5px] md:text-[11.5px] font-light mt-2">
           Now find matches based on your hobbies & interests
         </p>
-      </div>
+      </motion.div>
 
       <div className="relative flex flex-col p-5 bottom-56 md:absolute 2xl:bottom-[-80px] 2xl:right-[200px] xl:bottom-[-80px] xl:right-[200px] lg:bottom-[-80px] lg:right-[100px] md:bottom-[-80px] md:right-[100px] sm:bottom-[-80px] sm:right-[100px]">
         <div className="flex items-center justify-end gap-3 p-5 2xl:mb-6 xl:mb-5 lg:mb-4 md:mb-3 sm:mb-2">
