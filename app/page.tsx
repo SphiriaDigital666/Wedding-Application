@@ -1,3 +1,4 @@
+'use client';
 import LoginButton from '@/components/auth/login-button';
 import { Button } from '@/components/ui/button';
 import Carousel from './_landingPage/carousel';
@@ -7,7 +8,52 @@ import Image from 'next/image';
 
 import { Input } from '@/components/ui/input';
 import FeedbackComponent from './_landingPage/FeedbackComponent';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 // import ProfileGallery from "./_landingPage/ProfileGallery";
+
+interface CounterProps {
+  value: number;
+  label: string;
+}
+
+const Counter: React.FC<CounterProps> = ({ value, label }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (count < value) {
+        setCount((prevCount) => prevCount + 1);
+      }
+    }, 10);
+
+    return () => clearInterval(interval);
+  }, [count, value]);
+
+  return (
+    <motion.div
+      className="border-[#5BACE3] border-r-4 overflow-hidden"
+      style={{ width: '400px' }}
+    >
+      <motion.p
+        className="font-bold text-[96px] text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+      >
+        {count}+
+      </motion.p>
+      <motion.p
+        className="font-medium text-[32px] text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.7 }}
+      >
+        {label}
+      </motion.p>
+    </motion.div>
+  );
+};
 
 export default function Home() {
   return (
@@ -15,14 +61,19 @@ export default function Home() {
       <div className="flex flex-col md:relative">
         <Carousel />
       </div>
-      <div className="relative flex flex-col justify-center top-[-200px] items-center md:top-[480px] md:absolute md:bottom-[60px] md:left-[80px]">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        className="relative flex flex-col justify-center top-[-200px] items-center md:top-[480px] md:absolute md:bottom-[60px] md:left-[80px]"
+      >
         <p className="text-[#fff] text-[24px] 2xl:text-[48px] xl:text-[40px] lg:text-[36px] md:text-[20px] sofia font-bold border-b-4 border-[#D9D9D9] w-max">
           The biggest and most trusted<br></br> Matrimony service for Tamils!
         </p>
         <p className="text-[#fff] text-[14px] 2xl:text-[27px] xl:text-[23px] lg:text-[20.5px] md:text-[11.5px] font-light mt-2">
           Now find matches based on your hobbies & interests
         </p>
-      </div>
+      </motion.div>
 
       <div className="relative flex flex-col p-5 bottom-56 md:absolute 2xl:bottom-[-80px] 2xl:right-[200px] xl:bottom-[-80px] xl:right-[200px] lg:bottom-[-80px] lg:right-[100px] md:bottom-[-80px] md:right-[100px] sm:bottom-[-80px] sm:right-[100px]">
         <div className="flex items-center justify-end gap-3 p-5 2xl:mb-6 xl:mb-5 lg:mb-4 md:mb-3 sm:mb-2">
@@ -73,22 +124,9 @@ export default function Home() {
 
       <div className="hidden md:block container mx-auto mt-[200px] mb-[200px]">
         <div className="flex items-center justify-between mx-[20px] ">
-          <div className="border-r-4 border-[#5BACE3] px-[80px]">
-            <p className="font-bold text-[96px] text-center">100%</p>
-            <p className="font-medium text-[32px]">mobile verified accounts</p>
-          </div>
-
-          <div className="border-r-4 border-[#5BACE3]  px-[80px]">
-            <p className="font-bold text-[96px] text-center">200+</p>
-            <p className="font-medium text-[32px] text-center">
-              cities covered
-            </p>
-          </div>
-
-          <div className="">
-            <p className="font-bold text-[96px] text-center">5K</p>
-            <p className="font-medium text-[32px] text-center">star reviews</p>
-          </div>
+          <Counter value={100} label="mobile verified accounts" />
+          <Counter value={100} label="cities covered" />
+          <Counter value={100} label="star reviews" />
         </div>
       </div>
 
@@ -156,16 +194,6 @@ export default function Home() {
       </section>
 
       <section>
-        {/* <div className="mt-[500px] md:mt-[100px] grid grid-cols-12 mb-8">
-          <div className="col-span-5 h-[40px]"></div> */}
-        {/* <div className="col-span-7">
-            <p className="text-[60px] font-bold text-[#445159] mb-[-20px]">
-              02.Decorations
-            </p>
-            <p className="text-[20px] font-medium text-[#445159]">
-              weddingmettro.com
-            </p>
-          </div> */}
         <div className="mt-[480px] md:mt-[100px] grid md:grid-cols-12 mb-8 md:mb-10">
           <div className="md:col-span-5 h-[40px]"></div>
           <div className="md:col-span-7 flex flex-col text-center md:text-left gap-4">
@@ -215,61 +243,69 @@ export default function Home() {
       </section>
 
       <section>
-        <div className="mt-[350px] md:mt-[100px] flex items-center justify-center">
-          <div className="w-[990px] h-[673px] bg-[#fff] rounded-[30px] px-[100px] shadow-xl">
-            <div className="flex items-center gap-8 pt-[40px] pb-[50px]">
+        <div className="mt-[350px] md:mt-[100px] flex items-center justify-center m-8">
+          <div className="w-full md:w-[990px] md:h-[673px] bg-[#fff] rounded-lg md:px-[100px] shadow-xl">
+            <div className="flex items-center justify-center gap-8 pt-[40px] md:pb-[50px]">
               <Image
                 src="/landingPage/question-icon.png"
                 alt="Description of the image"
                 width={70}
                 height={70}
-                className=""
+                className="w-[30px]"
               />
-              <p className="text-[48px] text-[#445159] font-bold">
+              <p className="text-[20px] md:text-[48px] text-[#445159] font-bold">
                 FAQ s of Wedding Site?
               </p>
             </div>
-
             <Accordion />
           </div>
         </div>
       </section>
 
       <section>
-        <p className="text-[#445159] text-[48px] font-bold text-center mb-16 mt-32">
-          Story of finding soulmate
-        </p>
-
-        <FeedbackComponent />
+        <div className=" bg-white rounded-lg shadow-xl m-8 p-5">
+          <p className="text-[#445159] text-[24px] md:text-[48px] font-bold text-center mb-16 md:mb-16 md:mt-32">
+            Story of finding soulmate
+          </p>
+          <div>
+            <FeedbackComponent />
+          </div>
+        </div>
       </section>
 
       <section>
         <div className="container mx-auto">
-          <p className="text-[#445159] text-[48px] font-bold  text-center mb-8 mt-16">
+          <p className="text-[#445159] text-[24px] md:text-[48px] font-bold  text-center mb-8 mt-16">
             About us
           </p>
 
-          <div className="flex items-center border-8 border-[#5BACE3]">
-            <div className="-ml-[130px] bg-[#fff] h-[600px] my-16">
-              <p className="text-[40px] md:text-[150px] -mb-[110px] text-[#445159]">
+          <div className="flex flex-col md:flex-row items-center border-4 md:border-8 border-[#5BACE3]">
+            <div className="md:hidden bg-white relative -top-6 w-[200px]">
+              <p className="text-[#445159] text-[24px] font-bold text-center">
+                Who We Are
+              </p>
+            </div>
+
+            <div className="hidden md:block -ml-[130px] bg-[#fff] h-[600px] my-16">
+              <p className="text-[24px] md:text-[150px] -mb-[110px] text-[#445159]">
                 Who
               </p>
               <div className="flex items-center">
                 <div>
-                  <p className="text-[50px] md:text-[128px] leading-tight text-[#445159]">
+                  <p className="text-[24px] md:text-[128px] leading-tight text-[#445159]">
                     We
                   </p>
-                  <p className="text-[40px] md:text-[128px] leading-tight text-[#445159]">
+                  <p className="text-[24px] md:text-[128px] leading-tight text-[#445159]">
                     Are
                   </p>
                 </div>
 
-                <p className="text-[40px] md:text-[350px] text-[#445159]">?</p>
+                <p className="text-[24px] md:text-[350px] text-[#445159]">?</p>
               </div>
             </div>
 
-            <div>
-              <p className="text-[#445159] md:text-[27px] font-medium text-right mb-16 mx-16">
+            <div className="">
+              <p className="text-[#445159] md:text-[27px] font-medium text-center p-4 md:text-right md:mb-16 md:mx-16">
                 We are providing matchmaking platform to users to find their
                 perfect matching partners. Through this website users can plan
                 their weddings under professional guidance. We ( name of the
@@ -277,7 +313,7 @@ export default function Home() {
                 share with any other third party
               </p>
 
-              <p className="text-[#445159] md:text-[27px] font-medium text-right mx-16">
+              <p className="text-[#445159] md:text-[27px] font-medium text-center p-4 md:text-right md:mx-16">
                 We love to find your best matchmaker. We keep our integrity with
                 all your trust. Our professional team always respect to your
                 preferences and personal details. We are here to guide you to
