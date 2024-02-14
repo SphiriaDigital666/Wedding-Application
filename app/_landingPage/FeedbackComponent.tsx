@@ -71,42 +71,61 @@ const FeedbackComponent = () => {
 
   return (
     <div className="">
-      <div className="bg-[#aee2ee]">
-        <div className="container mx-auto">
+      <div className="md:bg-[#aee2ee]">
+        <div className="md:container md:mx-auto">
           <div
-            className={`grid grid-cols-2 gap-0  ${
+            className={`flex md:grid md:grid-cols-2 gap-0  ${
               isAnimating ? 'opacity-0' : 'opacity-100'
             }`}
           >
-            <div className=" bg-[#effafc]">
-              <p className="text-[#211919] text-[48px] font-bold mb-4 mt-8 mx-[70px]">
-                {selectedFeedback.name}
-              </p>
-
-              <div className="flex items-center gap-6 mx-[70px] mb-8">
-                <p className="text-[#919293] text-[20px] font-bold">
-                  Star Rating 5/5
-                </p>
-
+            <div className="flex bg-white rounded-lg p-2 shadow-2xl md:bg-[#effafc] gap-4 items-center m-[-45px] md:m-0 md:rounded-none md:shadow-none">
+              <div
+                className={`md:hidden transition-opacity duration-500 ease-in-out w-[250px] ${
+                  isAnimating ? 'opacity-0' : 'opacity-100'
+                }`}
+              >
                 <Image
-                  src="/landingPage/rating-icons.png"
+                  src={selectedFeedback.imageSrc}
                   alt="Main Image"
-                  width={152}
-                  height={23}
-                  className=""
+                  width={400}
+                  height={400}
+                  className="rounded-lg"
                 />
               </div>
+              <div className="flex flex-col justify-start items-start">
+                <div className="flex md:flex-col mt-4 justify-between gap-8 items-center md:justify-start md:items-start">
+                  <p className="text-[#211919] text-[15px] md:text-[48px] font-bold md:mb-4 md:mt-8 md:mx-[70px]">
+                    {selectedFeedback.name}
+                  </p>
 
-              <p className="text-[#919293] text-[20px] font-bold mb-8 mx-[70px]">
-                {selectedFeedback.paragraph1}
-              </p>
-              <p className="text-[#919293] text-[20px] font-bold mx-[70px] mb-8">
-                {selectedFeedback.paragraph2}
-              </p>
+                  <div className="flex flex-col-reverse md:flex-row items-center md:gap-6 md:mx-[70px] md:mb-8">
+                    <p className="text-[#919293] text-[6px] md:text-[20px] font-bold">
+                      Star Rating 5/5
+                    </p>
+
+                    <Image
+                      src="/landingPage/rating-icons.png"
+                      alt="Main Image"
+                      width={152}
+                      height={23}
+                      className="w-[80px] md:w-[200px]"
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-4">
+                  <p className="text-[#919293] text-[7px] md:text-[20px] font-bold mb-2 md:mb-8 md:mx-[70px]">
+                    {selectedFeedback.paragraph1}
+                  </p>
+                  <p className="text-[#919293] text-[7px] md:text-[20px] font-bold md:mx-[70px] mb-8">
+                    {selectedFeedback.paragraph2}
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div
-              className={`transition-opacity duration-500 ease-in-out   ${
+              className={`hidden md:block transition-opacity duration-500 ease-in-out   ${
                 isAnimating ? 'opacity-0' : 'opacity-100'
               }`}
             >
@@ -122,7 +141,7 @@ const FeedbackComponent = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center mt-8 mb-8">
+      <div className="hidden md:flex items-center justify-center mt-8 mb-8">
         <Image
           src="/landingPage/rating-icons.png"
           alt="Main Image"
@@ -132,20 +151,20 @@ const FeedbackComponent = () => {
         />
       </div>
 
-      <div className="flex items-center justify-center md:gap-8 bg-[#d0dfe2] py-10">
+      <div className="flex items-center justify-center md:gap-8 md:bg-[#d0dfe2] md:py-10 mt-16 gap-3">
         {feedbackData.map((feedback, index) => (
           <div
             key={index}
             onClick={() => handleImageClick(index)}
             className="transition-opacity duration-500 ease-in-out opacity-100 hover:opacity-80 cursor-pointer"
           >
-            <div className="h-[50px] w-[50px] md:h-[130px] md:w-[130px] bg-gray-300 rounded-full flex items-center justify-center border-4 border-[#5BACE3]">
+            <div className="h-[30px] w-[30px] md:h-[130px] md:w-[130px] bg-gray-300 rounded-full flex items-center justify-center md:border-4 md:border-[#5BACE3]">
               <Image
                 src={feedback.imageSrc}
                 alt={`feedback image ${index + 1}`}
                 width={300}
                 height={300}
-                className="md:h-[120px] md:w-[120px] rounded-full"
+                className="w-[30px] h-[30px] md:h-[120px] md:w-[120px] rounded-full"
               />
             </div>
           </div>

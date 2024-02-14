@@ -11,7 +11,7 @@ import FeedbackComponent from './_landingPage/FeedbackComponent';
 
 export default function Home() {
   return (
-    <div className="overflow-hidden">
+    <div className="">
       <div className="flex flex-col md:relative">
         <Carousel />
       </div>
@@ -229,18 +229,20 @@ export default function Home() {
                 FAQ s of Wedding Site?
               </p>
             </div>
-
             <Accordion />
           </div>
         </div>
       </section>
 
       <section>
-        <p className="text-[#445159] text-[48px] font-bold text-center mb-16 mt-32">
-          Story of finding soulmate
-        </p>
-
-        <FeedbackComponent />
+        <div className=" bg-white rounded-lg shadow-xl m-8 p-5">
+          <p className="text-[#445159] text-[24px] md:text-[48px] font-bold text-center mb-16 md:mb-16 md:mt-32">
+            Story of finding soulmate
+          </p>
+          <div>
+            <FeedbackComponent />
+          </div>
+        </div>
       </section>
 
       <section>
