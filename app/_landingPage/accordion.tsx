@@ -3,14 +3,16 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from '@/components/ui/accordion';
 
 export function AccordionDemo() {
   return (
-    <Accordion type="single" collapsible className="w-full">
+    <Accordion type="single" collapsible className="w-full p-8 ">
       <AccordionItem value="item-1">
         <AccordionTrigger>
-          <p className="text-[24px] text-[#445159]">01. What is matchmaking?</p>
+          <p className="text-[15px] md:text-[24px] text-[#445159]">
+            01. What is matchmaking?
+          </p>
         </AccordionTrigger>
         <AccordionContent>
           Meeting two busy individuals with same ideas by a team of
@@ -20,7 +22,7 @@ export function AccordionDemo() {
       </AccordionItem>
       <AccordionItem value="item-2">
         <AccordionTrigger>
-          <p className="text-[24px] text-[#445159]">
+          <p className="text-[15px] md:text-[24px] text-[#445159]">
             02. How will I be matched?
           </p>
         </AccordionTrigger>
@@ -33,7 +35,7 @@ export function AccordionDemo() {
       </AccordionItem>
       <AccordionItem value="item-3">
         <AccordionTrigger>
-          <p className="text-[24px] text-[#445159]">
+          <p className="text-[15px] md:text-[24px] text-[#445159]">
             03. How to register on the site?
           </p>
         </AccordionTrigger>
@@ -45,7 +47,7 @@ export function AccordionDemo() {
 
       <AccordionItem value="item-4">
         <AccordionTrigger>
-          <p className="text-[24px] text-[#445159]">
+          <p className="text-[15px] md:text-[24px] text-[#445159]">
             04. How can I trust the site?
           </p>
         </AccordionTrigger>
@@ -57,7 +59,7 @@ export function AccordionDemo() {
 
       <AccordionItem value="item-5">
         <AccordionTrigger>
-          <p className="text-[24px] text-[#445159]">
+          <p className="text-[15px] md:text-[24px] text-left text-[#445159]">
             05. What is the site membership including?
           </p>
         </AccordionTrigger>
