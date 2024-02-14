@@ -78,7 +78,7 @@ const FeedbackComponent = () => {
               isAnimating ? 'opacity-0' : 'opacity-100'
             }`}
           >
-            <div className="flex bg-white w-[350px] rounded-lg p-2 shadow-2xl md:bg-[#effafc] gap-2 justify-center items-center m-[-32px] md:m-0 md:rounded-none md:shadow-none">
+            <div className="flex bg-white w-[350px] md:w-full rounded-lg p-2 shadow-2xl md:bg-[#effafc] gap-2 justify-center items-center m-[-32px] md:m-0 md:rounded-none md:shadow-none">
               <div
                 className={`md:hidden transition-opacity duration-500 ease-in-out w-[250px] ${
                   isAnimating ? 'opacity-0' : 'opacity-100'
