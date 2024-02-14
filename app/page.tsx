@@ -11,7 +11,7 @@ import FeedbackComponent from './_landingPage/FeedbackComponent';
 
 export default function Home() {
   return (
-    <div className="">
+    <div className="overflow-hidden">
       <div className="flex flex-col md:relative">
         <Carousel />
       </div>
@@ -247,31 +247,37 @@ export default function Home() {
 
       <section>
         <div className="container mx-auto">
-          <p className="text-[#445159] text-[48px] font-bold  text-center mb-8 mt-16">
+          <p className="text-[#445159] text-[24px] md:text-[48px] font-bold  text-center mb-8 mt-16">
             About us
           </p>
 
-          <div className="flex items-center border-8 border-[#5BACE3]">
-            <div className="-ml-[130px] bg-[#fff] h-[600px] my-16">
-              <p className="text-[40px] md:text-[150px] -mb-[110px] text-[#445159]">
+          <div className="flex flex-col md:flex-row items-center border-4 md:border-8 border-[#5BACE3]">
+            <div className="md:hidden bg-white relative -top-6 w-[200px]">
+              <p className="text-[#445159] text-[24px] font-bold text-center">
+                Who We Are
+              </p>
+            </div>
+
+            <div className="hidden md:block -ml-[130px] bg-[#fff] h-[600px] my-16">
+              <p className="text-[24px] md:text-[150px] -mb-[110px] text-[#445159]">
                 Who
               </p>
               <div className="flex items-center">
                 <div>
-                  <p className="text-[50px] md:text-[128px] leading-tight text-[#445159]">
+                  <p className="text-[24px] md:text-[128px] leading-tight text-[#445159]">
                     We
                   </p>
-                  <p className="text-[40px] md:text-[128px] leading-tight text-[#445159]">
+                  <p className="text-[24px] md:text-[128px] leading-tight text-[#445159]">
                     Are
                   </p>
                 </div>
 
-                <p className="text-[40px] md:text-[350px] text-[#445159]">?</p>
+                <p className="text-[24px] md:text-[350px] text-[#445159]">?</p>
               </div>
             </div>
 
-            <div>
-              <p className="text-[#445159] md:text-[27px] font-medium text-right mb-16 mx-16">
+            <div className="">
+              <p className="text-[#445159] md:text-[27px] font-medium text-center p-4 md:text-right md:mb-16 md:mx-16">
                 We are providing matchmaking platform to users to find their
                 perfect matching partners. Through this website users can plan
                 their weddings under professional guidance. We ( name of the
@@ -279,7 +285,7 @@ export default function Home() {
                 share with any other third party
               </p>
 
-              <p className="text-[#445159] md:text-[27px] font-medium text-right mx-16">
+              <p className="text-[#445159] md:text-[27px] font-medium text-center p-4 md:text-right md:mx-16">
                 We love to find your best matchmaker. We keep our integrity with
                 all your trust. Our professional team always respect to your
                 preferences and personal details. We are here to guide you to
