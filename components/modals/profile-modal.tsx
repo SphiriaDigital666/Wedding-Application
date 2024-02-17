@@ -1,11 +1,11 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
-import Modal from './modal';
 import { Button } from '@/components/ui/button';
 import useProfileModal from '@/hooks/useProfileModal';
+import Modal from './modal';
 
 const ProfileModal = () => {
   const router = useRouter();
@@ -26,9 +26,9 @@ const ProfileModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {};
 
   const bodyContent = (
-    <div className="flex flex-col gap-4">
+    <div className='flex flex-col gap-4'>
       {/* <Heading title='Welcome back' subtitle='Login to your account' /> */}
-      <h1 className="text-2xl">Heading</h1>
+      <h1 className='text-2xl'>Heading</h1>
       {/* <Input
         id='email'
         label='Email'
@@ -51,7 +51,7 @@ const ProfileModal = () => {
   );
 
   const footerContent = (
-    <div className="flex flex-col gap-4 mt-3">
+    <div className='flex flex-col gap-4 mt-3'>
       <hr />
       {/* <Button
         outline
@@ -67,10 +67,10 @@ const ProfileModal = () => {
       /> */}
       <Button>Continue</Button>
 
-      <div className="text-neutral-500 text-center mt-4 font-light">
-        <div className="flex justify-center items-center gap-2">
+      <div className='text-neutral-500 text-center mt-4 font-light'>
+        <div className='flex justify-center items-center gap-2'>
           <div>First time using Airbnb?</div>
-          <div className="text-neutral-800 cursor-pointer hover:underline">
+          <div className='text-neutral-800 cursor-pointer hover:underline'>
             Create an account
           </div>
         </div>
@@ -83,8 +83,8 @@ const ProfileModal = () => {
       disabled={isLoading}
       isOpen={prpofileModal.isOpen}
       onClose={prpofileModal.onClose}
-      title="Login"
-      actionLabel="Continue"
+      title='Create New profile'
+      actionLabel='Continue'
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={footerContent}

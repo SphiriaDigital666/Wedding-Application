@@ -2,7 +2,7 @@
 
 import { getUserByEmail, getUserById } from '@/data/user';
 import { currentUser } from '@/lib/auth';
-import { db } from '@/lib/db';
+import db from '@/lib/db';
 import { sendVerificationEmail } from '@/lib/mail';
 import { generateVerificationToken } from '@/lib/tokens';
 import { SettingsSchema } from '@/schemas';

@@ -3,7 +3,7 @@ import { getTwoFactorTokenByEmail } from '@/data/two-factor-token';
 import { getVerificationTokenByEmail } from '@/data/verification-token';
 import crypto from 'crypto';
 import { v4 as uuid } from 'uuid';
-import { db } from './db';
+import db from './db';
 
 export const generateTwoFactorToken = async (email: string) => {
   const token = crypto.randomInt(100_000, 1_000_000).toString();
