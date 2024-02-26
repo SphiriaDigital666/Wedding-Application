@@ -1,4 +1,5 @@
-import React, { FC } from 'react';
+'use client';
+import React, { FC, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { UserProfile } from '@prisma/client';
 import EditBasic from '../edit/edit-basic';
@@ -27,7 +28,7 @@ const BasicDetails: FC<BasicDetailsProps> = ({ user }) => {
             <div className="flex gap-x-2 items-center">
               <span>Age: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {user?.age || 'Not defined'}
               </span>
             </div>
 
@@ -41,7 +42,7 @@ const BasicDetails: FC<BasicDetailsProps> = ({ user }) => {
             <div className="flex gap-x-2 items-center">
               <span>Language: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {user?.language || 'Not defined'}
               </span>
             </div>
           </div>
@@ -49,28 +50,28 @@ const BasicDetails: FC<BasicDetailsProps> = ({ user }) => {
             <div className="flex gap-x-2 items-center">
               <span>Hieght: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {user?.height || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Weight: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {user?.weight || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Body Type: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {user?.bodyType || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Physical Status: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {user?.physicalStatus || 'Not defined'}
               </span>
             </div>
           </div>
@@ -78,28 +79,28 @@ const BasicDetails: FC<BasicDetailsProps> = ({ user }) => {
             <div className="flex gap-x-2 items-center">
               <span>Marital Status: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {user?.martialStatus || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Eating Habits: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {user?.eatingHabits || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Drinking Habits: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {user?.drinkingHabits || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Smoking Habits: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {user?.smokingHabits || 'Not defined'}
               </span>
             </div>
           </div>
