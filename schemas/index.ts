@@ -77,3 +77,16 @@ export const ProfileSchema = z.object({
   smoking_habits: z.string().optional(),
   profile_image: z.string().optional(),
 });
+
+ export const AddFriendSchema = z.object({
+   email: z.string().email(),
+ });
+
+ export const MessageSchema = z.object({
+   id: z.string(),
+   senderId: z.string(),
+   text: z.string(),
+   timestamp: z.number(),
+ });
+
+

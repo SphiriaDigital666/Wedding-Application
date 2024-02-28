@@ -28,7 +28,9 @@ model User {
   isNewUser             Boolean                @default(true)
   twoFactorConfirmation TwoFactorConfirmation?
   userProfile           UserProfile[]
-  friends               Friend[]
+
+  friends       Friend[]        @relation(name: "friends")
+  friendRequest FriendRequest[]
 }
 
 model Account {
@@ -152,7 +154,7 @@ model Chat {
 model Message {
   id         String @id @default(cuid()) @map("_id")
   senderId   String
-  receiverId String
+  // receiverId String
   text       String
 
   Chat   Chat?   @relation(fields: [chatId], references: [id])
@@ -165,6 +167,7 @@ model Message {
 model FriendRequest {
   id         String @id @default(cuid()) @map("_id")
   senderId   String
+  sender     User   @relation(fields: [senderId], references: [id])
   receiverId String
 
   createdAt DateTime @default(now())
@@ -173,9 +176,13 @@ model FriendRequest {
 
 model Friend {
   id     String @id @default(cuid()) @map("_id")
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @map("_userId")
+
+  friendId String
+  friend   User   @relation(fields: [friendId], references: [id], name: "friends")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("friends")
 }
