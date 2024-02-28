@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { useMemo, useState, useTransition } from 'react';
+import { ChangeEvent, useMemo, useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import useProfileModal from '@/hooks/useProfileModal';
 import Modal from './modal';
@@ -20,6 +20,10 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { heights, weight } from '@/constants';
+import { useUploadThing } from '@/lib/uploadthing';
+import { isBase64Image } from '@/lib/utils';
+import Dropzone from 'react-dropzone';
+import Image from 'next/image';
 
 enum STEPS {
   BASIC_DETAILS = 0,
@@ -32,10 +36,14 @@ const ProfileModal = () => {
   const profileModal = useProfileModal();
   const [isPending, startTransition] = useTransition();
 
-  const [step, setStep] = useState(STEPS.BASIC_DETAILS);
+  const [step, setStep] = useState(STEPS.IMAGES);
+  const [files, setFiles] = useState<File[]>([]);
+  const [previewImage, setPreviewImage] = useState('');
 
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
+
+  const { startUpload } = useUploadThing('imageUploader');
 
   const {
     handleSubmit,
@@ -70,29 +78,116 @@ const ProfileModal = () => {
     setStep((value) => value + 1);
   };
 
-  const onSubmit = (values: z.infer<typeof ProfileSchema>) => {
+  const onSubmit = async (values: z.infer<typeof ProfileSchema>) => {
     console.log(values);
     if (step !== STEPS.IMAGES) return onNext();
-    // const parsedValues = {
-    //   ...values,
-    //   age: parseFloat(values.age as unknown as string),
-    // };
-    startTransition(() => {
-      createProfile(values)
-        .then((data) => {
-          if (data?.error) {
-            setError(data.error);
-            console.log(data.error);
-          }
 
-          if (data?.success) {
-            setSuccess(data.success);
-            profileModal.onClose();
-            router.push('/profile');
-          }
-        })
-        .catch(() => setError('Something went wrong!'));
-    });
+    const blob = values.profile_image;
+
+    const hasImageChanged = isBase64Image(blob!);
+
+    if (hasImageChanged) {
+      try {
+        const imgRes = await startUpload(files);
+        console.log(imgRes);
+
+        if (imgRes && imgRes[0].url) {
+          values.profile_image = imgRes[0].url;
+
+          // Call createProfile only after the image is uploaded successfully
+          startTransition(() => {
+            createProfile(values)
+              .then((data) => {
+                if (data?.error) {
+                  setError(data.error);
+                  console.log(data.error);
+                }
+
+                if (data?.success) {
+                  setSuccess(data.success);
+                  profileModal.onClose();
+                  router.push('/profile');
+                }
+              })
+              .catch(() => setError('Something went wrong!'));
+          });
+        }
+      } catch (error) {
+        setError('Error uploading image');
+        console.error('Error uploading image:', error);
+      }
+    } else {
+      // If no image is uploaded or the image hasn't changed, proceed to create the profile without uploading
+      startTransition(() => {
+        createProfile(values)
+          .then((data) => {
+            if (data?.error) {
+              setError(data.error);
+              console.log(data.error);
+            }
+
+            if (data?.success) {
+              setSuccess(data.success);
+              profileModal.onClose();
+              router.push('/profile');
+            }
+          })
+          .catch(() => setError('Something went wrong!'));
+      });
+    }
+  };
+
+  const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    const fileReader = new FileReader();
+
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setFiles(Array.from(e.target.files));
+
+      if (!file.type.includes('image')) return;
+
+      fileReader.onload = async (event) => {
+        const imageDataUrl = event.target?.result?.toString() || '';
+        setValue('profile_image', imageDataUrl); // Setting the value here
+      };
+
+      fileReader.readAsDataURL(file);
+    }
+  };
+
+  const handleDrop = (
+    // e: ChangeEvent<HTMLInputElement>,
+    acceptedFiles: File[]
+  ) => {
+    // e.preventDefault();
+    setFiles(acceptedFiles);
+    const file = acceptedFiles[0];
+    const fileReader = new FileReader();
+
+    // if (e.target.files && e.target.files.length > 0) {
+    //   const file = e.target.files[0];
+    //   setFiles(Array.from(e.target.files));
+
+    //   if (!file.type.includes('image')) return;
+
+    //   fileReader.onload = async (event) => {
+    //     const imageDataUrl = event.target?.result?.toString() || '';
+    //     setValue('profile_image', imageDataUrl); // Setting the value here
+    //   };
+
+    //   fileReader.readAsDataURL(file);
+    // }
+
+    if (!file.type.includes('image')) return;
+
+    fileReader.onload = () => {
+      const imageDataUrl = fileReader.result?.toString() || '';
+      setPreviewImage(imageDataUrl); // Store the image data URL for preview
+    };
+
+    fileReader.readAsDataURL(file); // Read the file as data URL
   };
 
   const actionLabel = useMemo(() => {
@@ -354,19 +449,90 @@ const ProfileModal = () => {
 
   if (step === STEPS.IMAGES) {
     bodyContent = (
+      // <div className="flex flex-col gap-8">
+      //   <Heading title="Upload images" subtitle="Upload your profile image" />
+      //   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
+      //     <div className="flex flex-col gap-4">
+      //       <div className="grid w-full max-w-sm items-center gap-1.5">
+      //         <Label htmlFor="Files">Files</Label>
+      //         <Input
+      //           type="file"
+      //           accept="image/*"
+      //           placeholder="Upload image"
+      //           onChange={(e) => handleImage(e)}
+      //           className="w-full bg-slate-50 md:w-[300px]"
+      //         />
+      //         <Dropzone onDrop={(handleDrop) => console.log(handleDrop)}>
+      //           {({ getRootProps, getInputProps }) => (
+      //             <section>
+      //               <div {...getRootProps()}>
+      //                 <input {...getInputProps()} />
+      //                 <p>
+      //                   Drag &apos;n&apos; drop some files here, or click to
+      //                   select files
+      //                 </p>
+      //               </div>
+      //             </section>
+      //           )}
+      //         </Dropzone>
+      //         {errors.profile_image && (
+      //           <p className="text-destructive mt-1">
+      //             {errors.profile_image.message}
+      //           </p>
+      //         )}
+      //       </div>
+      //     </div>
+      //   </div>
+      // </div>
+
       <div className="flex flex-col gap-8">
-        <Heading title="Upload images" subtitle="Upload upto 5 images" />
+        <Heading title="Upload images" subtitle="Upload your profile image" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
           <div className="flex flex-col gap-4">
             <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="Files">Files</Label>
               <Input
-                type="text"
-                id="profile_image"
-                placeholder="Email"
-                {...register('profile_image')}
+                type="file"
+                accept="image/*"
+                placeholder="Upload image"
+                onChange={(e) => handleImage(e)}
+                className="w-full bg-slate-50 md:w-[300px]"
               />
-              <p className="text-destructive">About me is required</p>
+              <Dropzone onDrop={handleDrop}>
+                {({ getRootProps, getInputProps }) => (
+                  <section>
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <p>
+                        Drag &apos;n&apos; drop some files here, or click to
+                        select files
+                      </p>
+                    </div>
+                  </section>
+                )}
+              </Dropzone>
+              {errors.profile_image && (
+                <p className="text-destructive mt-1">
+                  {errors.profile_image.message}
+                </p>
+              )}
+              {previewImage && ( // Render preview if there's an image
+                <div>
+                  <p>Preview:</p>
+                  {/* <Image
+                    src={previewImage}
+                    alt="Preview"
+                    className="mt-2"
+                    width={100}
+                  /> */}
+                  <Image
+                    src={previewImage}
+                    width={500}
+                    height={500}
+                    alt="Picture of the user"
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

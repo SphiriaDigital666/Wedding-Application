@@ -13,23 +13,23 @@ const DashboardPage = async() => {
 
   const sessionUser = await currentUser()
 
-  const user = await db.userProfile.findFirst({
+  const userProfile = await db.userProfile.findFirst({
     where:{
       userId: sessionUser?.id,
     }
   })
 
-  console.log(user)
+  console.log(userProfile)
   return (
     <>
-      <MainDetails />
+      <MainDetails profile={userProfile}/>
       <PhotosCarousel />
       <AboutMe />
-      <BasicDetails user={user} />
-      <ReligionDetails user={user} />
-      <LocationDetails user={user} />
-      <ProfessionalDetails user={user} />
-      <FamilyDetails user={user} />
+      <BasicDetails user={userProfile} />
+      <ReligionDetails user={userProfile} />
+      <LocationDetails user={userProfile} />
+      <ProfessionalDetails user={userProfile} />
+      <FamilyDetails user={userProfile} />
     </>
   );
 };
