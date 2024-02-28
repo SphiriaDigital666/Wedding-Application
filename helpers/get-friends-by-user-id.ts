@@ -63,6 +63,12 @@ export const getFriendsByUserId = async (userId: string) => {
         // Retrieve user data for each friend
         const friendUserData = await db.user.findUnique({
           where: { id: friend.userId },
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            image: true,
+          },
         });
 
         if (!friendUserData) {
@@ -87,4 +93,3 @@ export const getFriendsByUserId = async (userId: string) => {
     throw error;
   }
 };
-

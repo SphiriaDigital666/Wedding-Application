@@ -54,7 +54,7 @@ const page: FC<pageProps> = async ({ params }) => {
               <Image
                 fill
                 referrerPolicy='no-referrer'
-                src={chatPartner?.image!}
+                src={chatPartner?.image! || ''}
                 alt={`${chatPartner?.name} profile picture`}
                 className='rounded-full'
               />
@@ -76,7 +76,7 @@ const page: FC<pageProps> = async ({ params }) => {
       <Messages
         chatId={chatId}
         chatPartner={chatPartner as User}
-        sessionImg={session.user.image}
+        sessionImg={session.user.image || ''}
         sessionId={session.user.id!}
         initialMessages={initialMessages}
       />

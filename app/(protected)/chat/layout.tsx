@@ -24,7 +24,6 @@ export default async function ChatLayout({
   const session = await auth();
 
   const friendsWithUserData = await getFriendsByUserId(session?.user.id!);
-  console.log('🚀 ~ friendsWithUserData:', friendsWithUserData);
 
   const unseenRequests = await db.friendRequest.findMany({
     where: {
@@ -97,7 +96,7 @@ export default async function ChatLayout({
               </ul>
             </li>
 
-            <li className='-mx-6 mt-auto flex items-center'>
+            {/* <li className='-mx-6 mt-auto flex items-center'>
               <div className='flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900'>
                 <div className='relative h-8 w-8 bg-gray-50'>
                   <Image
@@ -119,7 +118,7 @@ export default async function ChatLayout({
               </div>
 
               <SignOutButton className='h-full aspect-square' />
-            </li>
+            </li> */}
           </ul>
         </nav>
       </div>
