@@ -27,7 +27,8 @@ model User {
   isTwoFactorEnabled    Boolean                @default(false)
   isNewUser             Boolean                @default(true)
   twoFactorConfirmation TwoFactorConfirmation?
-  UserProfile           UserProfile[]
+  userProfile           UserProfile[]
+  friends               Friend[]
 }
 
 model Account {
@@ -141,4 +142,40 @@ model UserProfile {
   updatedAt DateTime @updatedAt
 
   user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Chat {
+  id       String    @id @default(cuid()) @map("_id")
+  messages Message[]
+}
+
+model Message {
+  id         String @id @default(cuid()) @map("_id")
+  senderId   String
+  receiverId String
+  text       String
+
+  Chat   Chat?   @relation(fields: [chatId], references: [id])
+  chatId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FriendRequest {
+  id         String @id @default(cuid()) @map("_id")
+  senderId   String
+  receiverId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Friend {
+  id     String @id @default(cuid()) @map("_id")
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
