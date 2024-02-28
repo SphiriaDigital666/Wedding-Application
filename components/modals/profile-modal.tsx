@@ -151,44 +151,27 @@ const ProfileModal = () => {
       fileReader.onload = async (event) => {
         const imageDataUrl = event.target?.result?.toString() || '';
         setValue('profile_image', imageDataUrl); // Setting the value here
+        setPreviewImage(imageDataUrl);
       };
 
       fileReader.readAsDataURL(file);
     }
   };
 
-  const handleDrop = (
-    // e: ChangeEvent<HTMLInputElement>,
-    acceptedFiles: File[]
-  ) => {
-    // e.preventDefault();
-    setFiles(acceptedFiles);
-    const file = acceptedFiles[0];
-    const fileReader = new FileReader();
+  // const handleDrop = (acceptedFiles: File[]) => {
+  //   setFiles(acceptedFiles);
+  //   const file = acceptedFiles[0];
+  //   const fileReader = new FileReader();
 
-    // if (e.target.files && e.target.files.length > 0) {
-    //   const file = e.target.files[0];
-    //   setFiles(Array.from(e.target.files));
+  //   if (!file.type.includes('image')) return;
 
-    //   if (!file.type.includes('image')) return;
+  //   fileReader.onload = () => {
+  //     const imageDataUrl = fileReader.result?.toString() || '';
+  //     setPreviewImage(imageDataUrl); // Store the image data URL for preview
+  //   };
 
-    //   fileReader.onload = async (event) => {
-    //     const imageDataUrl = event.target?.result?.toString() || '';
-    //     setValue('profile_image', imageDataUrl); // Setting the value here
-    //   };
-
-    //   fileReader.readAsDataURL(file);
-    // }
-
-    if (!file.type.includes('image')) return;
-
-    fileReader.onload = () => {
-      const imageDataUrl = fileReader.result?.toString() || '';
-      setPreviewImage(imageDataUrl); // Store the image data URL for preview
-    };
-
-    fileReader.readAsDataURL(file); // Read the file as data URL
-  };
+  //   fileReader.readAsDataURL(file); // Read the file as data URL
+  // };
 
   const actionLabel = useMemo(() => {
     if (step === STEPS.IMAGES) {
@@ -498,7 +481,7 @@ const ProfileModal = () => {
                 onChange={(e) => handleImage(e)}
                 className="w-full bg-slate-50 md:w-[300px]"
               />
-              <Dropzone onDrop={handleDrop}>
+              {/* <Dropzone onDrop={handleDrop}>
                 {({ getRootProps, getInputProps }) => (
                   <section>
                     <div {...getRootProps()}>
@@ -510,7 +493,7 @@ const ProfileModal = () => {
                     </div>
                   </section>
                 )}
-              </Dropzone>
+              </Dropzone> */}
               {errors.profile_image && (
                 <p className="text-destructive mt-1">
                   {errors.profile_image.message}
