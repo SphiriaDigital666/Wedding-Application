@@ -4,7 +4,7 @@ import db from '@/lib/db';
 import { ProfileSchema } from '@/schemas';
 import * as z from 'zod';
 
-export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
+export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
   const user = await currentUser();
   const validatedFields = ProfileSchema.safeParse(values);
 
@@ -27,29 +27,28 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
     eating_habits,
     smoking_habits,
     profile_image,
-    image1,
-    image2,
-    image3,
-    image4,
-    image5,
+    images
   } = validatedFields.data;
 
-  // const existingUser = await getUserByEmail(email);
+  const userProfile = await db.userProfile.findFirst({
+    where:{
+      userId: user?.id
+    }
+  })
 
-  // if (existingUser) {
-  //   return { error: 'Email already in use!' };
-  // }
+  if(!userProfile){
+    return {error: 'User profile not found!'}
+  }
 
-  await db.userProfile.create({
+  await db.userProfile.update({
+    where:{
+      id: userProfile.id
+    },
     data: {
-      // bio: about,
       age: parseFloat(age!),
-      gender,
-      bodyType: body_type,
       height: parseFloat(height!),
       language: language?.toLowerCase(),
       martialStatus: marital_status,
-      name,
       physicalStatus: physical_status,
       weight: parseFloat(weight!),
       profileImage: profile_image,
@@ -57,16 +56,10 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
       eatingHabits: eating_habits,
       smokingHabits: smoking_habits,
       userId: user?.id,
-      image1,
-      image2,
-      image3,
-      image4,
-      image5,
+      ...validatedFields.data
     },
   });
 
-  // const verificationToken = await generateVerificationToken(email);
-  // await sendVerificationEmail(verificationToken.email, verificationToken.token);
 
-  return { success: 'Profile created successfully!' };
+  return { success: 'Profile updated successfully!' };
 };

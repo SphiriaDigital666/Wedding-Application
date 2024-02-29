@@ -23,7 +23,7 @@ const DashboardPage = async() => {
   return (
     <>
       <MainDetails profile={userProfile}/>
-      <PhotosCarousel />
+      <PhotosCarousel profile={userProfile}/>
       <AboutMe />
       <BasicDetails user={userProfile} />
       <ReligionDetails user={userProfile} />
