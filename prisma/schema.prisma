@@ -93,6 +93,7 @@ model UserProfile {
   age            Int?
   name           String?
   gender         String?
+  dob            String?
   bio            String?
   language       String?
   profileImage   String?
@@ -100,6 +101,8 @@ model UserProfile {
   weight         Float?
   bodyType       String?
   physicalStatus String?
+
+  images String[] @default([])
 
   interests String[]
   hobbies   String[]
@@ -152,10 +155,10 @@ model Chat {
 }
 
 model Message {
-  id         String @id @default(cuid()) @map("_id")
-  senderId   String
+  id       String @id @default(cuid()) @map("_id")
+  senderId String
   // receiverId String
-  text       String
+  text     String
 
   Chat   Chat?   @relation(fields: [chatId], references: [id])
   chatId String?

@@ -1,12 +1,21 @@
 import { signOut } from '@/auth';
 import { currentUser } from '@/lib/auth';
 import { NewProfileForm } from './_components/new-profile-form';
+import db from '@/lib/db';
+
+export const revalidate = 0;
 
 const DashboardPage = async () => {
   const sessionUser = await currentUser();
 
-  if (sessionUser?.isNewUser) {
-    return <NewProfileForm user={sessionUser}/>;
+  const dbUser = await db.user.findUnique({
+    where:{
+      id: sessionUser?.id
+    }
+  })
+
+  if (dbUser?.isNewUser) {
+    return <NewProfileForm user={dbUser} />;
   }
   return (
     <div>
