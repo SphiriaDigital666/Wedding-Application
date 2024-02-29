@@ -2,7 +2,7 @@
 
 // import { pusherClient } from '@/lib/pusher';
 // import { pusherClient } from '@/lib/pusher';
-import { cn, toPusherKey } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { Message, User } from '@prisma/client';
 import { format } from 'date-fns';
 import Image from 'next/image';
@@ -105,7 +105,9 @@ const Messages: FC<MessagesProps> = ({
                 <Image
                   fill
                   src={
-                    isCurrentUser ? (sessionImg as string) : chatPartner.image!
+                    isCurrentUser
+                      ? (sessionImg as string)
+                      : chatPartner.image || ''
                   }
                   alt='Profile picture'
                   referrerPolicy='no-referrer'

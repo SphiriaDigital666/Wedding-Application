@@ -85,7 +85,7 @@ const SidebarChatList: FC<SidebarChatListProps> = ({ friends, sessionId }) => {
         }).length;
 
         return (
-          <li key={friend.id}>
+          <li key={friend.userData.id}>
             <a
               href={`/chat/${chatHrefConstructor(
                 sessionId,
