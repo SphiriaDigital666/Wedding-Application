@@ -10,7 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 enum UserRole {
   ADMIN
   USER
@@ -94,6 +93,7 @@ model UserProfile {
   age            Int?
   name           String?
   gender         String?
+  dob            String?
   bio            String?
   language       String?
   profileImage   String?
@@ -102,7 +102,7 @@ model UserProfile {
   bodyType       String?
   physicalStatus String?
 
-  images         String[] @default([])
+  images String[] @default([])
 
   interests String[]
   hobbies   String[]
