@@ -1,6 +1,8 @@
 'use server';
 import { auth } from '@/auth';
 import db from '@/lib/db';
+import { pusherServer } from '@/lib/pusher';
+import { toPusherKey } from '@/lib/utils';
 import * as z from 'zod';
 
 export const acceptFriend = async (idToAdd: string) => {
@@ -11,8 +13,22 @@ export const acceptFriend = async (idToAdd: string) => {
       return { error: 'Unauthorized' };
     }
 
-    // const { id: idToAdd } = z.object({ id: z.string() }).parse(id);
-    // console.log(idToAdd);
+    const user = await db.user.findFirst({
+      where: {
+        id: session?.user.id,
+      },
+    });
+
+    const friend = await db.user.findFirst({
+      where: {
+        id: idToAdd,
+      },
+    });
+
+    if (!user || !friend) {
+      return { error: 'User not found' };
+    }
+
 
     const isAlreadyFriends = await db.user.findFirst({
       where: {
@@ -39,6 +55,20 @@ export const acceptFriend = async (idToAdd: string) => {
     if (!hasFriendRequest) {
       return { error: 'No friend request' };
     }
+
+    // notify added user
+    await Promise.all([
+      pusherServer.trigger(
+        toPusherKey(`user:${idToAdd}:friends`),
+        'new_friend',
+        user
+      ),
+      pusherServer.trigger(
+        toPusherKey(`user:${session.user.id}:friends`),
+        'new_friend',
+        friend
+      ),
+    ]);
 
     // Add friends
     await db.$transaction([

@@ -1,6 +1,8 @@
 'use server';
 import { auth } from '@/auth';
 import db from '@/lib/db';
+import { pusherServer } from '@/lib/pusher';
+import { toPusherKey } from '@/lib/utils';
 import { nanoid } from 'nanoid';
 
 export const sendMessage = async (text: string, chatId: string) => {
@@ -46,21 +48,21 @@ export const sendMessage = async (text: string, chatId: string) => {
   };
 
   // Notify all connected chat room clients using Pusher
-  // await pusherServer.trigger(
-  //   toPusherKey(`chat:${chatId}`),
-  //   'incoming-message',
-  //   message
-  // );
+  await pusherServer.trigger(
+    toPusherKey(`chat:${chatId}`),
+    'incoming-message',
+    message
+  );
 
-  // await pusherServer.trigger(
-  //   toPusherKey(`user:${friendId}:chats`),
-  //   'new_message',
-  //   {
-  //     ...message,
-  //     senderImg: sender?.image,
-  //     senderName: sender?.name,
-  //   }
-  // );
+  await pusherServer.trigger(
+    toPusherKey(`user:${friendId}:chats`),
+    'new_message',
+    {
+      ...message,
+      senderImg: sender?.image,
+      senderName: sender?.name,
+    }
+  );
 
   // Save the message to the Prisma database
   await db.message.create({
