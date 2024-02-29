@@ -2,6 +2,8 @@
 import { auth } from '@/auth';
 import { getUserByEmail } from '@/data/user';
 import db from '@/lib/db';
+import { pusherServer } from '@/lib/pusher';
+import { toPusherKey } from '@/lib/utils';
 import { AddFriendSchema } from '@/schemas';
 import * as z from 'zod';
 
@@ -48,11 +50,19 @@ export const addFriend = async (email: z.infer<typeof AddFriendSchema>) => {
       },
     },
   });
-  console.log("🚀 ~ addFriend ~ isAlreadyFriends:", isAlreadyFriends)
 
   if (isAlreadyFriends) {
     return { error: 'Already friends with this user' };
   }
+
+  await pusherServer.trigger(
+    toPusherKey(`user:${existingUser.id}:incoming_friend_requests`),
+    'incoming_friend_requests',
+    {
+      senderId: session?.user.id,
+      senderEmail: session?.user.email,
+    }
+  );
 
   // Create a friend request
   await db.friendRequest.create({

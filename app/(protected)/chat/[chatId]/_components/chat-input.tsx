@@ -16,22 +16,9 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
 
-  // const sendMessage = async () => {
-  //   if (!input) return;
-  //   setIsLoading(true);
-
-  //   try {
-  //     await axios.post('/api/message/send', { text: input, chatId });
-  //     setInput('');
-  //     textareaRef.current?.focus();
-  //   } catch {
-  //     toast.error('Something went wrong. Please try again later.');
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
 
   const handleSendMessage = (text: string, chatId: string) => {
+     if (!input) return;
     startTransition(() => {
       sendMessage(text, chatId).then((data) => {
         setInput('');
@@ -70,7 +57,10 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
 
         <div className='absolute right-0 bottom-0 flex justify-between py-2 pl-3 pr-2'>
           <div className='flex-shrin-0'>
-            <Button onClick={() => sendMessage(input, chatId)} type='submit'>
+            <Button
+              onClick={() => handleSendMessage(input, chatId)}
+              type='submit'
+            >
               Post
             </Button>
           </div>

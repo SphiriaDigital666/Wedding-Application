@@ -1,8 +1,7 @@
 'use client';
 
-// import { pusherClient } from '@/lib/pusher';
-// import { pusherClient } from '@/lib/pusher';
-import { cn } from '@/lib/utils';
+import { pusherClient } from '@/lib/pusher';
+import { cn, toPusherKey } from '@/lib/utils';
 import { Message, User } from '@prisma/client';
 import { format } from 'date-fns';
 import Image from 'next/image';
@@ -26,18 +25,18 @@ const Messages: FC<MessagesProps> = ({
   const [messages, setMessages] = useState<Message[]>(initialMessages);
 
   useEffect(() => {
-    // pusherClient.subscribe(toPusherKey(`chat:${chatId}`));
+    pusherClient.subscribe(toPusherKey(`chat:${chatId}`));
 
     const messageHandler = (message: Message) => {
       setMessages((prev) => [message, ...prev]);
     };
 
-    // pusherClient.bind('incoming-message', messageHandler);
+    pusherClient.bind('incoming-message', messageHandler);
 
-    // return () => {
-    //   pusherClient.unsubscribe(toPusherKey(`chat:${chatId}`));
-    //   pusherClient.unbind('incoming-message', messageHandler);
-    // };
+    return () => {
+      pusherClient.unsubscribe(toPusherKey(`chat:${chatId}`));
+      pusherClient.unbind('incoming-message', messageHandler);
+    };
   }, [chatId]);
 
   const scrollDownRef = useRef<HTMLDivElement | null>(null);

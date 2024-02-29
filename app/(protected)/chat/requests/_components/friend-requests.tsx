@@ -2,16 +2,15 @@
 
 import { acceptFriend } from '@/actions/friends/accept-friend';
 import { denyFriend } from '@/actions/friends/deny-friend';
-// import { pusherClient } from '@/lib/pusher';
+import { pusherClient } from '@/lib/pusher';
 import { toPusherKey } from '@/lib/utils';
 import { FriendRequest, User } from '@prisma/client';
-import axios from 'axios';
 import { Check, UserPlus, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { FC, startTransition, useEffect, useState } from 'react';
 
 type FriendRequestWithUser = FriendRequest & {
-  sender: User
+  sender: User;
 };
 
 interface FriendRequestsProps {
@@ -28,32 +27,33 @@ const FriendRequests: FC<FriendRequestsProps> = ({
     incomingFriendRequests
   );
 
-    const [error, setError] = useState<string | undefined>('');
-    const [success, setSuccess] = useState<string | undefined>('');
+  const [error, setError] = useState<string | undefined>('');
+  const [success, setSuccess] = useState<string | undefined>('');
 
-  // useEffect(() => {
-  //   pusherClient.subscribe(
-  //     toPusherKey(`user:${sessionId}:incoming_friend_requests`)
-  //   );
-  //   console.log('listening to ', `user:${sessionId}:incoming_friend_requests`);
+  useEffect(() => {
+    pusherClient.subscribe(
+      toPusherKey(`user:${sessionId}:incoming_friend_requests`)
+    );
+    console.log('listening to ', `user:${sessionId}:incoming_friend_requests`);
 
-  //   const friendRequestHandler = ({
-  //     senderId,
-  //     senderEmail,
-  //   }: IncomingFriendRequest) => {
-  //     console.log('function got called');
-  //     setFriendRequests((prev) => [...prev, { senderId, senderEmail }]);
-  //   };
+    const friendRequestHandler = ({
+      senderId,
+      senderEmail,
+    }: IncomingFriendRequest) => {
+      console.log('function got called');
+      // @ts-ignore
+      setFriendRequests((prev) => [...prev, { senderId, senderEmail }]);
+    };
 
-  //   pusherClient.bind('incoming_friend_requests', friendRequestHandler);
+    pusherClient.bind('incoming_friend_requests', friendRequestHandler);
 
-  //   return () => {
-  //     pusherClient.unsubscribe(
-  //       toPusherKey(`user:${sessionId}:incoming_friend_requests`)
-  //     );
-  //     pusherClient.unbind('incoming_friend_requests', friendRequestHandler);
-  //   };
-  // }, [sessionId]);
+    return () => {
+      pusherClient.unsubscribe(
+        toPusherKey(`user:${sessionId}:incoming_friend_requests`)
+      );
+      pusherClient.unbind('incoming_friend_requests', friendRequestHandler);
+    };
+  }, [sessionId]);
 
   const acceptFriendRequest = (id: string) => {
     startTransition(() => {
@@ -61,9 +61,9 @@ const FriendRequests: FC<FriendRequestsProps> = ({
         setError(data.error);
         if (data.success) {
           setSuccess(data.success);
-            setFriendRequests((prev) =>
-              prev.filter((request) => request.senderId !== id)
-            );
+          setFriendRequests((prev) =>
+            prev.filter((request) => request.senderId !== id)
+          );
           router.refresh();
         }
       });

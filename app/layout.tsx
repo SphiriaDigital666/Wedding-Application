@@ -1,5 +1,6 @@
 import { auth } from '@/auth';
 import ProfileModal from '@/components/modals/profile-modal';
+import ToastProviders from '@/components/providers/toast-provider';
 import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import { SessionProvider } from 'next-auth/react';
@@ -31,8 +32,7 @@ export default async function RootLayout({
       <SessionProvider session={session}>
         <body className={sofia_init.className}>
           <div className=''>
-            {/* <Navbar /> */}
-            {children}
+            <ToastProviders>{children}</ToastProviders>
           </div>
           <Toaster />
           <ProfileModal />
