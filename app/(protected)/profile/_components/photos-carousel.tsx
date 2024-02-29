@@ -58,6 +58,8 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
                   setSuccess(data.success);
                   toast(data.success);
                   router.refresh();
+
+                  setPreviewImage('');
                 }
               })
               .catch(() => setError('Something went wrong!'));
@@ -85,7 +87,7 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
       fileReader.onload = async (event) => {
         const imageDataUrl = event.target?.result?.toString() || '';
         setImage(imageDataUrl); // Setting the value here
-        setPreviewImage(imageDataUrl);
+        setPreviewImage(imageDataUrl); // Set the preview image
       };
 
       fileReader.readAsDataURL(file);
@@ -124,9 +126,9 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
         <div className="flex justify-between">
           <span className="text-2xl">Photos</span>
         </div>
-        <div className="flex gap-5 mt-4">
+        <div className="flex gap-5 mt-4 ">
           {profile.images?.map((image, index) => (
-            <Card key={image} className="w-full relative">
+            <Card key={image} className="w-56 h-56 relative">
               <CardContent
                 className="flex aspect-square items-center justify-center"
                 onMouseEnter={() => setHoveredIndex(index - 1)}
@@ -139,7 +141,9 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
                         onClick={() => handleDeletePhoto(index, image)}
                         className="flex items-center bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
                       >
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        {isPending && (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        )}
                         Delete
                       </button>
                     </div>
@@ -149,37 +153,58 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
                     width={200}
                     height={200}
                     alt={`Picture  of the user`}
-                    className="object-contain"
+                    className="rounded-md mt-6"
                   />
                 </div>
               </CardContent>
             </Card>
           ))}
-
-          <Card className="w-full relative">
-            <CardContent
-              className="flex aspect-square items-center justify-center"
-              onMouseLeave={() => setHoveredIndex(null)}
-            >
-              <div className="">
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="w-full bg-slate-50 md:w-[180px]"
-                  style={{ display: 'none' }} // Hide the input element
-                  onChange={(e) => handleImage(e)}
-                  ref={inputRef} // Assign a ref to the input element if needed
-                />
-                <Plus onClick={() => inputRef?.current?.click()} />{' '}
-                {/* Trigger click on the hidden input */}
-              </div>
-            </CardContent>
-          </Card>
+          {profile.images.length < 5 && (
+            <Card className="w-56 h-56 relative">
+              <CardContent
+                className="flex aspect-square items-center justify-center"
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                {previewImage ? (
+                  <div className="relative">
+                    <Image
+                      src={previewImage}
+                      width={200}
+                      height={200}
+                      alt="Picture of the user"
+                      className="mt-6 rounded-md opacity-60"
+                    />
+                    <div className="absolute bottom-0 right-0 m-2">
+                      <Button onClick={() => onSubmit(previewImage)}>
+                        {isPending && (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        )}
+                        Upload
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="bg-slate-50 md:w-[180px]"
+                      style={{ display: 'none' }} // Hide the input element
+                      onChange={(e) => handleImage(e)}
+                      ref={inputRef} // Assign a ref to the input element if needed
+                    />
+                    <span className="text-lg font-medium">Add Photos</span>
+                    <Plus
+                      className="w-8 h-8 hover:cursor-pointer"
+                      onClick={() => inputRef?.current?.click()}
+                    />{' '}
+                    {/* Trigger click on the hidden input */}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          )}
         </div>
-        <Button className="mt-3" onClick={() => onSubmit(image)}>
-          {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Upload
-        </Button>
       </div>
     </div>
   );
