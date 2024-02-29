@@ -62,10 +62,11 @@ export const SettingsSchema = z
   );
 
 export const ProfileSchema = z.object({
-  // about: z.string().min(1).optional(),
+  // bio: z.string().min(1).optional(),
   name: z.string().min(1).optional(),
   age: z.string().optional(),
   gender: z.string().min(1).optional(),
+  dob: z.string().min(1).optional(),
   language: z.string().min(1).optional(),
   height: z.string().optional(),
   weight: z.string().optional(),
@@ -76,17 +77,16 @@ export const ProfileSchema = z.object({
   drinking_habits: z.string().optional(),
   smoking_habits: z.string().optional(),
   profile_image: z.string().optional(),
+  images: z.string().array().optional(),
 });
 
- export const AddFriendSchema = z.object({
-   email: z.string().email(),
- });
+export const AddFriendSchema = z.object({
+  email: z.string().email(),
+});
 
- export const MessageSchema = z.object({
-   id: z.string(),
-   senderId: z.string(),
-   text: z.string(),
-   timestamp: z.number(),
- });
-
-
+export const MessageSchema = z.object({
+  id: z.string(),
+  senderId: z.string(),
+  text: z.string(),
+  timestamp: z.number(),
+});

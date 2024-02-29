@@ -5,6 +5,7 @@ import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import { SessionProvider } from 'next-auth/react';
 import { Inter, Sofia_Sans } from 'next/font/google';
+import "@uploadthing/react/styles.css";
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });

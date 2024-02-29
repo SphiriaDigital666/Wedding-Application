@@ -6,6 +6,11 @@ import * as z from 'zod';
 
 export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
   const user = await currentUser();
+
+  if (!user) {
+    return { error: 'Unauthorized' };
+  }
+
   const validatedFields = ProfileSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -13,50 +18,51 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
   }
 
   const {
-    // about,
     age,
     gender,
+    dob,
     body_type,
     height,
     language,
     marital_status,
     name,
-    physical_status,
     weight,
-    drinking_habits,
-    eating_habits,
-    smoking_habits,
     profile_image,
   } = validatedFields.data;
 
-  // const existingUser = await getUserByEmail(email);
-
-  // if (existingUser) {
-  //   return { error: 'Email already in use!' };
-  // }
-
-  await db.userProfile.create({
-    data: {
-      // bio: about,
-      age: parseFloat(age!),
-      gender,
-      bodyType: body_type,
-      height: parseFloat(height!),
-      language: language?.toLowerCase(),
-      martialStatus: marital_status,
-      name,
-      physicalStatus: physical_status,
-      weight: parseFloat(weight!),
-      profileImage: profile_image,
-      drinkingHabits: drinking_habits,
-      eatingHabits: eating_habits,
-      smokingHabits: smoking_habits,
-      userId: user?.id,
+  const userProfile = await db.userProfile.findFirst({
+    where: {
+      userId: user.id,
     },
   });
 
-  // const verificationToken = await generateVerificationToken(email);
-  // await sendVerificationEmail(verificationToken.email, verificationToken.token);
+  if (userProfile) {
+    return { error: 'User already has a profile' };
+  }
+
+  await db.$transaction([
+    db.userProfile.create({
+      data: {
+        age: parseFloat(age!),
+        gender,
+        dob,
+        bodyType: body_type,
+        height: parseFloat(height!),
+        language: language?.toLowerCase(),
+        martialStatus: marital_status,
+        name,
+        weight: parseFloat(weight!),
+        profileImage: profile_image,
+
+        userId: user?.id,
+      },
+    }),
+    db.user.update({
+      where: { id: user.id },
+      data: { isNewUser: false },
+    }),
+  ]);
+
 
   return { success: 'Profile created successfully!' };
 };
