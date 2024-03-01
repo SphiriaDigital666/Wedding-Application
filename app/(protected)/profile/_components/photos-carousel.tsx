@@ -11,6 +11,11 @@ import { removeImage, updateImages } from '@/actions/profile/update-images';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { updateProfilePhoto } from '@/actions/profile/update-profile';
+import { useForm } from 'react-hook-form';
+import { ProfileSchema } from '@/schemas';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 
 interface PhotosCarouselProps {
   profile: UserProfile;
@@ -31,6 +36,13 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const { startUpload } = useUploadThing('imageUploader');
+
+  const { setValue } = useForm<z.infer<typeof ProfileSchema>>({
+    resolver: zodResolver(ProfileSchema),
+    defaultValues: {
+      profile_image: '',
+    },
+  });
 
   const onSubmit = async (values: any) => {
     const blob = values;
@@ -94,6 +106,31 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
     }
   };
 
+  const handleProfileImage = async (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    const fileReader = new FileReader();
+
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setFiles(Array.from(e.target.files));
+
+      if (!file.type.includes('image')) return;
+
+      fileReader.onload = async (event) => {
+        const imageDataUrl = event.target?.result?.toString() || '';
+
+        // Set profile image URL
+        setValue('profile_image', imageDataUrl);
+
+        // Set preview image
+        setPreviewImage(imageDataUrl);
+      };
+
+      fileReader.readAsDataURL(file);
+    }
+  };
+
   const handleDeletePhoto = async (index: number, id: string) => {
     try {
       // const res = await utapi.deleteFiles(id);
@@ -136,17 +173,30 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
               >
                 <div className="relative">
                   {hoveredIndex === index - 1 && (
-                    <div className="absolute top-0 right-0 m-2">
-                      <button
-                        onClick={() => handleDeletePhoto(index, image)}
-                        className="flex items-center bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-                      >
-                        {isPending && (
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        )}
-                        Delete
-                      </button>
-                    </div>
+                    <>
+                      <div className="absolute top-0 right-0 m-2">
+                        <button
+                          onClick={() => handleDeletePhoto(index, image)}
+                          className="flex items-center bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                        >
+                          {isPending && (
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          )}
+                          Delete
+                        </button>
+                      </div>
+                      <div className="absolute bottom-0 left-1 m-2">
+                        <button
+                          onClick={(e) => handleProfileImage(e)}
+                          className="flex items-center bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
+                        >
+                          {isPending && (
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          )}
+                          Make Profile Picture
+                        </button>
+                      </div>
+                    </>
                   )}
                   <Image
                     src={image || ''}
