@@ -10,7 +10,7 @@ import {
   updateProfilePhoto,
 } from '@/actions/profile/update-profile';
 import { useRouter } from 'next/navigation';
-import { Loader2, Plus } from 'lucide-react';
+import { Loader2, MessageSquareMore, Phone, Plus } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { ProfileSchema } from '@/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -109,16 +109,16 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
   };
 
   return (
-    <div className="container p-5 mt-10 shadow-md rounded-md">
+    <div className="container p-5">
       <div className="flex justify-between items-center p-10">
         <div className="flex flex-row items-center relative gap-5">
-          <Card className="w-48 h-48 relative">
+          <Card className="w-56 h-56 relative -top-36 rounded-full">
             <>
               {profile?.profileImage ? (
                 <CardContent
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={() => setIsHovered(false)}
-                  className="flex aspect-square items-center justify-center"
+                  className="flex aspect-square items-center justify-center "
                 >
                   <div className="relative">
                     <Image
@@ -126,7 +126,7 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
                       alt="Image"
                       width={200}
                       height={200}
-                      className="mt-6 rounded-md"
+                      className="mt-6 rounded-full"
                     />
                     {isHovered && (
                       <div className="absolute top-0 right-0 m-2">
@@ -193,7 +193,13 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
             <span>B.Sc IT/ Computer Science, Software Engineer</span>
           </div>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-5">
+          <span className="flex gap-5">
+            <Phone /> 0729837800
+          </span>
+          <span className="flex gap-5">
+            <MessageSquareMore /> Message
+          </span>
           <Button variant="secondary" size="lg">
             Preview
           </Button>
