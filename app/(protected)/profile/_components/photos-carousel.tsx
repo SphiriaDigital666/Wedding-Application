@@ -158,8 +158,8 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
   };
 
   return (
-    <div className="container p-5 mt-10 shadow-md rounded-md">
-      <div className="justify-between p-10">
+    <div className="container p-5 -mt-16 shadow-md rounded-md">
+      <div className="justify-between p-5">
         <div className="flex justify-between">
           <span className="text-2xl">Photos</span>
         </div>
