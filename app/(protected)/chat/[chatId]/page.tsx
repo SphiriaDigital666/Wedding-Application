@@ -1,13 +1,13 @@
 import { auth } from '@/auth';
 import db from '@/lib/db';
 import { MessageSchema } from '@/schemas';
-import Image from 'next/image';
+import { User } from '@prisma/client';
 import { notFound } from 'next/navigation';
 import { FC } from 'react';
 import * as z from 'zod';
+import ChatHeader from './_components/chat-header';
 import ChatInput from './_components/chat-input';
 import Messages from './_components/messages';
-import { User } from '@prisma/client';
 
 export const messageArrayValidator = z.array(MessageSchema);
 
@@ -19,7 +19,7 @@ interface pageProps {
   };
 }
 
-const page: FC<pageProps> = async ({ params }) => {
+const Page: FC<pageProps> = async ({ params }) => {
   const { chatId } = params;
 
   const session = await auth();
@@ -47,31 +47,7 @@ const page: FC<pageProps> = async ({ params }) => {
 
   return (
     <div className='flex-1 justify-between flex flex-col h-full max-h-[calc(100vh-6rem)]'>
-      <div className='flex sm:items-center justify-between py-3 border-b-2 border-gray-200'>
-        <div className='relative flex items-center space-x-4'>
-          <div className='relative'>
-            <div className='relative w-8 sm:w-12 h-8 sm:h-12'>
-              <Image
-                fill
-                referrerPolicy='no-referrer'
-                src={chatPartner?.image! || ''}
-                alt={`${chatPartner?.name} profile picture`}
-                className='rounded-full'
-              />
-            </div>
-          </div>
-
-          <div className='flex flex-col leading-tight'>
-            <div className='text-xl flex items-center'>
-              <span className='text-gray-700 mr-3 font-semibold'>
-                {chatPartner?.name}
-              </span>
-            </div>
-
-            <span className='text-sm text-gray-600'>{chatPartner?.email}</span>
-          </div>
-        </div>
-      </div>
+      <ChatHeader chatPartner={chatPartner} />
 
       <Messages
         chatId={chatId}
@@ -85,4 +61,4 @@ const page: FC<pageProps> = async ({ params }) => {
   );
 };
 
-export default page;
+export default Page;
