@@ -19,10 +19,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import YourPage from "./_component/profileSelectors";
-import InputDefault from "./_component/filterProfile";
-import Home11, { SelectDefault } from "./_component/selector";
-import SelectComponent from "./_component/selector";
+
+import SelectComponent from "./_component/selectComponent";
 
 export default function page() {
   return (
