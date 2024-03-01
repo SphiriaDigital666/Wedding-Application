@@ -4,7 +4,10 @@ import db from "@/lib/db";
 import Link from "next/link";
 import SidebarChatList from "./_components/sidebar-chat-list";
 import FriendRequestSidebarOptions from "./add/_components/friend-request-sidebar-options";
+import { Input } from "@/components/ui/input";
+import Image from "next/image";
 
+import profilePhoto from "@/public/chat/profilePhoto.png";
 export default async function ChatLayout({
   children,
 }: Readonly<{
@@ -45,18 +48,12 @@ export default async function ChatLayout({
       <div className="hidden md:flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
         {friendsWithUserData.length > 0 ? (
           <div className="text-xs font-semibold leading-6 text-gray-400">
-            Your chats
+            {/* Your chats */}
           </div>
         ) : null}
 
         <nav className="flex flex-1 flex-col">
           <ul role="list" className="flex flex-1 flex-col gap-y-7">
-            <li>
-              <SidebarChatList
-                sessionId={session?.user.id!}
-                friends={friendsWithUserData}
-              />
-            </li>
             <li>
               <div className="text-xs font-semibold leading-6 text-gray-400">
                 Overview
@@ -65,6 +62,7 @@ export default async function ChatLayout({
               <ul role="list" className="-mx-2 mt-2 space-y-1">
                 {sidebarOptions.map((option) => {
                   // const Icon = Icons[option.Icon];
+
                   return (
                     <li key={option.id}>
                       <Link
@@ -88,6 +86,15 @@ export default async function ChatLayout({
                   />
                 </li>
               </ul>
+            </li>
+
+            <li>
+              <Input type="text" placeholder="Search" className="mb-2" />
+
+              <SidebarChatList
+                sessionId={session?.user.id!}
+                friends={friendsWithUserData}
+              />
             </li>
           </ul>
         </nav>

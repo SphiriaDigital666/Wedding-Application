@@ -1,12 +1,13 @@
-'use client';
-
-import { pusherClient } from '@/lib/pusher';
-import { chatHrefConstructor, toPusherKey } from '@/lib/utils';
-import { Message, User } from '@prisma/client';
-import { usePathname, useRouter } from 'next/navigation';
-import { FC, useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
-import UnseenChatToast from './unseen-chat-toast';
+"use client";
+import Image from "next/image";
+import profilePhoto from "@/public/chat/profilePhoto.png";
+import { pusherClient } from "@/lib/pusher";
+import { chatHrefConstructor, toPusherKey } from "@/lib/utils";
+import { Message, User } from "@prisma/client";
+import { usePathname, useRouter } from "next/navigation";
+import { FC, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import UnseenChatToast from "./unseen-chat-toast";
 
 interface SidebarChatListProps {
   friends: User[];
@@ -29,7 +30,7 @@ const SidebarChatList: FC<SidebarChatListProps> = ({ friends, sessionId }) => {
     pusherClient.subscribe(toPusherKey(`user:${sessionId}:friends`));
 
     const newFriendHandler = (newFriend: User) => {
-      console.log('received new user', newFriend);
+      console.log("received new user", newFriend);
       setActiveChats((prev) => [...prev, newFriend]);
     };
 
@@ -55,20 +56,20 @@ const SidebarChatList: FC<SidebarChatListProps> = ({ friends, sessionId }) => {
       setUnseenMessages((prev) => [...prev, message]);
     };
 
-    pusherClient.bind('new_message', chatHandler);
-    pusherClient.bind('new_friend', newFriendHandler);
+    pusherClient.bind("new_message", chatHandler);
+    pusherClient.bind("new_friend", newFriendHandler);
 
     return () => {
       pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:chats`));
       pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:friends`));
-      pusherClient.unbind('new_message', chatHandler);
-      pusherClient.unbind('new_friend', newFriendHandler);
+      pusherClient.unbind("new_message", chatHandler);
+      pusherClient.unbind("new_friend", newFriendHandler);
     };
   }, [pathname, sessionId, router]);
 
   // check if the messages are seen
   useEffect(() => {
-    if (pathname?.includes('chat')) {
+    if (pathname?.includes("chat")) {
       setUnseenMessages((prev) => {
         return prev.filter((msg) => !pathname.includes(msg.senderId));
       });
@@ -76,7 +77,7 @@ const SidebarChatList: FC<SidebarChatListProps> = ({ friends, sessionId }) => {
   }, [pathname]);
 
   return (
-    <ul role='list' className='max-h-[25rem] overflow-y-auto -mx-2 space-y-1'>
+    <ul role="list" className="max-h-[25rem] overflow-y-auto -mx-2 space-y-1">
       {activeChats?.sort().map((friend) => {
         const unseenMessagesCount = unseenMessages.filter((unseenMsg) => {
           return unseenMsg.senderId === friend.userData.id;
@@ -84,20 +85,33 @@ const SidebarChatList: FC<SidebarChatListProps> = ({ friends, sessionId }) => {
 
         return (
           <li key={friend.userData.id}>
-            <a
-              href={`/chat/${chatHrefConstructor(
-                sessionId,
-                friend.userData.id
-              )}`}
-              className='text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
-            >
-              {friend.userData.name}
-              {unseenMessagesCount > 0 ? (
-                <div className='bg-indigo-600 font-medium text-xs text-white w-4 h-4 rounded-full flex justify-center items-center'>
-                  {unseenMessagesCount}
-                </div>
-              ) : null}
-            </a>
+            <div className="flex items-center justify-between border-b-[1px] border-[#dedede] py-3">
+              <div className="flex items-center gap-1">
+                <Image
+                  src={profilePhoto}
+                  alt="Main Image"
+                  width={40}
+                  height={40}
+                  className="rounded-lg"
+                />
+                <a
+                  href={`/chat/${chatHrefConstructor(
+                    sessionId,
+                    friend.userData.id
+                  )}`}
+                  className="text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                >
+                  {friend.userData.name}
+                  {unseenMessagesCount > 0 ? (
+                    <div className="bg-indigo-600 font-medium text-xs text-white w-4 h-4 rounded-full flex justify-center items-center">
+                      {unseenMessagesCount}
+                    </div>
+                  ) : null}
+                </a>
+              </div>
+
+              <div className="w-[10px] h-[10px] rounded-full bg-[#28C90E] text-right"></div>
+            </div>
           </li>
         );
       })}

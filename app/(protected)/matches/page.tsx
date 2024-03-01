@@ -11,15 +11,6 @@ import Advertisement04 from "@/public/allMatches/ads/ad4.png";
 import Advertisement02_01 from "@/public/allMatches/ads/02ad1.png";
 import Advertisement02_02 from "@/public/allMatches/ads/02ad2.png";
 
-//profile filter
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
 import SelectComponent from "./_component/selectComponent";
 
 export default function page() {
