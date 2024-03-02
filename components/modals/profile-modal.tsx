@@ -27,8 +27,8 @@ import Image from 'next/image';
 
 enum STEPS {
   BASIC_DETAILS = 0,
-  // ABOUT_YOU = 1,
   IMAGES = 1,
+  PREFERENCES = 2,
 }
 
 const ProfileModal = () => {
@@ -81,7 +81,7 @@ const ProfileModal = () => {
 
   const onSubmit = async (values: z.infer<typeof ProfileSchema>) => {
     console.log(values);
-    if (step !== STEPS.IMAGES) return onNext();
+    if (step !== STEPS.PREFERENCES) return onNext();
 
     const blob = values.profile_image;
 
@@ -107,7 +107,7 @@ const ProfileModal = () => {
                 if (data?.success) {
                   setSuccess(data.success);
                   profileModal.onClose();
-                  router.push('/profile');
+                  router.push('/partner-preferences');
                 }
               })
               .catch(() => setError('Something went wrong!'));
@@ -160,8 +160,8 @@ const ProfileModal = () => {
   };
 
   const actionLabel = useMemo(() => {
-    if (step === STEPS.IMAGES) {
-      return 'Create';
+    if (step === STEPS.PREFERENCES) {
+      return 'Add Preferences';
     }
     return 'Next';
   }, [step]);
@@ -486,6 +486,17 @@ const ProfileModal = () => {
             </div>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  if (step === STEPS.PREFERENCES) {
+    bodyContent = (
+      <div className="flex flex-col justify-center items-center gap-8">
+        <Heading
+          title="Partner Preferences"
+          subtitle="Add partner preferences"
+        />
       </div>
     );
   }

@@ -5,17 +5,17 @@ import { UserProfile } from '@prisma/client';
 import EditBasic from './edit/edit-basic';
 import EditAbout from './edit/edit-about';
 
-interface AboutAndBasicProps {
+interface VerificationProps {
   user: UserProfile | undefined;
 }
 
-const AboutAndBasic: FC<AboutAndBasicProps> = ({ user }) => {
+const Verification: FC<VerificationProps> = ({ user }) => {
   return (
     <div className="p-5 mt-10 shadow-md rounded-md">
-      <div className="p-5">
+      <div className="justify-between p-5">
         <div className="flex justify-between">
-          <span className="text-2xl">About Me</span>
-          <EditAbout />
+          <span className="text-2xl">Profile Verification</span>
+          <EditBasic user={user} />
         </div>
         <div className="flex gap-5 mt-4">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur quos
@@ -124,4 +124,4 @@ const AboutAndBasic: FC<AboutAndBasicProps> = ({ user }) => {
   );
 };
 
-export default AboutAndBasic;
+export default Verification;
