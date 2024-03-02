@@ -1,15 +1,15 @@
 import db from '@/lib/db';
 // import BasicDetails from './_components/basic-details';
 // import LocationDetails from './_components/location-details';
-import FamilyDetails from './_components/family-details';
-import MainDetails from './_components/main-details';
-import PhotosCarousel from './_components/photos-carousel';
-import ProfessionalDetails from './_components/professional-details';
+import FamilyDetails from '../_components/family-details';
+import MainDetails from '../_components/main-details';
+import PhotosCarousel from '../_components/photos-carousel';
+import ProfessionalDetails from '../_components/professional-details';
 import { currentUser } from '@/lib/auth';
 import Image from 'next/image';
 import AllMatches from '@/public/allMatches/all-matches-img.png';
-import AboutAndBasic from './_components/about-me';
-import OtherDetails from './_components/other-details';
+import AboutAndBasic from '../_components/about-me';
+import OtherDetails from '../_components/other-details';
 
 const DashboardPage = async () => {
   const sessionUser = await currentUser();
