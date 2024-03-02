@@ -1,15 +1,14 @@
 import db from '@/lib/db';
 // import BasicDetails from './_components/basic-details';
 // import LocationDetails from './_components/location-details';
-import FamilyDetails from '../_components/family-details';
-import MainDetails from '../_components/main-details';
-import PhotosCarousel from '../_components/photos-carousel';
-import ProfessionalDetails from '../_components/professional-details';
+import MainDetails from './_components/main-details';
+import PhotosCarousel from './_components/photos-carousel';
 import { currentUser } from '@/lib/auth';
 import Image from 'next/image';
 import AllMatches from '@/public/allMatches/all-matches-img.png';
-import AboutAndBasic from '../_components/about-me';
-import OtherDetails from '../_components/other-details';
+import AboutAndBasic from './_components/about-me';
+import OtherDetails from './_components/other-details';
+import Verification from './_components/verification';
 
 const DashboardPage = async () => {
   const sessionUser = await currentUser();
@@ -23,7 +22,7 @@ const DashboardPage = async () => {
   console.log(userProfile);
   return (
     <>
-      <div className="relative flex items-center justify-center">
+      <div className="flex items-center justify-center">
         <Image
           src={AllMatches}
           alt="Main Image"
@@ -39,14 +38,15 @@ const DashboardPage = async () => {
       </div>
       <MainDetails profile={userProfile} />
       <PhotosCarousel profile={userProfile} />
-      <div className="relative w-[800px] left-32 flex flex-col">
-        <AboutAndBasic profile={userProfile} />
-        {/* <BasicDetails user={userProfile} /> */}
+      <div className="flex container gap-5">
+        <div className="w-1/2">
+          <AboutAndBasic profile={userProfile} />
+        </div>
+        <div className="w-1/2">
+          <Verification profile={userProfile} />
+        </div>
       </div>
       <OtherDetails user={userProfile} />
-      {/* <LocationDetails user={userProfile} /> */}
-      <ProfessionalDetails user={userProfile} />
-      <FamilyDetails user={userProfile} />
     </>
   );
 };
