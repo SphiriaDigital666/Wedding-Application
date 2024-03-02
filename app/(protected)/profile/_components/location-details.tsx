@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Button } from '@/components/ui/button';
 import { UserProfile } from '@prisma/client';
-import EditLocation from '../edit/edit-location';
+import EditLocation from './edit/edit-location';
 
 interface LocationDetailsProps {
   user: UserProfile | undefined;
