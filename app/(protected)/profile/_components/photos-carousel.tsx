@@ -1,20 +1,20 @@
 'use client';
 
-import { Card, CardContent } from '@/components/ui/card';
-import Image from 'next/image';
-import React, { ChangeEvent, FC, useRef, useState, useTransition } from 'react';
-import { Loader2, Plus } from 'lucide-react';
-import { UserProfile } from '@prisma/client';
-import { isBase64Image } from '@/lib/utils';
-import { useUploadThing } from '@/lib/uploadthing';
 import { removeImage, updateImages } from '@/actions/profile/update-images';
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
-import { updateProfilePhoto } from '@/actions/profile/update-profile';
-import { useForm } from 'react-hook-form';
+import { Card, CardContent } from '@/components/ui/card';
+import { compressImage } from '@/lib/image-compress';
+import { useUploadThing } from '@/lib/uploadthing';
+import { isBase64Image } from '@/lib/utils';
 import { ProfileSchema } from '@/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { UserProfile } from '@prisma/client';
+import { Loader2, Plus } from 'lucide-react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { ChangeEvent, FC, useRef, useState, useTransition } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import * as z from 'zod';
 
 interface PhotosCarouselProps {
@@ -85,24 +85,28 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
     }
   };
 
-  const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImage = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-
-    const fileReader = new FileReader();
 
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      setFiles(Array.from(e.target.files));
 
-      if (!file.type.includes('image')) return;
+      try {
+        const compressedFile = await compressImage(file);
+        setFiles([compressedFile]);
 
-      fileReader.onload = async (event) => {
-        const imageDataUrl = event.target?.result?.toString() || '';
-        setImage(imageDataUrl); // Setting the value here
-        setPreviewImage(imageDataUrl); // Set the preview image
-      };
+        const fileReader = new FileReader();
 
-      fileReader.readAsDataURL(file);
+        fileReader.onload = (event) => {
+          const imageDataUrl = event.target?.result?.toString() || '';
+          setImage(imageDataUrl);
+          setPreviewImage(imageDataUrl);
+        };
+
+        fileReader.readAsDataURL(compressedFile);
+      } catch (error) {
+        console.error('Error compressing image:', error);
+      }
     }
   };
 
@@ -158,40 +162,40 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
   };
 
   return (
-    <div className="container p-5 -mt-16 shadow-md rounded-md">
-      <div className="justify-between p-5">
-        <div className="flex justify-between">
-          <span className="text-2xl">Photos</span>
+    <div className='container p-5 -mt-16 shadow-md rounded-md'>
+      <div className='justify-between p-5'>
+        <div className='flex justify-between'>
+          <span className='text-2xl'>Photos</span>
         </div>
-        <div className="flex gap-5 mt-4 ">
+        <div className='flex gap-5 mt-4 '>
           {profile.images?.map((image, index) => (
-            <Card key={image} className="w-56 h-56 relative">
+            <Card key={image} className='w-56 h-56 relative'>
               <CardContent
-                className="flex aspect-square items-center justify-center"
+                className='flex aspect-square items-center justify-center'
                 onMouseEnter={() => setHoveredIndex(index - 1)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
-                <div className="relative">
+                <div className='relative'>
                   {hoveredIndex === index - 1 && (
                     <>
-                      <div className="absolute top-0 right-0 m-2">
+                      <div className='absolute top-0 right-0 m-2'>
                         <button
                           onClick={() => handleDeletePhoto(index, image)}
-                          className="flex items-center bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                          className='flex items-center bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600'
                         >
                           {isPending && (
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
                           )}
                           Delete
                         </button>
                       </div>
-                      <div className="absolute bottom-0 left-1 m-2">
+                      <div className='absolute bottom-0 left-1 m-2'>
                         <button
                           onClick={(e) => handleProfileImage(e)}
-                          className="flex items-center bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
+                          className='flex items-center bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600'
                         >
                           {isPending && (
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
                           )}
                           Make Profile Picture
                         </button>
@@ -203,49 +207,49 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
                     width={200}
                     height={200}
                     alt={`Picture  of the user`}
-                    className="rounded-md mt-6"
+                    className='rounded-md mt-6'
                   />
                 </div>
               </CardContent>
             </Card>
           ))}
           {profile.images.length < 5 && (
-            <Card className="w-56 h-56 relative">
+            <Card className='w-56 h-56 relative'>
               <CardContent
-                className="flex aspect-square items-center justify-center"
+                className='flex aspect-square items-center justify-center'
                 onMouseLeave={() => setHoveredIndex(null)}
               >
                 {previewImage ? (
-                  <div className="relative">
+                  <div className='relative'>
                     <Image
                       src={previewImage}
                       width={200}
                       height={200}
-                      alt="Picture of the user"
-                      className="mt-6 rounded-md opacity-60"
+                      alt='Picture of the user'
+                      className='mt-6 rounded-md opacity-60'
                     />
-                    <div className="absolute bottom-0 right-0 m-2">
+                    <div className='absolute bottom-0 right-0 m-2'>
                       <Button onClick={() => onSubmit(previewImage)}>
                         {isPending && (
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          <Loader2 className='mr-2 h-4 w-4 animate-spin' />
                         )}
                         Upload
                       </Button>
                     </div>
                   </div>
                 ) : (
-                  <div className="flex flex-col items-center justify-center">
+                  <div className='flex flex-col items-center justify-center'>
                     <input
-                      type="file"
-                      accept="image/*"
-                      className="bg-slate-50 md:w-[180px]"
+                      type='file'
+                      accept='image/*'
+                      className='bg-slate-50 md:w-[180px]'
                       style={{ display: 'none' }} // Hide the input element
                       onChange={(e) => handleImage(e)}
                       ref={inputRef} // Assign a ref to the input element if needed
                     />
-                    <span className="text-lg font-medium">Add Photos</span>
+                    <span className='text-lg font-medium'>Add Photos</span>
                     <Plus
-                      className="w-8 h-8 hover:cursor-pointer"
+                      className='w-8 h-8 hover:cursor-pointer'
                       onClick={() => inputRef?.current?.click()}
                     />{' '}
                     {/* Trigger click on the hidden input */}

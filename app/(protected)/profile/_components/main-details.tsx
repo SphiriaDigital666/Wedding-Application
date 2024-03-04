@@ -6,6 +6,7 @@ import {
 } from '@/actions/profile/update-profile';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { compressImage } from '@/lib/image-compress';
 import { useUploadThing } from '@/lib/uploadthing';
 import { ProfileSchema } from '@/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -86,24 +87,49 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
     }
   };
 
-  const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  // const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
 
-    const fileReader = new FileReader();
+  //   const fileReader = new FileReader();
+
+  //   if (e.target.files && e.target.files.length > 0) {
+  //     const file = e.target.files[0];
+  //     setFiles(Array.from(e.target.files));
+
+  //     if (!file.type.includes('image')) return;
+
+  //     fileReader.onload = async (event) => {
+  //       const imageDataUrl = event.target?.result?.toString() || '';
+  //       setValue('profile_image', imageDataUrl); // Setting the value here
+  //       setPreviewImage(imageDataUrl);
+  //     };
+
+  //     fileReader.readAsDataURL(file);
+  //   }
+  // };
+
+  const handleImage = async (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
 
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      setFiles(Array.from(e.target.files));
 
-      if (!file.type.includes('image')) return;
+      try {
+        const compressedFile = await compressImage(file);
+        setFiles([compressedFile]);
 
-      fileReader.onload = async (event) => {
-        const imageDataUrl = event.target?.result?.toString() || '';
-        setValue('profile_image', imageDataUrl); // Setting the value here
-        setPreviewImage(imageDataUrl);
-      };
+        const fileReader = new FileReader();
 
-      fileReader.readAsDataURL(file);
+        fileReader.onload = (event) => {
+          const imageDataUrl = event.target?.result?.toString() || '';
+          setValue('profile_image', imageDataUrl);
+          setPreviewImage(imageDataUrl);
+        };
+
+        fileReader.readAsDataURL(compressedFile);
+      } catch (error) {
+        console.error('Error compressing image:', error);
+      }
     }
   };
 

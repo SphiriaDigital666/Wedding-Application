@@ -1,17 +1,7 @@
 'use client';
-import { useRouter } from 'next/navigation';
-import { ChangeEvent, useMemo, useState, useTransition } from 'react';
-import { useForm } from 'react-hook-form';
-import useProfileModal from '@/hooks/useProfileModal';
-import Modal from './modal';
+import { createProfile } from '@/actions/profile/create-profile';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import Heading from '../Heading';
-import { Textarea } from '../ui/textarea';
-import * as z from 'zod';
-import { ProfileSchema } from '@/schemas';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { createProfile } from '@/actions/profile/create-profile';
 import {
   Select,
   SelectContent,
@@ -20,10 +10,19 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { heights, weight } from '@/constants';
+import useProfileModal from '@/hooks/useProfileModal';
+import { compressImage } from '@/lib/image-compress';
 import { useUploadThing } from '@/lib/uploadthing';
 import { isBase64Image } from '@/lib/utils';
-import Dropzone from 'react-dropzone';
-import Image from 'next/image';
+import { ProfileSchema } from '@/schemas';
+import { zodResolver } from '@hookform/resolvers/zod';
+import NextImage from 'next/image';
+import { useRouter } from 'next/navigation';
+import { ChangeEvent, useMemo, useState, useTransition } from 'react';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import Heading from '../Heading';
+import Modal from './modal';
 
 enum STEPS {
   BASIC_DETAILS = 0,
@@ -138,24 +137,28 @@ const ProfileModal = () => {
     }
   };
 
-  const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImage = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-
-    const fileReader = new FileReader();
 
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      setFiles(Array.from(e.target.files));
 
-      if (!file.type.includes('image')) return;
+      try {
+        const compressedFile = await compressImage(file);
+        setFiles([compressedFile]);
 
-      fileReader.onload = async (event) => {
-        const imageDataUrl = event.target?.result?.toString() || '';
-        setValue('profile_image', imageDataUrl); // Setting the value here
-        setPreviewImage(imageDataUrl);
-      };
+        const fileReader = new FileReader();
 
-      fileReader.readAsDataURL(file);
+        fileReader.onload = (event) => {
+          const imageDataUrl = event.target?.result?.toString() || '';
+          setValue('profile_image', imageDataUrl);
+          setPreviewImage(imageDataUrl);
+        };
+
+        fileReader.readAsDataURL(compressedFile);
+      } catch (error) {
+        console.error('Error compressing image:', error);
+      }
     }
   };
 
@@ -174,81 +177,81 @@ const ProfileModal = () => {
   }, [step]);
 
   let bodyContent = (
-    <div className="flex flex-col gap-8">
-      <Heading title="Basic details" subtitle="Provide the basic details" />
-      <div className="flex flex-col gap-3 max-h-[50vh] overflow-y-auto">
-        <div className="flex gap-4">
-          <div className=" w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="name">Name</Label>
-            <Input type="text" id="name" {...register('name')} />
+    <div className='flex flex-col gap-8'>
+      <Heading title='Basic details' subtitle='Provide the basic details' />
+      <div className='flex flex-col gap-3 max-h-[50vh] overflow-y-auto'>
+        <div className='flex gap-4'>
+          <div className=' w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='name'>Name</Label>
+            <Input type='text' id='name' {...register('name')} />
             {errors.name && (
-              <p className="text-destructive mt-1">{errors.name.message}</p>
+              <p className='text-destructive mt-1'>{errors.name.message}</p>
             )}
           </div>
-          <div className=" w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="age">Age</Label>
-            <Input type="string" id="age" {...register('age')} />
+          <div className=' w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='age'>Age</Label>
+            <Input type='string' id='age' {...register('age')} />
             {errors.age && (
-              <p className="text-destructive mt-1">{errors.age.message}</p>
+              <p className='text-destructive mt-1'>{errors.age.message}</p>
             )}
           </div>
-          <div className=" w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="age">DOB</Label>
-            <Input type="date" id="dob" {...register('dob')} />
+          <div className=' w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='age'>DOB</Label>
+            <Input type='date' id='dob' {...register('dob')} />
             {errors.dob && (
-              <p className="text-destructive mt-1">{errors.dob.message}</p>
+              <p className='text-destructive mt-1'>{errors.dob.message}</p>
             )}
           </div>
         </div>
-        <div className="flex gap-4">
-          <div className=" w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="gender">Gender</Label>
+        <div className='flex gap-4'>
+          <div className=' w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='gender'>Gender</Label>
             {/* <Input type="text" id="body_type" {...register('body_type')} /> */}
             <Select onValueChange={(event) => setValue('gender', event)}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select Gender" />
+              <SelectTrigger className='w-full'>
+                <SelectValue placeholder='Select Gender' />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="male">Male</SelectItem>
-                <SelectItem value="female">Female</SelectItem>
+                <SelectItem value='male'>Male</SelectItem>
+                <SelectItem value='female'>Female</SelectItem>
               </SelectContent>
             </Select>
             {errors.gender && (
-              <p className="text-destructive mt-1">{errors.gender.message}</p>
+              <p className='text-destructive mt-1'>{errors.gender.message}</p>
             )}
           </div>
-          <div className=" w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="language">Language</Label>
-            <Input type="text" id="language" {...register('language')} />
+          <div className=' w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='language'>Language</Label>
+            <Input type='text' id='language' {...register('language')} />
             {errors.language && (
-              <p className="text-destructive mt-1">{errors.language.message}</p>
+              <p className='text-destructive mt-1'>{errors.language.message}</p>
             )}
           </div>
-          <div className=" w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="marital_status">Marital Status</Label>
+          <div className=' w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='marital_status'>Marital Status</Label>
             <Select
               onValueChange={(event) => setValue('marital_status', event)}
             >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select" />
+              <SelectTrigger className='w-full'>
+                <SelectValue placeholder='Select' />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="never_married">Never Married</SelectItem>
-                <SelectItem value="widowed">Widowed</SelectItem>
-                <SelectItem value="divorced">Divorced</SelectItem>
-                <SelectItem value="awaiting_divorce">
+                <SelectItem value='never_married'>Never Married</SelectItem>
+                <SelectItem value='widowed'>Widowed</SelectItem>
+                <SelectItem value='divorced'>Divorced</SelectItem>
+                <SelectItem value='awaiting_divorce'>
                   Awaiting Divorce
                 </SelectItem>
               </SelectContent>
             </Select>
             {errors.marital_status && (
-              <p className="text-destructive mt-1">
+              <p className='text-destructive mt-1'>
                 {errors.marital_status.message}
               </p>
             )}
           </div>
         </div>
-        <div className="flex gap-4">
+        <div className='flex gap-4'>
           {/* <div className=" w-full max-w-sm items-center gap-1.5">
             <Label htmlFor="physical_status">Physical Status</Label>
             <Select
@@ -270,12 +273,12 @@ const ProfileModal = () => {
               </p>
             )}
           </div> */}
-          <div className=" w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="height">Height</Label>
+          <div className=' w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='height'>Height</Label>
             {/* <Input type="text" id="height" {...register('height')} /> */}
             <Select onValueChange={(event) => setValue('height', event)}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select height" />
+              <SelectTrigger className='w-full'>
+                <SelectValue placeholder='Select height' />
               </SelectTrigger>
               <SelectContent>
                 {heights.map((option, index) => (
@@ -286,15 +289,15 @@ const ProfileModal = () => {
               </SelectContent>
             </Select>
             {errors.height && (
-              <p className="text-destructive mt-1">{errors.height.message}</p>
+              <p className='text-destructive mt-1'>{errors.height.message}</p>
             )}
           </div>
-          <div className=" w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="weight">Weight</Label>
+          <div className=' w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='weight'>Weight</Label>
             {/* <Input type="text" id="weight" {...register('weight')} /> */}
             <Select onValueChange={(event) => setValue('weight', event)}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select weight" />
+              <SelectTrigger className='w-full'>
+                <SelectValue placeholder='Select weight' />
               </SelectTrigger>
               <SelectContent>
                 {weight.map((option, index) => (
@@ -305,24 +308,24 @@ const ProfileModal = () => {
               </SelectContent>
             </Select>
             {errors.weight && (
-              <p className="text-destructive mt-1">{errors.weight.message}</p>
+              <p className='text-destructive mt-1'>{errors.weight.message}</p>
             )}
           </div>
-          <div className=" w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="body_type">Body Type</Label>
+          <div className=' w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='body_type'>Body Type</Label>
             <Select onValueChange={(event) => setValue('body_type', event)}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select Type" />
+              <SelectTrigger className='w-full'>
+                <SelectValue placeholder='Select Type' />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="slim">Slim</SelectItem>
-                <SelectItem value="athletic">Athletic</SelectItem>
-                <SelectItem value="avarage">Average</SelectItem>
-                <SelectItem value="heavy">Heavy</SelectItem>
+                <SelectItem value='slim'>Slim</SelectItem>
+                <SelectItem value='athletic'>Athletic</SelectItem>
+                <SelectItem value='avarage'>Average</SelectItem>
+                <SelectItem value='heavy'>Heavy</SelectItem>
               </SelectContent>
             </Select>
             {errors.body_type && (
-              <p className="text-destructive mt-1">
+              <p className='text-destructive mt-1'>
                 {errors.body_type.message}
               </p>
             )}
@@ -435,18 +438,18 @@ const ProfileModal = () => {
       //   </div>
       // </div>
 
-      <div className="flex flex-col gap-8">
-        <Heading title="Upload images" subtitle="Upload your profile image" />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
-          <div className="flex flex-col gap-4">
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="Files">Files</Label>
+      <div className='flex flex-col gap-8'>
+        <Heading title='Upload images' subtitle='Upload your profile image' />
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto'>
+          <div className='flex flex-col gap-4'>
+            <div className='grid w-full max-w-sm items-center gap-1.5'>
+              <Label htmlFor='Files'>Files</Label>
               <Input
-                type="file"
-                accept="image/*"
-                placeholder="Upload image"
+                type='file'
+                accept='image/*'
+                placeholder='Upload image'
                 onChange={(e) => handleImage(e)}
-                className="w-full bg-slate-50 md:w-[300px]"
+                className='w-full bg-slate-50 md:w-[300px]'
               />
               {/* <Dropzone onDrop={handleDrop}>
                 {({ getRootProps, getInputProps }) => (
@@ -462,7 +465,7 @@ const ProfileModal = () => {
                 )}
               </Dropzone> */}
               {errors.profile_image && (
-                <p className="text-destructive mt-1">
+                <p className='text-destructive mt-1'>
                   {errors.profile_image.message}
                 </p>
               )}
@@ -475,11 +478,11 @@ const ProfileModal = () => {
                     className="mt-2"
                     width={100}
                   /> */}
-                  <Image
+                  <NextImage
                     src={previewImage}
                     width={500}
                     height={500}
-                    alt="Picture of the user"
+                    alt='Picture of the user'
                   />
                 </div>
               )}
@@ -492,10 +495,10 @@ const ProfileModal = () => {
 
   if (step === STEPS.PREFERENCES) {
     bodyContent = (
-      <div className="flex flex-col justify-center items-center gap-8">
+      <div className='flex flex-col justify-center items-center gap-8'>
         <Heading
-          title="Partner Preferences"
-          subtitle="Add partner preferences"
+          title='Partner Preferences'
+          subtitle='Add partner preferences'
         />
       </div>
     );
@@ -505,7 +508,7 @@ const ProfileModal = () => {
     <Modal
       disabled={isPending}
       isOpen={profileModal.isOpen}
-      title="Create New profile"
+      title='Create New profile'
       actionLabel={actionLabel}
       onSubmit={handleSubmit(onSubmit)}
       secondaryActionLabel={secondaryActionLabel}
