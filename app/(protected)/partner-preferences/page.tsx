@@ -1,4 +1,3 @@
-'use client';
 import React, { FC } from 'react';
 import { UserProfile } from '@prisma/client';
 import SideBar from './_components/sidebar';
@@ -7,11 +6,11 @@ import ReligiousPreferences from './_components/religious';
 import ProfessionalPreferences from './_components/professional';
 import LocationPreferences from './_components/location';
 
-interface AboutAndBasicProps {
+interface PreferencePageProps {
   user: UserProfile | undefined;
 }
 
-const AboutAndBasic: FC<AboutAndBasicProps> = ({ user }) => {
+const PreferencePage: FC<PreferencePageProps> = ({ user }) => {
   return (
     <div className="flex container gap-5">
       <SideBar />
@@ -44,4 +43,4 @@ const AboutAndBasic: FC<AboutAndBasicProps> = ({ user }) => {
   );
 };
 
-export default AboutAndBasic;
+export default PreferencePage;

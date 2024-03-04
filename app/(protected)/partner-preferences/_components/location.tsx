@@ -2,6 +2,29 @@ import React, { FC } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { Pencil } from 'lucide-react';
 import { UserProfile } from '@prisma/client';
+import { Button } from '@/components/ui/button';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { cities, countries, states } from '@/constants';
 
 interface LocationPreferencesProps {
   user: UserProfile | undefined;
@@ -19,7 +42,40 @@ const LocationPreferences: FC<LocationPreferencesProps> = ({ user }) => {
               {user?.country || 'Not defined'}
             </span>
           </div>
-          <Pencil />
+          <Dialog>
+            <DialogTrigger asChild>
+              <Pencil className="hover:cursor-pointer" />
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle className="flex">Country</DialogTitle>
+              </DialogHeader>
+              <div className="flex flex-col">
+                <Accordion type="single" collapsible>
+                  <AccordionItem value="item-1">
+                    <AccordionTrigger>Country : </AccordionTrigger>
+                    <AccordionContent>
+                      <Select>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select country" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {countries.map((option, index) => (
+                            <SelectItem key={index} value={option.value}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+              <DialogFooter>
+                <Button type="submit">Save changes</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
         <Separator />
 
@@ -30,7 +86,40 @@ const LocationPreferences: FC<LocationPreferencesProps> = ({ user }) => {
               {user?.city || 'Not defined'}
             </span>
           </div>
-          <Pencil />
+          <Dialog>
+            <DialogTrigger asChild>
+              <Pencil className="hover:cursor-pointer" />
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle className="flex">City</DialogTitle>
+              </DialogHeader>
+              <div className="flex flex-col">
+                <Accordion type="single" collapsible>
+                  <AccordionItem value="item-1">
+                    <AccordionTrigger>City : </AccordionTrigger>
+                    <AccordionContent>
+                      <Select>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select city" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {cities.map((option, index) => (
+                            <SelectItem key={index} value={option.value}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+              <DialogFooter>
+                <Button type="submit">Save changes</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
         <Separator />
 
@@ -41,7 +130,40 @@ const LocationPreferences: FC<LocationPreferencesProps> = ({ user }) => {
               {user?.state || 'Not defined'}
             </span>
           </div>
-          <Pencil />
+          <Dialog>
+            <DialogTrigger asChild>
+              <Pencil className="hover:cursor-pointer" />
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle className="flex">State</DialogTitle>
+              </DialogHeader>
+              <div className="flex flex-col">
+                <Accordion type="single" collapsible>
+                  <AccordionItem value="item-1">
+                    <AccordionTrigger>State : </AccordionTrigger>
+                    <AccordionContent>
+                      <Select>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select state" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {states.map((option, index) => (
+                            <SelectItem key={index} value={option.value}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+              <DialogFooter>
+                <Button type="submit">Save changes</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
         <Separator />
       </div>
