@@ -78,8 +78,15 @@ export const {
       }
       return session;
     },
-    async jwt({ token }) {
+    async jwt({ token,trigger,session }) {
       if (!token.sub) return token;
+
+      if (trigger === 'update') {
+        return {
+          ...token,
+          ...session.user,
+        };
+      }
 
       const existingUser = await getUserById(token.sub);
 
@@ -92,6 +99,7 @@ export const {
       token.role = existingUser.role;
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
       token.isNewUser = existingUser.isNewUser;
+      token.image = existingUser.image
 
       return token;
     },

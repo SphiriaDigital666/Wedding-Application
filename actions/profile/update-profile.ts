@@ -1,9 +1,10 @@
 'use server';
+import { auth } from '@/auth';
 import { currentUser } from '@/lib/auth';
 import db from '@/lib/db';
 import { ProfileSchema } from '@/schemas';
-import * as z from 'zod';
 import { revalidatePath } from 'next/cache';
+import * as z from 'zod';
 
 export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
   const user = await currentUser();
@@ -86,14 +87,20 @@ export const updateProfilePhoto = async (
     return { error: 'User profile not found!' };
   }
 
-  await db.userProfile.update({
-    where: {
-      id: userProfile.id,
-    },
-    data: {
-      profileImage: profile_image,
-    },
-  });
+  await db.$transaction([
+    db.userProfile.update({
+      where: {
+        id: userProfile.id,
+      },
+      data: {
+        profileImage: profile_image,
+      },
+    }),
+    db.user.update({
+      where: { id: user?.id },
+      data: { image: profile_image },
+    }),
+  ]);
 
   revalidatePath('/profile');
   return { success: 'Profile Photo updated successfully!' };

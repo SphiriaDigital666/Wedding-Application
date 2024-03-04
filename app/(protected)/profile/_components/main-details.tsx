@@ -18,6 +18,7 @@ import * as z from 'zod';
 import { isBase64Image } from '@/lib/utils';
 import { useUploadThing } from '@/lib/uploadthing';
 import { toast } from 'sonner';
+import { useSession } from 'next-auth/react';
 
 interface MainDetailsProps {
   profile: UserProfile;
@@ -25,6 +26,7 @@ interface MainDetailsProps {
 
 const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
   const router = useRouter();
+  const { data: session, update } = useSession();
 
   const [isHovered, setIsHovered] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
@@ -62,6 +64,11 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
               if (data?.success) {
                 setSuccess(data.success);
                 toast(data.success);
+                // Update session user information with the new profile image
+                update({
+                  ...session,
+                  user: { ...session?.user, image: values },
+                });
                 router.refresh();
 
                 setPreviewImage('');
@@ -97,10 +104,11 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
     }
   };
 
-  const handleDeletePhoto = async () => {
-    startTransition(() => {
+  const handleDeletePhoto =  () => {
+    startTransition(async() => {
       try {
         removeProfilePhoto();
+        fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/images`);
         router.refresh();
       } catch (error) {
         console.error('Error deleting profile image:', error);
