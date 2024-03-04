@@ -28,7 +28,7 @@ const AboutAndBasic: FC<AboutAndBasicProps> = ({ user }) => {
           </div>
 
           <div className="flex container">
-            <div>
+            <div className="w-full">
               <BasicPreferences user={user} />
 
               <ReligiousPreferences user={user} />
