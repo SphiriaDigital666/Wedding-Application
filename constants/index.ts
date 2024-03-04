@@ -130,3 +130,198 @@ export const weight = [
   { label: '139 kg', value: '139kg' },
   { label: '140 kg', value: '140kg' },
 ];
+
+export const age = [
+  { label: '18', value: '18' },
+  { label: '19', value: '19' },
+  { label: '20', value: '20' },
+  { label: '21', value: '21' },
+  { label: '22', value: '22' },
+  { label: '23', value: '23' },
+  { label: '24', value: '24' },
+  { label: '25', value: '25' },
+  { label: '26', value: '26' },
+  { label: '27', value: '27' },
+  { label: '28', value: '28' },
+  { label: '29', value: '29' },
+  { label: '30', value: '30' },
+  { label: '31', value: '31' },
+  { label: '32', value: '32' },
+  { label: '33', value: '33' },
+  { label: '34', value: '34' },
+  { label: '35', value: '35' },
+  { label: '36', value: '36' },
+  { label: '37', value: '37' },
+  { label: '38', value: '38' },
+  { label: '39', value: '39' },
+  { label: '40', value: '40' },
+];
+
+export const bodyTypes = [
+  { label: 'Slim', value: 'slim' },
+  { label: 'Athletic', value: 'athletic' },
+  { label: 'Average', value: 'average' },
+  { label: 'Heavy', value: 'heavy' },
+];
+
+export const physicalStatus = [
+  { label: 'Normal', value: 'normal' },
+  { label: 'Physically challenged', value: 'physically_challenged' },
+];
+
+export const maritalStatus = [
+  { label: 'Never married', value: 'normal' },
+  { label: 'Widowed', value: 'widowed' },
+  { label: 'Divorced', value: 'divorced' },
+  { label: 'Awaiting divorce', value: 'awaiting_divorce' },
+];
+
+export const eatingHabits = [
+  { label: 'Vegetarian', value: 'vegetarian' },
+  { label: 'Non vegetarian', value: 'non_vegetarian' },
+];
+
+export const drinkingHabits = [
+  { label: 'Never', value: 'never' },
+  { label: 'Ocassionally', value: 'ocassionally' },
+  { label: 'Regulary', value: 'regulary' },
+];
+
+export const smokingHabits = [
+  { label: 'Never', value: 'never' },
+  { label: 'Ocassionally', value: 'ocassionally' },
+  { label: 'Regulary', value: 'regulary' },
+];
+
+export const religions = [
+  { label: 'Hinduism', value: 'hinduism' },
+  { label: 'Islam', value: 'islam' },
+  { label: 'Christianity', value: 'christianity' },
+  { label: 'Sikhism', value: 'sikhism' },
+  { label: 'Buddhism', value: 'buddhism' },
+  { label: 'Jainism', value: 'jainism' },
+  { label: 'Zoroastrianism', value: 'zoroastrianism' },
+  { label: 'Baháí Faith', value: 'bahai_faith' },
+  { label: 'Tribal Religions', value: 'tribal_religions' },
+  { label: 'Judaism', value: 'judaism' },
+];
+
+export const ethnicities = [
+  { label: 'Bengali', value: 'bengali' },
+  { label: 'Punjabi', value: 'punjabi' },
+  { label: 'Gujarati', value: 'gujarati' },
+  { label: 'Marathi', value: 'marathi' },
+  { label: 'Tamil', value: 'tamil' },
+  { label: 'Telugu', value: 'telugu' },
+  { label: 'Kannada', value: 'kannada' },
+  { label: 'Odia', value: 'odia' },
+  { label: 'Assamese', value: 'assamese' },
+  { label: 'Kashmiri', value: 'kashmiri' },
+];
+
+export const caste = [
+  { label: 'Brahmins', value: 'brahmins' },
+  { label: 'Kshatriyas', value: 'kshatriyas' },
+  { label: 'Vaishyas', value: 'vaishyas' },
+  { label: 'Shudras', value: 'shudras' },
+  { label: 'Dalits', value: 'dalits' },
+];
+
+export const educationalQualifications = [
+  { label: 'High School Diploma', value: 'high_school_diploma' },
+  { label: "Bachelor's Degree", value: 'bachelors_degree' },
+  { label: "Master's Degree", value: 'masters_degree' },
+  { label: 'Doctorate (Ph.D.)', value: 'phd' },
+  { label: "Associate's Degree", value: 'associates_degree' },
+  { label: 'Professional Certification', value: 'professional_certification' },
+  { label: 'Vocational Training', value: 'vocational_training' },
+  { label: 'Postgraduate Diploma', value: 'postgraduate_diploma' },
+  { label: 'Certificate Program', value: 'certificate_program' },
+  { label: 'Technical Degree', value: 'technical_degree' },
+];
+
+export const employeeSectors = [
+  { label: 'Information Technology', value: 'information_technology' },
+  { label: 'Healthcare', value: 'healthcare' },
+  { label: 'Finance', value: 'finance' },
+  { label: 'Education', value: 'education' },
+  { label: 'Manufacturing', value: 'manufacturing' },
+];
+
+export const occupations = [
+  { label: 'Teacher', value: 'teacher' },
+  { label: 'Doctor', value: 'doctor' },
+  { label: 'Engineer', value: 'engineer' },
+  { label: 'Accountant', value: 'accountant' },
+  { label: 'Lawyer', value: 'lawyer' },
+  { label: 'Chef', value: 'chef' },
+  { label: 'Artist', value: 'artist' },
+  { label: 'Police Officer', value: 'police_officer' },
+  { label: 'Journalist', value: 'journalist' },
+  { label: 'Salesperson', value: 'salesperson' },
+  { label: 'Electrician', value: 'electrician' },
+  { label: 'Plumber', value: 'plumber' },
+];
+
+export const annualIncomes = [
+  { label: 'Less than $20,000', value: 'less_than_20000' },
+  { label: '$20,000 - $40,000', value: '20000_to_40000' },
+  { label: '$40,000 - $60,000', value: '40000_to_60000' },
+  { label: '$60,000 - $80,000', value: '60000_to_80000' },
+  { label: '$80,000 - $100,000', value: '80000_to_100000' },
+  { label: 'More than $100,000', value: 'more_than_100000' },
+];
+
+export const countries = [
+  { label: 'United States', value: 'united_states' },
+  { label: 'United Kingdom', value: 'united_kingdom' },
+  { label: 'Canada', value: 'canada' },
+  { label: 'Australia', value: 'australia' },
+  { label: 'Germany', value: 'germany' },
+  { label: 'France', value: 'france' },
+  { label: 'Japan', value: 'japan' },
+  { label: 'China', value: 'china' },
+  { label: 'India', value: 'india' },
+  { label: 'Brazil', value: 'brazil' },
+  { label: 'Russia', value: 'russia' },
+  { label: 'South Africa', value: 'south_africa' },
+  { label: 'Mexico', value: 'mexico' },
+  { label: 'Argentina', value: 'argentina' },
+  { label: 'Italy', value: 'italy' },
+];
+
+export const cities = [
+  { label: 'New York', value: 'new_york' },
+  { label: 'London', value: 'london' },
+  { label: 'Toronto', value: 'toronto' },
+  { label: 'Sydney', value: 'sydney' },
+  { label: 'Berlin', value: 'berlin' },
+  { label: 'Paris', value: 'paris' },
+  { label: 'Tokyo', value: 'tokyo' },
+  { label: 'Beijing', value: 'beijing' },
+  { label: 'Mumbai', value: 'mumbai' },
+  { label: 'Rio de Janeiro', value: 'rio_de_janeiro' },
+  { label: 'Moscow', value: 'moscow' },
+  { label: 'Johannesburg', value: 'johannesburg' },
+  { label: 'Mexico City', value: 'mexico_city' },
+  { label: 'Buenos Aires', value: 'buenos_aires' },
+  { label: 'Rome', value: 'rome' },
+];
+
+export const states = [
+  { label: 'New York', value: 'new_york' },
+  { label: 'England', value: 'england' },
+  { label: 'Ontario', value: 'ontario' },
+  { label: 'New South Wales', value: 'new_south_wales' },
+  { label: 'Berlin', value: 'berlin' },
+  { label: 'Île-de-France', value: 'ile_de_france' },
+  { label: 'Tokyo', value: 'tokyo' },
+  { label: 'Beijing', value: 'beijing' },
+  { label: 'Maharashtra', value: 'maharashtra' },
+  { label: 'Rio de Janeiro', value: 'rio_de_janeiro' },
+  { label: 'Moscow', value: 'moscow' },
+  { label: 'Gauteng', value: 'gauteng' },
+  { label: 'Mexico City', value: 'mexico_city' },
+  { label: 'Buenos Aires', value: 'buenos_aires' },
+  { label: 'Lazio', value: 'lazio' },
+];
