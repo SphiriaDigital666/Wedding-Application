@@ -1,14 +1,11 @@
 'use client';
-import React, { FC, useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
+import React, { FC } from 'react';
 import { UserProfile } from '@prisma/client';
-import EditBasic from './_components/edit/edit-basic';
-import EditReligion from '../profile/_components/edit/edit-religion';
-import EditProfessional from './_components/edit/edit-professional';
-import EditLocation from './_components/edit/edit-location';
 import SideBar from './_components/sidebar';
 import BasicPreferences from './_components/basic';
 import ReligiousPreferences from './_components/religious';
+import ProfessionalPreferences from './_components/professional';
+import LocationPreferences from './_components/location';
 
 interface AboutAndBasicProps {
   user: UserProfile | undefined;
@@ -36,68 +33,9 @@ const AboutAndBasic: FC<AboutAndBasicProps> = ({ user }) => {
 
               <ReligiousPreferences user={user} />
 
-              <div className="justify-between p-5">
-                <div className="flex justify-between">
-                  <span className="text-2xl">Professional Preferences</span>
-                  <EditProfessional user={user} />
-                </div>
-                <div className="grid grid-cols-2 justify-between gap-5 mt-4">
-                  <div className="flex gap-x-2 items-center">
-                    <span>Education: </span>
-                    <span className=" text-gray-600">
-                      {user?.name || 'Not defined'}
-                    </span>
-                  </div>
+              <ProfessionalPreferences user={user} />
 
-                  <div className="flex gap-x-2 items-center">
-                    <span>Employed In: </span>
-                    <span className=" text-gray-600">
-                      {user?.name || 'Not defined'}
-                    </span>
-                  </div>
-
-                  <div className="flex gap-x-2 items-center">
-                    <span>Occupation: </span>
-                    <span className=" text-gray-600">
-                      {user?.name || 'Not defined'}
-                    </span>
-                  </div>
-
-                  <div className="flex gap-x-2 items-center">
-                    <span>Annual Income: </span>
-                    <span className=" text-gray-600">
-                      {user?.name || 'Not defined'}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="justify-between p-5">
-                <div className="flex justify-between">
-                  <span className="text-2xl">Location Preferences</span>
-                  <EditLocation user={user} />
-                </div>
-                <div className="grid grid-cols-2 justify-between gap-5 mt-4">
-                  <div className="flex gap-x-2 items-center">
-                    <span>Country: </span>
-                    <span className=" text-gray-600">
-                      {user?.name || 'Not defined'}
-                    </span>
-                  </div>
-                  <div className="flex gap-x-2 items-center">
-                    <span>City: </span>
-                    <span className=" text-gray-600">
-                      {user?.name || 'Not defined'}
-                    </span>
-                  </div>
-                  <div className="flex gap-x-2 items-center">
-                    <span>State: </span>
-                    <span className=" text-gray-600">
-                      {user?.name || 'Not defined'}
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <LocationPreferences user={user} />
             </div>
           </div>
         </div>
