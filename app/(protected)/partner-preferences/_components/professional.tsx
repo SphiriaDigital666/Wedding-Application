@@ -1,7 +1,7 @@
 import { UserProfile } from '@prisma/client';
 import React, { FC } from 'react';
-import EditProfessional from './edit/edit-professional';
-
+import { Separator } from '@/components/ui/separator';
+import { Pencil } from 'lucide-react';
 interface ProfessionalPreferencesProps {
   user: UserProfile | undefined;
 }
@@ -10,31 +10,52 @@ const ProfessionalPreferences: FC<ProfessionalPreferencesProps> = ({
   user,
 }) => {
   return (
-    <div className="justify-between p-5">
-      <div className="flex justify-between">
-        <span className="text-2xl">Professional Preferences</span>
-        <EditProfessional user={user} />
-      </div>
-      <div className="grid grid-cols-2 justify-between gap-5 mt-4">
-        <div className="flex gap-x-2 items-center">
-          <span>Education: </span>
-          <span className=" text-gray-600">{user?.name || 'Not defined'}</span>
+    <div className="p-5">
+      <span className="text-2xl">Professional Preferences</span>
+      <div className="flex flex-col gap-4 mt-5">
+        <div className="flex justify-between items-center">
+          <div className="flex flex-col">
+            <span>Education: </span>
+            <span className=" text-gray-600">
+              {user?.education || 'Not defined'}
+            </span>
+          </div>
+          <Pencil />
         </div>
+        <Separator />
 
-        <div className="flex gap-x-2 items-center">
-          <span>Employed In: </span>
-          <span className=" text-gray-600">{user?.name || 'Not defined'}</span>
+        <div className="flex justify-between items-center">
+          <div className="flex flex-col">
+            <span>Employed In: </span>
+            <span className=" text-gray-600">
+              {user?.employedSector || 'Not defined'}
+            </span>
+          </div>
+          <Pencil />
         </div>
+        <Separator />
 
-        <div className="flex gap-x-2 items-center">
-          <span>Occupation: </span>
-          <span className=" text-gray-600">{user?.name || 'Not defined'}</span>
+        <div className="flex justify-between items-center">
+          <div className="flex flex-col">
+            <span>Occupation: </span>
+            <span className=" text-gray-600">
+              {user?.jobTitle || 'Not defined'}
+            </span>
+          </div>
+          <Pencil />
         </div>
+        <Separator />
 
-        <div className="flex gap-x-2 items-center">
-          <span>Annual Income: </span>
-          <span className=" text-gray-600">{user?.name || 'Not defined'}</span>
+        <div className="flex justify-between items-center">
+          <div className="flex flex-col">
+            <span>Annual Income: </span>
+            <span className=" text-gray-600">
+              {user?.annualIncome || 'Not defined'}
+            </span>
+          </div>
+          <Pencil />
         </div>
+        <Separator />
       </div>
     </div>
   );
