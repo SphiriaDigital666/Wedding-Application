@@ -2,7 +2,7 @@ import React from 'react';
 
 const SideBar = () => {
   return (
-    <div className="p-5 border rounded-md mt-10 h-[50vh]">
+    <div className="p-5 w-1/4 border rounded-md mt-10 h-[50vh]">
       <span className="text-xl font-medium">Partner Preferences</span>
       <div className="flex flex-col gap-3 mt-5">
         <a href="">Basic</a>

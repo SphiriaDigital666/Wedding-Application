@@ -8,6 +8,7 @@ import EditProfessional from './_components/edit/edit-professional';
 import EditLocation from './_components/edit/edit-location';
 import SideBar from './_components/sidebar';
 import BasicPreferences from './_components/basic';
+import ReligiousPreferences from './_components/religious';
 
 interface AboutAndBasicProps {
   user: UserProfile | undefined;
@@ -17,7 +18,7 @@ const AboutAndBasic: FC<AboutAndBasicProps> = ({ user }) => {
   return (
     <div className="flex container gap-5">
       <SideBar />
-      <div className="flex p-5 mt-10 shadow-md rounded-md">
+      <div className="flex container p-5 mt-10 shadow-md rounded-md">
         <div>
           <div className="p-5">
             <div className="flex justify-between">
@@ -33,34 +34,7 @@ const AboutAndBasic: FC<AboutAndBasicProps> = ({ user }) => {
             <div>
               <BasicPreferences user={user} />
 
-              <div className="justify-between p-5">
-                <div className="flex justify-between">
-                  <span className="text-2xl">Religion Preferences</span>
-                  <EditReligion user={user} />
-                </div>
-                <div className="grid grid-cols-2 justify-between gap-5 mt-4">
-                  <div className="flex gap-x-2 items-center">
-                    <span>Religion: </span>
-                    <span className=" text-gray-600">
-                      {user?.name || 'Not defined'}
-                    </span>
-                  </div>
-
-                  <div className="flex gap-x-2 items-center">
-                    <span>Ethnicity: </span>
-                    <span className=" text-gray-600">
-                      {user?.name || 'Not defined'}
-                    </span>
-                  </div>
-
-                  <div className="flex gap-x-2 items-center">
-                    <span>Caste: </span>
-                    <span className=" text-gray-600">
-                      {user?.name || 'Not defined'}
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <ReligiousPreferences user={user} />
 
               <div className="justify-between p-5">
                 <div className="flex justify-between">
