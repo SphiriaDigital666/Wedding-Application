@@ -2,6 +2,7 @@ import { signOut } from '@/auth';
 import { currentUser } from '@/lib/auth';
 import { NewProfileForm } from './_components/new-profile-form';
 import db from '@/lib/db';
+import { redirect } from 'next/navigation';
 
 export const revalidate = 0;
 
@@ -9,13 +10,13 @@ const DashboardPage = async () => {
   const sessionUser = await currentUser();
 
   const dbUser = await db.user.findUnique({
-    where:{
-      id: sessionUser?.id
-    }
-  })
+    where: {
+      id: sessionUser?.id,
+    },
+  });
 
   if (dbUser?.isNewUser) {
-    return <NewProfileForm user={dbUser} />;
+    return redirect('/onboarding');
   }
   return (
     <div>

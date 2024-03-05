@@ -21,14 +21,22 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
     age,
     gender,
     dob,
-    body_type,
     height,
     language,
     marital_status,
     name,
-    weight,
     profile_image,
-  } = validatedFields.data;
+    religion,
+    familyStatus,
+    familyType,
+    familyValues,
+    education,
+    employedSector,
+    jobTitle,
+    annualIncome,
+  } = values;
+
+  console.log(values);
 
   const userProfile = await db.userProfile.findFirst({
     where: {
@@ -46,14 +54,19 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
         age: parseFloat(age!),
         gender,
         dob,
-        bodyType: body_type,
         height: parseFloat(height!),
         language: language?.toLowerCase(),
         martialStatus: marital_status,
         name,
-        weight: parseFloat(weight!),
+        religion,
         profileImage: profile_image,
-
+        familyStatus,
+        familyType,
+        familyValues,
+        education,
+        employedSector,
+        jobTitle,
+        annualIncome: parseFloat(annualIncome!),
         userId: user?.id,
       },
     }),
@@ -62,7 +75,6 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
       data: { isNewUser: false },
     }),
   ]);
-
 
   return { success: 'Profile created successfully!' };
 };

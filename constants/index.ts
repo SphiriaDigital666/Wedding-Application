@@ -325,3 +325,22 @@ export const states = [
   { label: 'Buenos Aires', value: 'buenos_aires' },
   { label: 'Lazio', value: 'lazio' },
 ];
+
+export const familyStatus = [
+  { label: 'Middle Class', value: 'middle_class' },
+  { label: 'Upper Middle Class', value: 'upper_middle_class' },
+  { label: 'High Class', value: 'high_class' },
+  { label: 'Rich/Affluent', value: 'rich/affluent' },
+];
+
+export const familyTypes = [
+  { label: 'Joint', value: 'joint' },
+  { label: 'Nuclear', value: 'nuclear' },
+];
+
+export const familyValues = [
+  { label: 'Orthodox', value: 'orthodox' },
+  { label: 'Traditional', value: 'traditional' },
+  { label: 'Moderate', value: 'moderate' },
+  { label: 'Liberal', value: 'liberal' },
+];

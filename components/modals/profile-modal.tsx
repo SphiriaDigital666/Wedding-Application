@@ -23,6 +23,7 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import Heading from '../Heading';
 import Modal from './modal';
+import Image from 'next/image';
 
 enum STEPS {
   BASIC_DETAILS = 0,
@@ -52,7 +53,6 @@ const ProfileModal = () => {
   } = useForm<z.infer<typeof ProfileSchema>>({
     resolver: zodResolver(ProfileSchema),
     defaultValues: {
-      // bio: '',
       name: '',
       age: '18',
       gender: '',
@@ -61,11 +61,7 @@ const ProfileModal = () => {
       height: '5',
       weight: '5',
       body_type: '',
-      // physical_status: '',
       marital_status: '',
-      // eating_habits: '',
-      // drinking_habits: '',
-      // smoking_habits: '',
       profile_image: '',
     },
   });
@@ -251,31 +247,9 @@ const ProfileModal = () => {
             )}
           </div>
         </div>
-        <div className='flex gap-4'>
-          {/* <div className=" w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="physical_status">Physical Status</Label>
-            <Select
-              onValueChange={(event) => setValue('physical_status', event)}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Physical Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="normal">Normal</SelectItem>
-                <SelectItem value="physically_challenged">
-                  Physically Challenged
-                </SelectItem>
-              </SelectContent>
-            </Select>
-            {errors.physical_status && (
-              <p className="text-destructive mt-1">
-                {errors.physical_status.message}
-              </p>
-            )}
-          </div> */}
-          <div className=' w-full max-w-sm items-center gap-1.5'>
-            <Label htmlFor='height'>Height</Label>
-            {/* <Input type="text" id="height" {...register('height')} /> */}
+        <div className="flex gap-4">
+          <div className=" w-full max-w-sm items-center gap-1.5">
+            <Label htmlFor="height">Height</Label>
             <Select onValueChange={(event) => setValue('height', event)}>
               <SelectTrigger className='w-full'>
                 <SelectValue placeholder='Select height' />
@@ -292,9 +266,8 @@ const ProfileModal = () => {
               <p className='text-destructive mt-1'>{errors.height.message}</p>
             )}
           </div>
-          <div className=' w-full max-w-sm items-center gap-1.5'>
-            <Label htmlFor='weight'>Weight</Label>
-            {/* <Input type="text" id="weight" {...register('weight')} /> */}
+          <div className=" w-full max-w-sm items-center gap-1.5">
+            <Label htmlFor="weight">Weight</Label>
             <Select onValueChange={(event) => setValue('weight', event)}>
               <SelectTrigger className='w-full'>
                 <SelectValue placeholder='Select weight' />
@@ -330,120 +303,19 @@ const ProfileModal = () => {
               </p>
             )}
           </div>
-
-          {/* <div className=" w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="eating_habits">Eating Habits</Label>
-            <Select onValueChange={(event) => setValue('eating_habits', event)}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="vegetarian">Vegetarian</SelectItem>
-                <SelectItem value="non_vegetarian">Non Vegetarian</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className=" w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="drinking_habits">Drinking Habits</Label>
-            <Select
-              onValueChange={(event) => setValue('drinking_habits', event)}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="no">No</SelectItem>
-                <SelectItem value="yes">Yes</SelectItem>
-                <SelectItem value="occasionally">Occasionally</SelectItem>
-              </SelectContent>
-            </Select>
-          </div> */}
-          {/* <div className=" w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="smoking_habits">Smoking Habits</Label>
-            <Select
-              onValueChange={(event) => setValue('smoking_habits', event)}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="no">No</SelectItem>
-                <SelectItem value="yes">Yes</SelectItem>
-                <SelectItem value="occasionally">Occasionally</SelectItem>
-              </SelectContent>
-            </Select>
-          </div> */}
         </div>
       </div>
     </div>
   );
 
-  // if (step === STEPS.ABOUT_YOU) {
-  //   bodyContent = (
-  //     <div className="flex flex-col gap-8">
-  //       <Heading
-  //         title="About you"
-  //         subtitle="Provide a brief description about your self"
-  //       />
-  //       <div>
-  //         <Label htmlFor="about_you">About You</Label>
-  //         <Textarea
-  //           placeholder="Type your message here."
-  //           required
-  //           // {...register('bio')}
-  //         />
-  //         {/* {errors.bio && (
-  //           <p className="text-destructive mt-1">{errors.bio.message}</p>
-  //         )} */}
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
   if (step === STEPS.IMAGES) {
     bodyContent = (
-      // <div className="flex flex-col gap-8">
-      //   <Heading title="Upload images" subtitle="Upload your profile image" />
-      //   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
-      //     <div className="flex flex-col gap-4">
-      //       <div className="grid w-full max-w-sm items-center gap-1.5">
-      //         <Label htmlFor="Files">Files</Label>
-      //         <Input
-      //           type="file"
-      //           accept="image/*"
-      //           placeholder="Upload image"
-      //           onChange={(e) => handleImage(e)}
-      //           className="w-full bg-slate-50 md:w-[300px]"
-      //         />
-      //         <Dropzone onDrop={(handleDrop) => console.log(handleDrop)}>
-      //           {({ getRootProps, getInputProps }) => (
-      //             <section>
-      //               <div {...getRootProps()}>
-      //                 <input {...getInputProps()} />
-      //                 <p>
-      //                   Drag &apos;n&apos; drop some files here, or click to
-      //                   select files
-      //                 </p>
-      //               </div>
-      //             </section>
-      //           )}
-      //         </Dropzone>
-      //         {errors.profile_image && (
-      //           <p className="text-destructive mt-1">
-      //             {errors.profile_image.message}
-      //           </p>
-      //         )}
-      //       </div>
-      //     </div>
-      //   </div>
-      // </div>
-
-      <div className='flex flex-col gap-8'>
-        <Heading title='Upload images' subtitle='Upload your profile image' />
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto'>
-          <div className='flex flex-col gap-4'>
-            <div className='grid w-full max-w-sm items-center gap-1.5'>
-              <Label htmlFor='Files'>Files</Label>
+      <div className="flex flex-col gap-8">
+        <Heading title="Upload images" subtitle="Upload your profile image" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
+          <div className="flex flex-col gap-4">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="Files">Files</Label>
               <Input
                 type='file'
                 accept='image/*'
@@ -451,34 +323,15 @@ const ProfileModal = () => {
                 onChange={(e) => handleImage(e)}
                 className='w-full bg-slate-50 md:w-[300px]'
               />
-              {/* <Dropzone onDrop={handleDrop}>
-                {({ getRootProps, getInputProps }) => (
-                  <section>
-                    <div {...getRootProps()}>
-                      <input {...getInputProps()} />
-                      <p>
-                        Drag &apos;n&apos; drop some files here, or click to
-                        select files
-                      </p>
-                    </div>
-                  </section>
-                )}
-              </Dropzone> */}
               {errors.profile_image && (
                 <p className='text-destructive mt-1'>
                   {errors.profile_image.message}
                 </p>
               )}
-              {previewImage && ( // Render preview if there's an image
+              {previewImage && (
                 <div>
                   <p>Preview:</p>
-                  {/* <Image
-                    src={previewImage}
-                    alt="Preview"
-                    className="mt-2"
-                    width={100}
-                  /> */}
-                  <NextImage
+                  <Image
                     src={previewImage}
                     width={500}
                     height={500}
