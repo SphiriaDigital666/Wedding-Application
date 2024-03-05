@@ -31,10 +31,6 @@ interface EditablePreferenceProps {
   label: string;
   value: string | undefined
   options: { value: string; label: string }[];
-  onSubmit: (
-    event: React.FormEvent<HTMLFormElement>,
-    value: string | undefined
-  ) => void;
   formData: any;
   onValueChange: any;
 }

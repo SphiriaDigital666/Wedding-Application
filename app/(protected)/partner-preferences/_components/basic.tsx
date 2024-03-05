@@ -333,7 +333,6 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ user, preference }) => {
             setFormData({ ...formData, bodyType: event })
           }
           options={bodyTypes}
-          onSubmit={onSubmit}
           formData={formData}
         />
 
@@ -344,7 +343,6 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ user, preference }) => {
             setFormData({ ...formData, physicalStatus: event })
           }
           options={physicalStatus}
-          onSubmit={onSubmit}
           formData={formData}
         />
 
@@ -355,7 +353,6 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ user, preference }) => {
             setFormData({ ...formData, maritalStatus: event })
           }
           options={maritalStatus}
-          onSubmit={onSubmit}
           formData={formData}
         />
 
@@ -366,7 +363,6 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ user, preference }) => {
             setFormData({ ...formData, eatingHabits: event })
           }
           options={eatingHabits}
-          onSubmit={onSubmit}
           formData={formData}
         />
 
@@ -377,7 +373,6 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ user, preference }) => {
             setFormData({ ...formData, drinkingHabits: event })
           }
           options={drinkingHabits}
-          onSubmit={onSubmit}
           formData={formData}
         />
 
@@ -388,7 +383,6 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ user, preference }) => {
             setFormData({ ...formData, smokingHabits: event })
           }
           options={smokingHabits}
-          onSubmit={onSubmit}
           formData={formData}
         />
       </div>
