@@ -22,23 +22,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
 import { Loader2, Pencil } from 'lucide-react';
 import { FC, useState, useTransition } from 'react';
 import { toast } from 'sonner';
-import { Separator } from '@/components/ui/separator';
-
 
 interface EditablePreferenceProps {
   label: string;
-  value: string | undefined | string[];
+  value: string | undefined
   options: { value: string; label: string }[];
   onSubmit: (
     event: React.FormEvent<HTMLFormElement>,
     value: string | undefined
   ) => void;
   formData: any;
-  onValueChange:any;
-  multi?: boolean
+  onValueChange: any;
 }
 
 export const EditablePreference: FC<EditablePreferenceProps> = ({
@@ -47,7 +45,6 @@ export const EditablePreference: FC<EditablePreferenceProps> = ({
   options,
   formData,
   onValueChange,
-  multi
 }) => {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
@@ -98,41 +95,26 @@ export const EditablePreference: FC<EditablePreferenceProps> = ({
                   <AccordionItem value='item-1'>
                     <AccordionTrigger>{`${label} : `}</AccordionTrigger>
                     <AccordionContent>
-                      {multi ? (
-                        <select
-                          value={formData.languages}
-                          onChange={onValueChange}
-                          multiple
-                          className='w-full'
-                        >
+                      <Select value={value} onValueChange={onValueChange}>
+                        <SelectTrigger className='w-full'>
+                          <SelectValue
+                            placeholder={`Select ${label.toLowerCase()}`}
+                          />
+                        </SelectTrigger>
+                        <SelectContent>
                           {options.map((option, index) => (
-                            <option key={index} value={option.value}>
+                            <SelectItem key={index} value={option.value}>
                               {option.label}
-                            </option>
+                            </SelectItem>
                           ))}
-                        </select>
-                      ) : (
-                        <Select value={value} onValueChange={onValueChange}>
-                          <SelectTrigger className='w-full'>
-                            <SelectValue
-                              placeholder={`Select ${label.toLowerCase()}`}
-                            />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {options.map((option, index) => (
-                              <SelectItem key={index} value={option.value}>
-                                {option.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      )}
+                        </SelectContent>
+                      </Select>
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
               </div>
               <DialogFooter>
-                <Button type='submit'>
+                <Button type='submit' className='mt-3'>
                   {loading && <Loader2 className='mr-2' />}
                   Save changes
                 </Button>

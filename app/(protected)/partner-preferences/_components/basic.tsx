@@ -176,7 +176,7 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ user, preference }) => {
                   </Accordion>
                 </div>
                 <DialogFooter>
-                  <Button type='submit'>
+                  <Button type='submit' className='mt-3'>
                     {loading && <Loader2 className='mr-2' />}
                     Save changes
                   </Button>
@@ -235,7 +235,7 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ user, preference }) => {
                   </Accordion>
                 </div>
                 <DialogFooter>
-                  <Button type='submit'>
+                  <Button type='submit' className='mt-3'>
                     {loading && <Loader2 className='mr-2' />}
                     Save changes
                   </Button>
@@ -245,8 +245,6 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ user, preference }) => {
           </Dialog>
         </div>
         <Separator />
-
-        
 
         <div className='flex justify-between items-center'>
           <div className='flex flex-col'>
@@ -317,7 +315,7 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ user, preference }) => {
                   </Accordion>
                 </div>
                 <DialogFooter>
-                  <Button type='submit'>
+                  <Button type='submit' className='mt-3'>
                     {loading && <Loader2 className='mr-2' />}
                     Save changes
                   </Button>
