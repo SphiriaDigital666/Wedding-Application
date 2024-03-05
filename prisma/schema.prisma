@@ -189,3 +189,33 @@ model Friend {
 
   @@map("friends")
 }
+
+model Preference {
+  id             String   @id @default(cuid()) @map("_id")
+  userId         String   @map("_userId")
+  agestart       String?
+  ageTo          String?
+  languages      String[]
+  heightFrom     String?
+  heightTo       String?
+  bodyType       String?
+  physicalStatus String?
+  maritalStatus  String?
+  eatingHabits   String?
+  drinkingHabits String?
+  smokingHabits  String?
+  religion       String?
+  ethnicity      String?
+  caste          String?
+  education      String?
+  employedIn     String?
+  occupation     String?
+  jobTitle       String?
+  annualIncome   String?
+  country        String?
+  city           String?
+  state          String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

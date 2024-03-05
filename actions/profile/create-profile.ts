@@ -74,6 +74,11 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
       where: { id: user.id },
       data: { isNewUser: false },
     }),
+    db.preference.create({
+      data:{
+        userId: user.id!
+      }
+    })
   ]);
 
   return { success: 'Profile created successfully!' };

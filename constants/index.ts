@@ -170,10 +170,10 @@ export const physicalStatus = [
 ];
 
 export const maritalStatus = [
-  { label: 'Never married', value: 'normal' },
-  { label: 'Widowed', value: 'widowed' },
-  { label: 'Divorced', value: 'divorced' },
-  { label: 'Awaiting divorce', value: 'awaiting_divorce' },
+  { label: 'Never married', value: 'Never married' },
+  { label: 'Widowed', value: 'Widowed' },
+  { label: 'Divorced', value: 'Divorced' },
+  { label: 'Awaiting divorce', value: 'Awaiting divorce' },
 ];
 
 export const eatingHabits = [
@@ -343,4 +343,22 @@ export const familyValues = [
   { label: 'Traditional', value: 'traditional' },
   { label: 'Moderate', value: 'moderate' },
   { label: 'Liberal', value: 'liberal' },
+];
+
+export const languages = [
+  { label: 'English', value: 'english' },
+  { label: 'Spanish', value: 'spanish' },
+  { label: 'French', value: 'french' },
+  { label: 'German', value: 'german' },
+  { label: 'Chinese', value: 'chinese' },
+  { label: 'Japanese', value: 'japanese' },
+  { label: 'Hindi', value: 'hindi' },
+  { label: 'Portuguese', value: 'portuguese' },
+  { label: 'Russian', value: 'russian' },
+  { label: 'Italian', value: 'italian' },
+  { label: 'Arabic', value: 'arabic' },
+  { label: 'Dutch', value: 'dutch' },
+  { label: 'Korean', value: 'korean' },
+  { label: 'Turkish', value: 'turkish' },
+  { label: 'Swedish', value: 'swedish' },
 ];

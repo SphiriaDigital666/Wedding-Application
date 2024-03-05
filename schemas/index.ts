@@ -98,3 +98,27 @@ export const MessageSchema = z.object({
   text: z.string(),
   timestamp: z.number(),
 });
+
+export const PreferenceSchema = z.object({
+  agestart: z.string().optional(),
+  ageTo: z.string().optional(),
+  languages: z.array(z.string()),
+  heightFrom: z.string().optional(),
+  heightTo: z.string().optional(),
+  bodyType: z.string().optional(),
+  physicalStatus: z.string().optional(),
+  maritalStatus: z.string().optional(),
+  eatingHabits: z.string().optional(),
+  drinkingHabits: z.string().optional(),
+  smokingHabits: z.string().optional(),
+  religion: z.string().optional(),
+  ethnicity: z.string().optional(),
+  caste: z.string().optional(),
+  education: z.string().optional(),
+  employedIn: z.string().optional(),
+  occupation: z.string().optional(),
+  annualIncome: z.string().optional(),
+  country: z.string().optional(),
+  city: z.string().optional(),
+  state: z.string().optional(),
+});
