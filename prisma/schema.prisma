@@ -31,6 +31,7 @@ model User {
 
   friends       Friend[]        @relation(name: "friends")
   friendRequest FriendRequest[]
+  preference    Preference[]
 }
 
 model Account {
@@ -215,6 +216,8 @@ model Preference {
   country        String?
   city           String?
   state          String?
+
+  user User @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
