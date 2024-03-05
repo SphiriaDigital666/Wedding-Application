@@ -56,9 +56,9 @@ const Navbar = () => {
               </Button>
               <Button
                 asChild
-                variant={pathname === '/mailbox' ? 'default' : 'outline'}
+                variant={pathname === '/search' ? 'default' : 'outline'}
               >
-                <Link href='/mailbox'>Mailbox</Link>
+                <Link href='/search'>Search</Link>
               </Button>
               <Button
                 asChild
