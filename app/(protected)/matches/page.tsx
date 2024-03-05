@@ -2,6 +2,7 @@ import Image from "next/image";
 import AllMatches from "@/public/allMatches/all-matches-img.png";
 import ProfileCover from "@/public/allMatches/profile-cover.png";
 import ProfilePic from "@/public/allMatches/profile-pic.png";
+import ProfilePic02 from "@/public/allMatches/profile-pic02.png";
 
 import Advertisement01 from "@/public/allMatches/ads/ad1.png";
 import Advertisement02 from "@/public/allMatches/ads/ad2.png";
@@ -12,11 +13,11 @@ import Advertisement02_01 from "@/public/allMatches/ads/02ad1.png";
 import Advertisement02_02 from "@/public/allMatches/ads/02ad2.png";
 
 import SelectComponent from "./_component/selectComponent";
+import { MdBrightness1, MdOutlineDone, MdOutlineClose } from "react-icons/md";
 
 export default function page() {
   return (
     <div>
-      {" "}
       <div className="">
         <section>
           <div className="relative flex items-center justify-center">
@@ -66,8 +67,8 @@ export default function page() {
           </div>
 
           <div className="col-span-6 ">
-            <section>
-              {/* profile 01 starts here */}
+            {/* <section>
+             
               <div className="mb-16">
                 <div className="flex items-center justify-center ">
                   <Image
@@ -130,7 +131,59 @@ export default function page() {
                   </div>
                 </div>
               </div>
-              {/* profile 01 ends here */}
+              
+            </section> */}
+
+            <section>
+              <div className="flex items-center gap-6 border border-[#5bace3] rounded-md p-4">
+                <Image
+                  src={ProfilePic02}
+                  alt="Main Image"
+                  width={200}
+                  height={200}
+                  className="rounded-lg"
+                />
+                <div>
+                  <p className="font-bold text-[16px] text-[#000]">
+                    Granthali Ramteke
+                  </p>
+                  <div className="flex gap-2 text-[14px] text-[#b1afaf]">
+                    <p>M9658480</p>
+                    <p>|</p>
+                    <p>Last seen an hour ago</p>
+                  </div>
+                  <div className="flex gap-4 items-center text-[14px] text-[#141414]">
+                    <p>30 yrs</p>
+                    <MdBrightness1 className="text-[#b1afaf] text-[6px]" />
+                    <p>5' 9"</p>
+                    <MdBrightness1 className="text-[#b1afaf] text-[6px]" />
+                    <p>Chettiar</p>
+                    <MdBrightness1 className="text-[#b1afaf] text-[6px]" />
+                    <p>Software Engineering</p>
+                    <MdBrightness1 className="text-[#b1afaf] text-[6px]" />
+                  </div>
+                  <div className="flex gap-2 items-center mb-8">
+                    <p>Fashion Designer</p>
+                    <MdBrightness1 className="text-[#b1afaf] text-[6px]" />
+                    <p>Ts. 9 Lakhs</p>
+                    <MdBrightness1 className="text-[#b1afaf] text-[6px]" />
+                    <p>Chennai</p>
+                  </div>
+                  <p>Interested in him?</p>
+                  <p>Connect Now</p>
+                  <div className="flex items-center gap-3 mt-1">
+                    <div className="flex items-center justify-center gap-1 border border-[#b1afaf] text-[#b1afaf] text-[14px] w-max rounded-full py-[3px] px-3">
+                      <MdOutlineClose />
+                      <p>Don't Show</p>
+                    </div>
+
+                    <div className="flex items-center gap-1 border bg-[#5bace3] border-[#5bace3] text-[#fff] text-[14px] w-max rounded-full py-[3px] px-3">
+                      <MdOutlineDone />
+                      <p>Send Interest</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </section>
           </div>
 
