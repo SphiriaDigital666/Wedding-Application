@@ -77,13 +77,14 @@ export const LoginForm = () => {
                 control={form.control}
                 name='code'
                 render={({ field }) => (
+    
+  
                   <FormItem>
                     <FormLabel>Two Factor Code</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder='123456'
-                        disabled={isPending}
+                        placeholder='123456'                        disabled={isPending}
                       />
                     </FormControl>
                     <FormMessage />
