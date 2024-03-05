@@ -36,18 +36,15 @@ import {
 } from '@/constants';
 import { Preference } from '@prisma/client';
 import { Loader2, Pencil } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { FC, useState, useTransition } from 'react';
 import { toast } from 'sonner';
 import { EditablePreference } from './editable-preference';
 
 interface BasicPreferencesProps {
-  preference: Preference;
+  preference: Preference | null;
 }
 
-const BasicPreferences: FC<BasicPreferencesProps> = ({  preference }) => {
-  const router = useRouter();
-
+const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -64,16 +61,6 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({  preference }) => {
     eatingHabits: preference?.eatingHabits || undefined,
     drinkingHabits: preference?.drinkingHabits || undefined,
     smokingHabits: preference?.smokingHabits || undefined,
-    religion: preference?.religion || undefined,
-    ethnicity: preference?.ethnicity || undefined,
-    caste: preference?.caste || undefined,
-    education: preference?.education || undefined,
-    employedIn: preference?.employedIn || undefined,
-    occupation: preference?.occupation || undefined,
-    annualIncome: preference?.annualIncome || undefined,
-    country: preference?.country || undefined,
-    city: preference?.city || undefined,
-    state: preference?.state || undefined,
   });
 
   // Function to handle form submission

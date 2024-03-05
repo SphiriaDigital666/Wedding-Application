@@ -10,35 +10,18 @@ import { FC, useState } from 'react';
 import { EditablePreference } from './editable-preference';
 
 interface ProfessionalPreferencesProps {
-  preference: Preference;
+  preference: Preference | null;
 }
 
 const ProfessionalPreferences: FC<ProfessionalPreferencesProps> = ({
   preference,
 }) => {
   const [formData, setFormData] = useState({
-    agestart: preference?.agestart || undefined,
-    ageTo: preference?.ageTo || undefined,
-    languages: preference?.languages || [],
-    heightFrom: preference?.heightFrom || undefined,
-    heightTo: preference?.heightTo || undefined,
-    bodyType: preference?.bodyType || undefined,
-    physicalStatus: preference?.physicalStatus || undefined,
-    maritalStatus: preference?.maritalStatus || undefined,
-    eatingHabits: preference?.eatingHabits || undefined,
-    drinkingHabits: preference?.drinkingHabits || undefined,
-    smokingHabits: preference?.smokingHabits || undefined,
-    religion: preference?.religion || undefined,
-    ethnicity: preference?.ethnicity || undefined,
-    caste: preference?.caste || undefined,
     education: preference?.education || undefined,
     employedIn: preference?.employedIn || undefined,
     occupation: preference?.occupation || undefined,
     jobTitle: preference?.jobTitle || undefined,
     annualIncome: preference?.annualIncome || undefined,
-    country: preference?.country || undefined,
-    city: preference?.city || undefined,
-    state: preference?.state || undefined,
   });
   return (
     <div className='p-5'>
