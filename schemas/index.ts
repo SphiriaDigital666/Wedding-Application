@@ -64,12 +64,12 @@ export const SettingsSchema = z
 export const ProfileSchema = z.object({
   // bio: z.string().min(1).optional(),
   name: z.string().min(1).optional(),
-  age: z.string().optional(),
+  age: z.string().min(1).optional(),
   gender: z.string().min(1).optional(),
   dob: z.string().min(1).optional(),
   language: z.string().min(1).optional(),
-  height: z.string().optional(),
-  weight: z.string().optional(),
+  height: z.string().min(1).optional(),
+  // weight: z.string().optional(),
   body_type: z.string().min(1).optional(),
   physical_status: z.string().min(1).optional(),
   marital_status: z.string().min(1).optional(),
@@ -78,6 +78,14 @@ export const ProfileSchema = z.object({
   smoking_habits: z.string().optional(),
   profile_image: z.string().optional(),
   images: z.string().array().optional(),
+  religion: z.string().min(1).optional(),
+  familyStatus: z.string().min(1).optional(),
+  familyType: z.string().min(1).optional(),
+  familyValues: z.string().min(1).optional(),
+  education: z.string().min(1).optional(),
+  employedSector: z.string().min(1).optional(),
+  jobTitle: z.string().min(1).optional(),
+  annualIncome: z.string().min(1).optional(),
 });
 
 export const AddFriendSchema = z.object({
