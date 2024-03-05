@@ -210,6 +210,7 @@ model Preference {
   education      String?
   employedIn     String?
   occupation     String?
+  jobTitle       String?
   annualIncome   String?
   country        String?
   city           String?

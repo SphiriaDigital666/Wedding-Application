@@ -8,11 +8,7 @@ import SideBar from './_components/sidebar';
 
 const PreferencePage = async () => {
   const user = await currentUser();
-  const dbUser = await db.user.findUnique({
-    where: {
-      id: user?.id,
-    },
-  });
+
   const userPreference = await db.preference.findFirst({
     where: {
       userId: user?.id!,
@@ -35,13 +31,13 @@ const PreferencePage = async () => {
 
           <div className='flex container'>
             <div className='w-full'>
-              <BasicPreferences user={dbUser} preference={userPreference} />
+              <BasicPreferences preference={userPreference} />
 
-              <ReligiousPreferences user={user} />
+              <ReligiousPreferences preference={userPreference} />
 
-              <ProfessionalPreferences user={user} />
+              <ProfessionalPreferences preference={userPreference} />
 
-              <LocationPreferences user={user} />
+              <LocationPreferences preference={userPreference} />
             </div>
           </div>
         </div>

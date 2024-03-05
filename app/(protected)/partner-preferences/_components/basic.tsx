@@ -34,7 +34,7 @@ import {
   physicalStatus,
   smokingHabits,
 } from '@/constants';
-import { Preference, User } from '@prisma/client';
+import { Preference } from '@prisma/client';
 import { Loader2, Pencil } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { FC, useState, useTransition } from 'react';
@@ -42,11 +42,10 @@ import { toast } from 'sonner';
 import { EditablePreference } from './editable-preference';
 
 interface BasicPreferencesProps {
-  user: User;
   preference: Preference;
 }
 
-const BasicPreferences: FC<BasicPreferencesProps> = ({ user, preference }) => {
+const BasicPreferences: FC<BasicPreferencesProps> = ({  preference }) => {
   const router = useRouter();
 
   const [isPending, startTransition] = useTransition();

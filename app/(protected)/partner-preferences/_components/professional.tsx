@@ -1,222 +1,88 @@
-import { UserProfile } from '@prisma/client';
-import React, { FC } from 'react';
-import { Separator } from '@/components/ui/separator';
-import { Pencil } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
+'use client';
 import {
   annualIncomes,
   educationalQualifications,
   employeeSectors,
   occupations,
 } from '@/constants';
+import { Preference } from '@prisma/client';
+import { FC, useState } from 'react';
+import { EditablePreference } from './editable-preference';
 
 interface ProfessionalPreferencesProps {
-  user: UserProfile | undefined;
+  preference: Preference;
 }
 
 const ProfessionalPreferences: FC<ProfessionalPreferencesProps> = ({
-  user,
+  preference,
 }) => {
+  const [formData, setFormData] = useState({
+    agestart: preference?.agestart || undefined,
+    ageTo: preference?.ageTo || undefined,
+    languages: preference?.languages || [],
+    heightFrom: preference?.heightFrom || undefined,
+    heightTo: preference?.heightTo || undefined,
+    bodyType: preference?.bodyType || undefined,
+    physicalStatus: preference?.physicalStatus || undefined,
+    maritalStatus: preference?.maritalStatus || undefined,
+    eatingHabits: preference?.eatingHabits || undefined,
+    drinkingHabits: preference?.drinkingHabits || undefined,
+    smokingHabits: preference?.smokingHabits || undefined,
+    religion: preference?.religion || undefined,
+    ethnicity: preference?.ethnicity || undefined,
+    caste: preference?.caste || undefined,
+    education: preference?.education || undefined,
+    employedIn: preference?.employedIn || undefined,
+    occupation: preference?.occupation || undefined,
+    jobTitle: preference?.jobTitle || undefined,
+    annualIncome: preference?.annualIncome || undefined,
+    country: preference?.country || undefined,
+    city: preference?.city || undefined,
+    state: preference?.state || undefined,
+  });
   return (
-    <div className="p-5">
-      <span className="text-2xl">Professional Preferences</span>
-      <div className="flex flex-col gap-4 mt-5">
-        <div className="flex justify-between items-center">
-          <div className="flex flex-col">
-            <span>Education: </span>
-            <span className=" text-gray-600">
-              {user?.education || 'Not defined'}
-            </span>
-          </div>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Pencil className="hover:cursor-pointer" />
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle className="flex">Education</DialogTitle>
-              </DialogHeader>
-              <div className="flex flex-col">
-                <Accordion type="single" collapsible>
-                  <AccordionItem value="item-1">
-                    <AccordionTrigger>Education : </AccordionTrigger>
-                    <AccordionContent>
-                      <Select>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select education" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {educationalQualifications.map((option, index) => (
-                            <SelectItem key={index} value={option.value}>
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </div>
-              <DialogFooter>
-                <Button type="submit">Save changes</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </div>
-        <Separator />
+    <div className='p-5'>
+      <span className='text-2xl'>Professional Preferences</span>
+      <div className='flex flex-col gap-4 mt-5'>
+        <EditablePreference
+          label='Education'
+          value={formData.education}
+          onValueChange={(event: any) =>
+            setFormData({ ...formData, education: event })
+          }
+          options={educationalQualifications}
+          formData={formData}
+        />
 
-        <div className="flex justify-between items-center">
-          <div className="flex flex-col">
-            <span>Employed In: </span>
-            <span className=" text-gray-600">
-              {user?.employedSector || 'Not defined'}
-            </span>
-          </div>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Pencil className="hover:cursor-pointer" />
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle className="flex">Employed In</DialogTitle>
-              </DialogHeader>
-              <div className="flex flex-col">
-                <Accordion type="single" collapsible>
-                  <AccordionItem value="item-1">
-                    <AccordionTrigger>Employed In : </AccordionTrigger>
-                    <AccordionContent>
-                      <Select>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select employed sector" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {employeeSectors.map((option, index) => (
-                            <SelectItem key={index} value={option.value}>
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </div>
-              <DialogFooter>
-                <Button type="submit">Save changes</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </div>
-        <Separator />
+        <EditablePreference
+          label='Employed In'
+          value={formData.employedIn}
+          onValueChange={(event: any) =>
+            setFormData({ ...formData, employedIn: event })
+          }
+          options={employeeSectors}
+          formData={formData}
+        />
 
-        <div className="flex justify-between items-center">
-          <div className="flex flex-col">
-            <span>Occupation: </span>
-            <span className=" text-gray-600">
-              {user?.jobTitle || 'Not defined'}
-            </span>
-          </div>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Pencil className="hover:cursor-pointer" />
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle className="flex">Occupation</DialogTitle>
-              </DialogHeader>
-              <div className="flex flex-col">
-                <Accordion type="single" collapsible>
-                  <AccordionItem value="item-1">
-                    <AccordionTrigger>Occupation : </AccordionTrigger>
-                    <AccordionContent>
-                      <Select>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select occupation" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {occupations.map((option, index) => (
-                            <SelectItem key={index} value={option.value}>
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </div>
-              <DialogFooter>
-                <Button type="submit">Save changes</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </div>
-        <Separator />
+        <EditablePreference
+          label='Occupation'
+          value={formData.jobTitle}
+          onValueChange={(event: any) =>
+            setFormData({ ...formData, jobTitle: event })
+          }
+          options={occupations}
+          formData={formData}
+        />
 
-        <div className="flex justify-between items-center">
-          <div className="flex flex-col">
-            <span>Annual Income: </span>
-            <span className=" text-gray-600">
-              {user?.annualIncome || 'Not defined'}
-            </span>
-          </div>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Pencil className="hover:cursor-pointer" />
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle className="flex">Annual Income</DialogTitle>
-              </DialogHeader>
-              <div className="flex flex-col">
-                <Accordion type="single" collapsible>
-                  <AccordionItem value="item-1">
-                    <AccordionTrigger>Annual Income : </AccordionTrigger>
-                    <AccordionContent>
-                      <Select>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select annual income" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {annualIncomes.map((option, index) => (
-                            <SelectItem key={index} value={option.value}>
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </div>
-              <DialogFooter>
-                <Button type="submit">Save changes</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </div>
-        <Separator />
+        <EditablePreference
+          label='Annual Income'
+          value={formData.annualIncome}
+          onValueChange={(event: any) =>
+            setFormData({ ...formData, annualIncome: event })
+          }
+          options={annualIncomes}
+          formData={formData}
+        />
       </div>
     </div>
   );
