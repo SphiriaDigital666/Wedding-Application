@@ -61,65 +61,6 @@ const Messages: FC<MessagesProps> = ({
           messages[index - 1]?.senderId === messages[index].senderId;
 
         return (
-          //       <div
-          //         className='chat-message'
-          //         key={`${message.id}-${message}`}
-          //       >
-          //         <div
-          //           className={cn('flex items-end', {
-          //             'justify-end': isCurrentUser,
-          //           })}
-          //         >
-          //           <div
-          //             className={cn(
-          //               'flex flex-col space-y-2 text-base max-w-xs mx-2',
-          //               {
-          //                 'order-1 items-end': isCurrentUser,
-          //                 'order-2 items-start': !isCurrentUser,
-          //               }
-          //             )}
-          //           >
-          //             <span
-          //               className={cn('px-4 py-2 rounded-lg inline-block', {
-          //                 'bg-indigo-600 text-white': isCurrentUser,
-          //                 'bg-gray-200 text-gray-900': !isCurrentUser,
-          //                 'rounded-br-none':
-          //                   !hasNextMessageFromSameUser && isCurrentUser,
-          //                 'rounded-bl-none':
-          //                   !hasNextMessageFromSameUser && !isCurrentUser,
-          //               })}
-          //             >
-          //               {message.text}{' '}
-          //               <span className='ml-2 text-xs text-gray-400'>
-          //                 {formatTimestamp(message.createdAt as unknown as number)}
-          //               </span>
-          //             </span>
-          //           </div>
-
-          //           <div
-          //             className={cn('relative w-6 h-6', {
-          //               'order-2': isCurrentUser,
-          //               'order-1': !isCurrentUser,
-          //               invisible: hasNextMessageFromSameUser,
-          //             })}
-          //           >
-          //             <Image
-          //               fill
-          //               src={
-          //                 isCurrentUser
-          //                   ? (sessionImg as string)
-          //                   : chatPartner.image || ''
-          //               }
-          //               alt='Profile picture'
-          //               referrerPolicy='no-referrer'
-          //               className='rounded-full'
-          //             />
-          //           </div>
-          //         </div>
-          //       </div>
-          //     );
-          //   })}
-          // </div>
           <div className='chat-message' key={`${message.id}-${message}`}>
             <div
               className={cn('flex items-end', {
@@ -135,21 +76,24 @@ const Messages: FC<MessagesProps> = ({
                   }
                 )}
               >
-                <ImageModal
-                  src={message.fileUrl}
-                  isOpen={imageModalOpen}
-                  onClose={() => setImageModalOpen(false)}
-                />
                 {/* Displaying image if fileUrl is available */}
                 {message.fileUrl ? (
-                  <Image
-                    src={message.fileUrl}
-                    alt='Attached Image'
-                    className='rounded-md max-w-xs cursor-pointer'
-                    width={200}
-                    height={200}
-                    onClick={() => setImageModalOpen(true)}
-                  />
+                  <>
+                    <ImageModal
+                      src={message.fileUrl}
+                      isOpen={imageModalOpen}
+                      onClose={() => setImageModalOpen(false)}
+                    />
+
+                    <Image
+                      src={message.fileUrl}
+                      alt='Attached Image'
+                      className='rounded-md max-w-xs cursor-pointer'
+                      width={200}
+                      height={200}
+                      onClick={() => setImageModalOpen(true)}
+                    />
+                  </>
                 ) : (
                   <span
                     className={cn('px-4 py-2 rounded-lg inline-block', {
