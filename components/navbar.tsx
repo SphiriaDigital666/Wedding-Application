@@ -1,26 +1,25 @@
-"use client";
+'use client';
 
-import UserButton from "@/components/auth/user-button";
-import { Button } from "@/components/ui/button";
-import { useCurrentUser } from "@/hooks/useCurrentRole";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import UserButton from '@/components/auth/user-button';
+import { Button } from '@/components/ui/button';
+import { useCurrentUser } from '@/hooks/useCurrentRole';
+import { User } from '@prisma/client';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { FC } from 'react';
+import { IoChatbubbleEllipses } from 'react-icons/io5';
 import {
   MdHome,
   MdHowToReg,
-  MdSpaceDashboard,
   MdOutlineSearch,
   MdSettings,
-} from "react-icons/md";
-import { IoChatbubbleEllipses } from "react-icons/io5";
-import { User } from "@prisma/client";
-import { FC } from "react";
+} from 'react-icons/md';
 
-interface NavbarProps{
-  user: User
+interface NavbarProps {
+  user: User;
 }
 
-const Navbar: FC<NavbarProps> = ({user}) => {
+const Navbar: FC<NavbarProps> = ({ user }) => {
   const sessionUser = useCurrentUser();
   const router = useRouter();
   const pathname = usePathname();
@@ -67,14 +66,6 @@ const Navbar: FC<NavbarProps> = ({user}) => {
 
               <Button
                 asChild
-                variant={pathname === '/dashboard' ? 'default' : 'outline'}
-              >
-                <Link href='/dashboard'>
-                  <MdSpaceDashboard className='text-[20px] mr-1' /> Dashboard
-                </Link>
-              </Button>
-              <Button
-                asChild
                 variant={pathname === '/matches' ? 'default' : 'outline'}
               >
                 <Link href='/matches'>
@@ -91,7 +82,7 @@ const Navbar: FC<NavbarProps> = ({user}) => {
               </Button>
               <Button
                 asChild
-                variant={pathname === '/chat' ? 'default' : 'outline'}
+                variant={pathname.startsWith('/chat') ? 'default' : 'outline'}
               >
                 <Link href='/chat'>
                   <IoChatbubbleEllipses className='text-[18px] mr-1' /> Chat
