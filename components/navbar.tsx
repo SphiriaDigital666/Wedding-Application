@@ -1,27 +1,32 @@
-"use client";
+'use client';
 
-import UserButton from "@/components/auth/user-button";
-import { Button } from "@/components/ui/button";
-import { useCurrentUser } from "@/hooks/useCurrentRole";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import UserButton from '@/components/auth/user-button';
+import { Button } from '@/components/ui/button';
+import { useCurrentUser } from '@/hooks/useCurrentRole';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   MdHome,
   MdHowToReg,
   MdSpaceDashboard,
   MdOutlineSearch,
   MdSettings,
-} from "react-icons/md";
-import { IoChatbubbleEllipses } from "react-icons/io5";
+} from 'react-icons/md';
+import { IoChatbubbleEllipses } from 'react-icons/io5';
 
 const Navbar = () => {
   const user = useCurrentUser();
   const router = useRouter();
   const pathname = usePathname();
+
+  if (pathname.startsWith('/onboarding')) {
+    return null;
+  }
+
   return (
     <nav className="sticky top-0 z-50 bg-secondary flex justify-between items-center p-4 rounded-xl w-full shadow-sm mb-5">
       <div className="flex justify-between w-full gap-x-2">
-        <div className="cursor-pointer" onClick={() => router.push("/")}>
+        <div className="cursor-pointer" onClick={() => router.push('/')}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="82"
@@ -52,7 +57,7 @@ const Navbar = () => {
             <>
               <Button
                 asChild
-                variant={pathname === "/dashboard" ? "default" : "outline"}
+                variant={pathname === '/dashboard' ? 'default' : 'outline'}
               >
                 <Link href="/dashboard">
                   <MdHome className="text-[20px] mr-1" /> Home
@@ -61,7 +66,7 @@ const Navbar = () => {
 
               <Button
                 asChild
-                variant={pathname === "/dashboard" ? "default" : "outline"}
+                variant={pathname === '/dashboard' ? 'default' : 'outline'}
               >
                 <Link href="/dashboard">
                   <MdSpaceDashboard className="text-[20px] mr-1" /> Dashboard
@@ -69,7 +74,7 @@ const Navbar = () => {
               </Button>
               <Button
                 asChild
-                variant={pathname === "/matches" ? "default" : "outline"}
+                variant={pathname === '/matches' ? 'default' : 'outline'}
               >
                 <Link href="/matches">
                   <MdHowToReg className="text-[20px] mr-1" /> Matches
@@ -77,7 +82,7 @@ const Navbar = () => {
               </Button>
               <Button
                 asChild
-                variant={pathname === "/search" ? "default" : "outline"}
+                variant={pathname === '/search' ? 'default' : 'outline'}
               >
                 <Link href="/search">
                   <MdOutlineSearch className="text-[20px] mr-1" /> Search
@@ -85,7 +90,7 @@ const Navbar = () => {
               </Button>
               <Button
                 asChild
-                variant={pathname === "/chat" ? "default" : "outline"}
+                variant={pathname === '/chat' ? 'default' : 'outline'}
               >
                 <Link href="/chat">
                   <IoChatbubbleEllipses className="text-[18px] mr-1" /> Chat
@@ -93,7 +98,7 @@ const Navbar = () => {
               </Button>
               <Button
                 asChild
-                variant={pathname === "/settings" ? "default" : "outline"}
+                variant={pathname === '/settings' ? 'default' : 'outline'}
               >
                 <Link href="/settings">
                   <MdSettings className="text-[20px] mr-1" /> Settings
@@ -106,25 +111,25 @@ const Navbar = () => {
             <>
               <Button
                 asChild
-                variant={pathname === "/about" ? "default" : "outline"}
+                variant={pathname === '/about' ? 'default' : 'outline'}
               >
                 <Link href="/about">About Us</Link>
               </Button>
               <Button
                 asChild
-                variant={pathname === "/services" ? "default" : "outline"}
+                variant={pathname === '/services' ? 'default' : 'outline'}
               >
                 <Link href="/services">Services</Link>
               </Button>
               <Button
                 asChild
-                variant={pathname === "/careers" ? "default" : "outline"}
+                variant={pathname === '/careers' ? 'default' : 'outline'}
               >
                 <Link href="/careers">Careers</Link>
               </Button>
               <Button
                 asChild
-                variant={pathname === "/contact" ? "default" : "outline"}
+                variant={pathname === '/contact' ? 'default' : 'outline'}
               >
                 <Link href="/contact">Contact Us</Link>
               </Button>
