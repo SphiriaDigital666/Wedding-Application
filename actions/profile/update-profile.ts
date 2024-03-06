@@ -15,22 +15,25 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
   }
 
   const {
-    // about,
     age,
     gender,
-    body_type,
+    bodyType,
     height,
     language,
-    marital_status,
+    maritalStatus,
     name,
-    physical_status,
+    physicalStatus,
     weight,
-    drinking_habits,
-    eating_habits,
-    smoking_habits,
-    profile_image,
+    drinkingHabits,
+    eatingHabits,
+    smokingHabits,
+    profileImage,
     images,
-  } = validatedFields.data;
+    college,
+    institute,
+    fatherOccupation,
+    motherOccupation,
+  } = values;
 
   const userProfile = await db.userProfile.findFirst({
     where: {
@@ -50,14 +53,19 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
       age: parseFloat(age!),
       height: parseFloat(height!),
       language: language?.toLowerCase(),
-      martialStatus: marital_status,
-      physicalStatus: physical_status,
+      maritalStatus,
+      physicalStatus,
       weight: parseFloat(weight!),
-      profileImage: profile_image,
-      drinkingHabits: drinking_habits,
-      eatingHabits: eating_habits,
-      smokingHabits: smoking_habits,
+      profileImage,
+      drinkingHabits,
+      eatingHabits,
+      smokingHabits,
       userId: user?.id,
+      bodyType,
+      college,
+      institute,
+      fatherOccupation,
+      motherOccupation,
       ...validatedFields.data,
     },
   });
@@ -75,7 +83,7 @@ export const updateProfilePhoto = async (
     return { error: 'Invalid fields!' };
   }
 
-  const { profile_image } = validatedFields.data;
+  const { profileImage } = validatedFields.data;
 
   const userProfile = await db.userProfile.findFirst({
     where: {
@@ -93,12 +101,12 @@ export const updateProfilePhoto = async (
         id: userProfile.id,
       },
       data: {
-        profileImage: profile_image,
+        profileImage: profileImage,
       },
     }),
     db.user.update({
       where: { id: user?.id },
-      data: { image: profile_image },
+      data: { image: profileImage },
     }),
   ]);
 

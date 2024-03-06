@@ -31,7 +31,6 @@ model User {
 
   friends       Friend[]        @relation(name: "friends")
   friendRequest FriendRequest[]
-  preference    Preference[]
 }
 
 model Account {
@@ -91,6 +90,7 @@ model TwoFactorConfirmation {
 model UserProfile {
   id             String  @id @default(cuid()) @map("_id")
   userId         String
+  preferenceId   String?
   age            Int?
   name           String?
   gender         String?
@@ -134,20 +134,23 @@ model UserProfile {
   annualIncome      Float?
 
   relationshipType   String?
-  martialStatus      String?
+  maritalStatus      String?
   numberOfDependents Int?    @default(0)
 
-  familyValues    String?
-  familyType      String?
-  familyStatus    String?
-  familyDetails   String?
-  siblings        Boolean?
-  numberOfSibling Int?     @default(0)
+  familyValues     String?
+  familyType       String?
+  familyStatus     String?
+  familyDetails    String?
+  fatherOccupation String?
+  motherOccupation String?
+  siblings         Boolean?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  preference Preference[]
 }
 
 model Chat {
@@ -217,7 +220,8 @@ model Preference {
   city           String?
   state          String?
 
-  user User @relation(fields: [userId], references: [id])
+  userProfile   UserProfile? @relation(fields: [userProfileId], references: [id])
+  userProfileId String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

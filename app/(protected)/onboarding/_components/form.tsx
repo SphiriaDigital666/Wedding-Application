@@ -47,15 +47,15 @@ const steps = [
   {
     id: 'Step 2',
     name: 'Image',
-    fields: ['profile_image'],
+    fields: ['profileImage'],
   },
   {
     id: 'Step 3',
     name: 'Background',
     fields: [
-      'marital_status',
+      'maritalStatus',
       'height',
-      'physical_status',
+      'physicalStatus',
       'familyStatus',
       'familyType',
       'familyValues',
@@ -100,10 +100,10 @@ export const OnboardingForm = () => {
       dob: '',
       language: '',
       height: '',
-      physical_status: '',
-      marital_status: '',
+      physicalStatus: '',
+      maritalStatus: '',
       religion: '',
-      profile_image: '',
+      profileImage: '',
       familyStatus: '',
       familyType: '',
       familyValues: '',
@@ -117,7 +117,7 @@ export const OnboardingForm = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
 
-    const blob = data.profile_image;
+    const blob = data.profileImage;
 
     const hasImageChanged = isBase64Image(blob!);
 
@@ -127,7 +127,7 @@ export const OnboardingForm = () => {
         console.log(imgRes);
 
         if (imgRes && imgRes[0].url) {
-          data.profile_image = imgRes[0].url;
+          data.profileImage = imgRes[0].url;
 
           // Call createProfile only after the image is uploaded successfully
           startTransition(() => {
@@ -212,7 +212,7 @@ export const OnboardingForm = () => {
 
         fileReader.onload = (event) => {
           const imageDataUrl = event.target?.result?.toString() || '';
-          setValue('profile_image', imageDataUrl);
+          setValue('profileImage', imageDataUrl);
           setPreviewImage(imageDataUrl);
         };
 
@@ -366,9 +366,9 @@ export const OnboardingForm = () => {
                     onChange={(e) => handleImage(e)}
                     className="w-full bg-slate-50 md:w-[300px]"
                   />
-                  {errors.profile_image && (
+                  {errors.profileImage && (
                     <p className="text-destructive mt-1">
-                      {errors.profile_image.message}
+                      {errors.profileImage.message}
                     </p>
                   )}
                 </div>
@@ -404,9 +404,9 @@ export const OnboardingForm = () => {
             />
             <div className="mt-10 flex items-center justify-between">
               <div className="w-full max-w-sm">
-                <Label htmlFor="marital_status">Marital Status</Label>
+                <Label htmlFor="maritalStatus">Marital Status</Label>
                 <Select
-                  onValueChange={(event) => setValue('marital_status', event)}
+                  onValueChange={(event) => setValue('maritalStatus', event)}
                 >
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select Marital Status" />
@@ -419,9 +419,9 @@ export const OnboardingForm = () => {
                     ))}
                   </SelectContent>
                 </Select>
-                {errors.marital_status && (
+                {errors.maritalStatus && (
                   <p className="text-destructive mt-1">
-                    {errors.marital_status.message}
+                    {errors.maritalStatus.message}
                   </p>
                 )}
               </div>
@@ -448,9 +448,9 @@ export const OnboardingForm = () => {
               </div>
 
               <div className="w-full max-w-sm">
-                <Label htmlFor="physical_status">Physical Status</Label>
+                <Label htmlFor="physicalStatus">Physical Status</Label>
                 <Select
-                  onValueChange={(event) => setValue('physical_status', event)}
+                  onValueChange={(event) => setValue('physicalStatus', event)}
                 >
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select Physical Status" />
@@ -463,9 +463,9 @@ export const OnboardingForm = () => {
                     ))}
                   </SelectContent>
                 </Select>
-                {errors.physical_status && (
+                {errors.physicalStatus && (
                   <p className="text-destructive mt-1">
-                    {errors.physical_status.message}
+                    {errors.physicalStatus.message}
                   </p>
                 )}
               </div>
