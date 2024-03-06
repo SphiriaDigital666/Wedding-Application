@@ -5,7 +5,7 @@ import { pusherServer } from '@/lib/pusher';
 import { toPusherKey } from '@/lib/utils';
 import { nanoid } from 'nanoid';
 
-export const sendMessage = async (text: string, chatId: string) => {
+export const sendMessage = async (chatId: string, text?: string, fileUrl?: string) => {
   const session = await auth();
 
   if (!session) {
@@ -44,6 +44,7 @@ export const sendMessage = async (text: string, chatId: string) => {
     id: nanoid(),
     senderId: session.user.id,
     text,
+    fileUrl,
     createdAt: timestamp,
   };
 
@@ -70,6 +71,7 @@ export const sendMessage = async (text: string, chatId: string) => {
       id: message.id,
       senderId: message.senderId,
       text: message.text,
+      fileUrl: message.fileUrl,
       chatId: chatId,
     },
   });
