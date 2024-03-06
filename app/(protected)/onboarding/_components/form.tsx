@@ -140,7 +140,7 @@ export const OnboardingForm = () => {
 
                 if (data?.success) {
                   setSuccess(data.success);
-                  router.push('/partner-preferences');
+                  router.push('/complete-profile');
                 }
               })
               .catch(() => setError('Something went wrong!'));
@@ -162,7 +162,7 @@ export const OnboardingForm = () => {
 
             if (data?.success) {
               setSuccess(data.success);
-              router.push('/profile');
+              router.push('/complete-profile');
             }
           })
           .catch(() => setError('Something went wrong!'));
