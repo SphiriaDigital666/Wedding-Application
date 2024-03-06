@@ -31,6 +31,7 @@ model User {
 
   friends       Friend[]        @relation(name: "friends")
   friendRequest FriendRequest[]
+  preference    Preference[]
 }
 
 model Account {
@@ -188,4 +189,36 @@ model Friend {
   updatedAt DateTime @updatedAt
 
   @@map("friends")
+}
+
+model Preference {
+  id             String   @id @default(cuid()) @map("_id")
+  userId         String   @map("_userId")
+  agestart       String?
+  ageTo          String?
+  languages      String[]
+  heightFrom     String?
+  heightTo       String?
+  bodyType       String?
+  physicalStatus String?
+  maritalStatus  String?
+  eatingHabits   String?
+  drinkingHabits String?
+  smokingHabits  String?
+  religion       String?
+  ethnicity      String?
+  caste          String?
+  education      String?
+  employedIn     String?
+  occupation     String?
+  jobTitle       String?
+  annualIncome   String?
+  country        String?
+  city           String?
+  state          String?
+
+  user User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

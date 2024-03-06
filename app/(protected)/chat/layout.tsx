@@ -89,8 +89,9 @@ export default async function ChatLayout({
             </li>
 
             <li>
-              <Input type="text" placeholder="Search" className="mb-2" />
-
+              <p className="text-[#000] font-bold text-[14px]">
+                Matches yet to respond (1)
+              </p>
               <SidebarChatList
                 sessionId={session?.user.id!}
                 friends={friendsWithUserData}
