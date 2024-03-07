@@ -72,17 +72,16 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
   return { success: 'Profile updated successfully!' };
 };
 
-export const updateProfilePhoto = async (
-  values: z.infer<typeof ProfileSchema>
-) => {
+export const updateProfilePhoto = async (image: string | undefined) => {
   const user = await currentUser();
-  const validatedFields = ProfileSchema.safeParse(values);
+  // const validatedFields = ProfileSchema.safeParse(values);
 
-  if (!validatedFields.success) {
-    return { error: 'Invalid fields!' };
-  }
+  // if (!validatedFields.success) {
+  //   return { error: 'Invalid fields!' };
+  // }
 
-  const { profileImage } = validatedFields.data;
+  // const { profile_image } = validatedFields.data;
+  console.log(image);
 
   const userProfile = await db.userProfile.findFirst({
     where: {
@@ -100,12 +99,12 @@ export const updateProfilePhoto = async (
         id: userProfile.id,
       },
       data: {
-        profileImage: profileImage,
+        profileImage: image,
       },
     }),
     db.user.update({
       where: { id: user?.id },
-      data: { image: profileImage },
+      data: { image: image },
     }),
   ]);
 
@@ -126,14 +125,20 @@ export const removeProfilePhoto = async () => {
     return { error: 'User profile not found!' };
   }
 
-  await db.userProfile.update({
-    where: {
-      id: userProfile.id,
-    },
-    data: {
-      profileImage: '',
-    },
-  });
+  await db.$transaction([
+    db.userProfile.update({
+      where: {
+        id: userProfile.id,
+      },
+      data: {
+        profileImage: '',
+      },
+    }),
+    db.user.update({
+      where: { id: user?.id },
+      data: { image: '' },
+    }),
+  ]);
 
   revalidatePath('/profile');
   return { success: 'Profile photo deleted successfully!' };

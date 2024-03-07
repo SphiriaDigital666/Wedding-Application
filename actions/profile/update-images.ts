@@ -28,7 +28,7 @@ export const updateImages = async (newImage: string) => {
   });
 
   revalidatePath('/profile');
-  return { success: 'Profile images updated successfully!' };
+  return { success: 'Image added successfully!' };
 };
 
 export const removeImage = async (index: number) => {

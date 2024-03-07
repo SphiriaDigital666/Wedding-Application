@@ -21,7 +21,7 @@ import { toast } from 'sonner';
 import * as z from 'zod';
 
 interface MainDetailsProps {
-  profile: UserProfile;
+  profile: UserProfile | null;
 }
 
 const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
@@ -54,7 +54,7 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
       console.log(imgRes && imgRes[0].url);
 
       if (imgRes && imgRes[0].url) {
-        const values = { profile_image: imgRes[0].url }; // Constructing object with profile_image field
+        const values = imgRes[0].url || undefined ; // Constructing object with profile_image field
         startTransition(() => {
           updateProfilePhoto(values)
             .then((data) => {
@@ -87,26 +87,6 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
     }
   };
 
-  // const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
-  //   e.preventDefault();
-
-  //   const fileReader = new FileReader();
-
-  //   if (e.target.files && e.target.files.length > 0) {
-  //     const file = e.target.files[0];
-  //     setFiles(Array.from(e.target.files));
-
-  //     if (!file.type.includes('image')) return;
-
-  //     fileReader.onload = async (event) => {
-  //       const imageDataUrl = event.target?.result?.toString() || '';
-  //       setValue('profile_image', imageDataUrl); // Setting the value here
-  //       setPreviewImage(imageDataUrl);
-  //     };
-
-  //     fileReader.readAsDataURL(file);
-  //   }
-  // };
 
   const handleImage = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -136,9 +116,19 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
   const handleDeletePhoto = () => {
     startTransition(async () => {
       try {
-        removeProfilePhoto();
-        fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/images`);
-        router.refresh();
+        removeProfilePhoto().then((data) => {
+          if (data?.error) {
+            setError(data.error);
+            console.log(data.error);
+          }
+
+          if (data?.success) {
+            setSuccess(data.success);
+            toast(data.success);
+            fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/images`);
+            router.refresh();
+          }
+        });
       } catch (error) {
         console.error('Error deleting profile image:', error);
       }
@@ -174,7 +164,7 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
                           {isPending && (
                             <Loader2 className='mr-2 h-4 w-4 animate-spin' />
                           )}
-                          Delete
+                          Remove
                         </button>
                       </div>
                     )}
