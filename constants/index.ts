@@ -362,3 +362,26 @@ export const languages = [
   { label: 'Turkish', value: 'Turkish' },
   { label: 'Swedish', value: 'Swedish' },
 ];
+
+export const hobbies = [
+  { label: 'Reading', value: 'Reading' },
+  { label: 'Cooking', value: 'Cooking' },
+  { label: 'Traveling', value: 'Traveling' },
+  { label: 'Photography', value: 'Photography' },
+  { label: 'Painting', value: 'Painting' },
+  { label: 'Gardening', value: 'Gardening' },
+  { label: 'Playing Musical Instruments', value: 'Playing Musical Instruments' },
+  { label: 'Hiking', value: 'Hiking' },
+  { label: 'Yoga', value: 'Yoga' },
+  { label: 'Watching Movies', value: 'Watching Movies' },
+  { label: 'Playing Video Games', value: 'Playing Video Games' },
+  { label: 'Fishing', value: 'Fishing' },
+  { label: 'Dancing', value: 'Dancing' },
+  { label: 'Singing', value: 'Singing' },
+  { label: 'DIY Crafts', value: 'DIY Crafts' },
+  { label: 'Camping', value: 'Camping' },
+  { label: 'Writing', value: 'Writing' },
+  { label: 'Cycling', value: 'Cycling' },
+  { label: 'Running', value: 'Running' },
+  { label: 'Mediation', value: 'Mediation' },
+];

@@ -105,7 +105,6 @@ model UserProfile {
 
   images String[] @default([])
 
-  interests String[]
   hobbies   String[]
 
   eatingHabits   String?
