@@ -3,11 +3,24 @@
 import UserButton from '@/components/auth/user-button';
 import { Button } from '@/components/ui/button';
 import { useCurrentUser } from '@/hooks/useCurrentRole';
+import { User } from '@prisma/client';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { FC } from 'react';
+import { IoChatbubbleEllipses } from 'react-icons/io5';
+import {
+  MdHome,
+  MdHowToReg,
+  MdOutlineSearch,
+  MdSettings,
+} from 'react-icons/md';
 
-const Navbar = () => {
-  const user = useCurrentUser();
+interface NavbarProps {
+  user: User;
+}
+
+const Navbar: FC<NavbarProps> = ({ user }) => {
+  const sessionUser = useCurrentUser();
   const router = useRouter();
   const pathname = usePathname();
   return (
@@ -40,42 +53,53 @@ const Navbar = () => {
           </svg>
         </div>
         <div className='space-x-3 mr-3'>
-          {user && (
+          {sessionUser && (
             <>
               <Button
                 asChild
                 variant={pathname === '/dashboard' ? 'default' : 'outline'}
               >
-                <Link href='/dashboard'>Dashboard</Link>
+                <Link href='/dashboard'>
+                  <MdHome className='text-[20px] mr-1' /> Home
+                </Link>
               </Button>
+
               <Button
                 asChild
                 variant={pathname === '/matches' ? 'default' : 'outline'}
               >
-                <Link href='/matches'>Matches</Link>
+                <Link href='/matches'>
+                  <MdHowToReg className='text-[20px] mr-1' /> Matches
+                </Link>
               </Button>
               <Button
                 asChild
                 variant={pathname === '/search' ? 'default' : 'outline'}
               >
-                <Link href='/search'>Search</Link>
+                <Link href='/search'>
+                  <MdOutlineSearch className='text-[20px] mr-1' /> Search
+                </Link>
               </Button>
               <Button
                 asChild
-                variant={pathname === '/chat' ? 'default' : 'outline'}
+                variant={pathname.startsWith('/chat') ? 'default' : 'outline'}
               >
-                <Link href='/chat'>Chat</Link>
+                <Link href='/chat'>
+                  <IoChatbubbleEllipses className='text-[18px] mr-1' /> Chat
+                </Link>
               </Button>
               <Button
                 asChild
                 variant={pathname === '/settings' ? 'default' : 'outline'}
               >
-                <Link href='/settings'>Settings</Link>
+                <Link href='/settings'>
+                  <MdSettings className='text-[20px] mr-1' /> Settings
+                </Link>
               </Button>
             </>
           )}
 
-          {!user && (
+          {!sessionUser && (
             <>
               <Button
                 asChild
@@ -105,7 +129,7 @@ const Navbar = () => {
           )}
         </div>
       </div>
-      <UserButton />
+      <UserButton user={user} />
     </nav>
   );
 };
