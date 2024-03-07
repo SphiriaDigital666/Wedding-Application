@@ -1,5 +1,4 @@
 'use server';
-import { auth } from '@/auth';
 import { currentUser } from '@/lib/auth';
 import db from '@/lib/db';
 import { ProfileSchema } from '@/schemas';
@@ -8,6 +7,11 @@ import * as z from 'zod';
 
 export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
   const user = await currentUser();
+
+  if (!user) {
+    return { error: 'Unauthorized' };
+  }
+
   const validatedFields = ProfileSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -15,29 +19,26 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
   }
 
   const {
-    age,
-    gender,
     bodyType,
-    height,
     language,
     maritalStatus,
-    name,
     physicalStatus,
     weight,
     drinkingHabits,
     eatingHabits,
     smokingHabits,
     profileImage,
-    images,
     college,
     institute,
     fatherOccupation,
     motherOccupation,
   } = values;
 
+  console.log(values);
+
   const userProfile = await db.userProfile.findFirst({
     where: {
-      userId: user?.id,
+      userId: user.id,
     },
   });
 
@@ -47,11 +48,9 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
 
   await db.userProfile.update({
     where: {
-      id: userProfile.id,
+      id: userProfile.userId,
     },
     data: {
-      age: parseFloat(age!),
-      height: parseFloat(height!),
       language: language?.toLowerCase(),
       maritalStatus,
       physicalStatus,
@@ -60,7 +59,7 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
       drinkingHabits,
       eatingHabits,
       smokingHabits,
-      userId: user?.id,
+      // userId: user?.id,
       bodyType,
       college,
       institute,

@@ -125,7 +125,7 @@ model UserProfile {
   education        String?
   educationDetails String?
   college          String?
-  institue         String?
+  institute        String?
 
   employedSector    String?
   companyName       String?
