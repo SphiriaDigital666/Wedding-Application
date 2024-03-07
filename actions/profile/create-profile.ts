@@ -23,9 +23,9 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
     dob,
     height,
     language,
-    marital_status,
+    maritalStatus,
     name,
-    profile_image,
+    profileImage,
     religion,
     familyStatus,
     familyType,
@@ -56,10 +56,10 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
         dob,
         height: parseFloat(height!),
         language: language?.toLowerCase(),
-        martialStatus: marital_status,
+        maritalStatus,
         name,
         religion,
-        profileImage: profile_image,
+        profileImage,
         familyStatus,
         familyType,
         familyValues,
@@ -75,10 +75,10 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
       data: { isNewUser: false },
     }),
     db.preference.create({
-      data:{
-        userId: user.id!
-      }
-    })
+      data: {
+        userId: user.id!,
+      },
+    }),
   ]);
 
   return { success: 'Profile created successfully!' };

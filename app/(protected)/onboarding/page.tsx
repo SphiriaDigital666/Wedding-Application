@@ -1,5 +1,5 @@
 import React from 'react';
-import { OnboardingForm } from './components/form';
+import { OnboardingForm } from './_components/form';
 
 const Onboarding = () => {
   return <OnboardingForm />;
