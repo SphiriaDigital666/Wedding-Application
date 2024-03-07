@@ -18,70 +18,54 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
     return { error: 'Invalid fields!' };
   }
 
-  const {
-    bodyType,
-    language,
-    maritalStatus,
-    physicalStatus,
-    weight,
-    drinkingHabits,
-    eatingHabits,
-    smokingHabits,
-    profileImage,
-    college,
-    institute,
-    fatherOccupation,
-    motherOccupation,
-  } = values;
+  try {
+    const userProfile = await db.userProfile.findFirst({
+      where: {
+        userId: user.id,
+      },
+    });
 
-  console.log(values);
+    if (!userProfile) {
+      return { error: 'User profile not found!' };
+    }
 
-  const userProfile = await db.userProfile.findFirst({
-    where: {
-      userId: user.id,
-    },
-  });
-
-  if (!userProfile) {
-    return { error: 'User profile not found!' };
-  }
-
-  await db.userProfile.update({
-    where: {
-      id: userProfile.userId,
-    },
-    data: {
-      language: language?.toLowerCase(),
-      maritalStatus,
-      physicalStatus,
-      weight: parseFloat(weight!),
-      profileImage,
-      drinkingHabits,
-      eatingHabits,
-      smokingHabits,
-      // userId: user?.id,
+    const {
       bodyType,
+      weight,
       college,
-      institute,
+      companyName,
+      eatingHabits,
+      drinkingHabits,
+      smokingHabits,
       fatherOccupation,
       motherOccupation,
-      ...validatedFields.data,
-    },
-  });
+    } = validatedFields.data;
 
-  return { success: 'Profile updated successfully!' };
+    await db.userProfile.update({
+      where: {
+        id: userProfile.id,
+      },
+      data: {
+        bodyType,
+        weight: parseFloat(weight as string),
+        college,
+        companyName,
+        eatingHabits,
+        drinkingHabits,
+        smokingHabits,
+        fatherOccupation,
+        motherOccupation,
+      },
+    });
+
+    return { success: 'Profile updated successfully!' };
+  } catch (error: any) {
+    return { error: 'Error updating the profile.' + error.message };
+  }
 };
 
 export const updateProfilePhoto = async (image: string | undefined) => {
   const user = await currentUser();
-  // const validatedFields = ProfileSchema.safeParse(values);
-
-  // if (!validatedFields.success) {
-  //   return { error: 'Invalid fields!' };
-  // }
-
-  // const { profile_image } = validatedFields.data;
-  console.log(image);
 
   const userProfile = await db.userProfile.findFirst({
     where: {

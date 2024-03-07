@@ -45,9 +45,9 @@ export const CompleteProfileForm = () => {
     resolver: zodResolver(ProfileSchema),
     defaultValues: {
       bodyType: '',
-      // weight: '',
+      weight: '',
       college: '',
-      institute: '',
+      companyName: '',
       eatingHabits: '',
       drinkingHabits: '',
       smokingHabits: '',
@@ -108,7 +108,7 @@ export const CompleteProfileForm = () => {
             )}
           </div>
 
-          {/* <div className="flex items-center gap-5">
+          <div className="flex items-center gap-5">
             <Label htmlFor="weight">Weight</Label>
             <Select onValueChange={(event) => setValue('weight', event)}>
               <SelectTrigger className="w-full">
@@ -125,10 +125,10 @@ export const CompleteProfileForm = () => {
             {errors.weight && (
               <p className="text-destructive mt-1">{errors.weight.message}</p>
             )}
-          </div> */}
+          </div>
 
           <div className="flex items-center gap-5">
-            <Label htmlFor="college">College</Label>
+            <Label htmlFor="college">College / Institute</Label>
             <Input
               type="text"
               id="college"
@@ -141,16 +141,16 @@ export const CompleteProfileForm = () => {
           </div>
 
           <div className="flex items-center gap-5">
-            <Label htmlFor="institute">Institute</Label>
+            <Label htmlFor="companyName">Organization</Label>
             <Input
               type="text"
-              id="institute"
-              {...register('institute')}
+              id="companyName"
+              {...register('companyName')}
               className="w-full"
             />
-            {errors.institute && (
+            {errors.companyName && (
               <p className="text-destructive mt-1">
-                {errors.institute.message}
+                {errors.companyName.message}
               </p>
             )}
           </div>
@@ -282,7 +282,7 @@ export const CompleteProfileForm = () => {
           </div>
         </div>
         <Button type="submit" onClick={handleSubmit(onSubmit)}>
-          Create Profile
+          Complete Profile
         </Button>
       </div>
     </form>

@@ -89,7 +89,7 @@ model TwoFactorConfirmation {
 
 model UserProfile {
   id             String  @id @default(cuid()) @map("_id")
-  userId         String
+  userId         String?
   preferenceId   String?
   age            Int?
   name           String?
@@ -125,7 +125,6 @@ model UserProfile {
   education        String?
   educationDetails String?
   college          String?
-  institute        String?
 
   employedSector    String?
   companyName       String?

@@ -87,7 +87,7 @@ export const ProfileSchema = z.object({
   jobTitle: z.string().min(1).optional(),
   annualIncome: z.string().min(1).optional(),
   college: z.string().min(1).optional(),
-  institute: z.string().min(1).optional(),
+  companyName: z.string().min(1).optional(),
   fatherOccupation: z.string().min(1).optional(),
   motherOccupation: z.string().min(1).optional(),
 });
