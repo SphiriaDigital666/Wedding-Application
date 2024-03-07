@@ -48,7 +48,7 @@ const Page: FC<pageProps> = async ({ params }) => {
 
   return (
     <div className="flex-1 justify-between flex flex-col h-full max-h-[calc(100vh-6rem)]">
-      {/* <ChatHeader chatPartner={chatPartner} />
+      <ChatHeader chatPartner={chatPartner} />
 
       <Messages
         chatId={chatId}
@@ -57,8 +57,8 @@ const Page: FC<pageProps> = async ({ params }) => {
         sessionId={session.user.id!}
         initialMessages={initialMessages}
       />
-      <ChatInput chatId={chatId} chatPartner={chatPartner as User} /> */}
-      <Awaiting_response />
+      <ChatInput chatId={chatId} chatPartner={chatPartner as User} />
+      {/* <Awaiting_response /> */}
     </div>
   );
 };

@@ -1,6 +1,4 @@
 import db from '@/lib/db';
-// import BasicDetails from './_components/basic-details';
-// import LocationDetails from './_components/location-details';
 import MainDetails from './_components/main-details';
 import PhotosCarousel from './_components/photos-carousel';
 import { currentUser } from '@/lib/auth';
@@ -46,7 +44,7 @@ const DashboardPage = async () => {
           <Verification profile={userProfile} />
         </div>
       </div>
-      <OtherDetails user={userProfile} />
+      <OtherDetails profile={userProfile} />
     </>
   );
 };
