@@ -1,15 +1,21 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import Message_bg from '@/public/chat//message-cover.jpg';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 function Received() {
   return (
-    <div className='border border-[#adadad] rounded-xl pt-4'>
+    <div className='border border-[#adadad] h-screen rounded-xl pt-4'>
       <div className='flex items-center justify-center gap-4'>
-        <p className='font-bold border-b-[3px] border-[#5BACE3]'>Received</p>
-        <p>Awaiting Response</p>
+        <Link href='/chat/received' className=''>
+          <p className='font-bold border-b-[3px] border-[#5BACE3]'>Received</p>
+        </Link>
+
+        <Link href='/chat/awaiting-response' className=''>
+          <p>Awaiting Response</p>
+        </Link>
       </div>
 
       <div>
@@ -50,7 +56,7 @@ function Received() {
               </div>
             </div>
           </TabsContent>
-          <TabsContent value='messages'>Change your password here.</TabsContent>
+          <TabsContent value='messages'>Messages section here.</TabsContent>
         </Tabs>
       </div>
     </div>
