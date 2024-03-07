@@ -8,6 +8,7 @@ import { Inter, Sofia_Sans } from 'next/font/google';
 import "@uploadthing/react/styles.css";
 import './globals.css';
 import ActiveStatus from '@/components/active-status';
+import { ModalProvider } from '@/components/providers/modal-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -37,6 +38,7 @@ export default async function RootLayout({
           </div>
           <Toaster />
           <ProfileModal />
+          <ModalProvider />
           <ActiveStatus />
         </body>
       </SessionProvider>

@@ -156,10 +156,11 @@ model Chat {
 }
 
 model Message {
-  id       String @id @default(cuid()) @map("_id")
+  id       String  @id @default(cuid()) @map("_id")
   senderId String
   // receiverId String
-  text     String
+  text     String?
+  fileUrl  String?
 
   Chat   Chat?   @relation(fields: [chatId], references: [id])
   chatId String?

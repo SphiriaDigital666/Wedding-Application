@@ -1,6 +1,5 @@
 'use client';
 
-import LoginButton from '@/components/auth/login-button';
 import LogoutButton from '@/components/auth/logout-button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -9,16 +8,19 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useCurrentUser } from '@/hooks/useCurrentRole';
+import { User } from '@prisma/client';
 import { ExitIcon } from '@radix-ui/react-icons';
-import { User } from 'lucide-react';
+import { UserIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 import { FaUser } from 'react-icons/fa';
 
-interface UserButtonProps {}
+interface UserButtonProps {
+  user: User;
+}
 
-const UserButton: FC<UserButtonProps> = ({}) => {
-  const user = useCurrentUser();
+const UserButton: FC<UserButtonProps> = ({ user }) => {
+  const router = useRouter();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -30,21 +32,19 @@ const UserButton: FC<UserButtonProps> = ({}) => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='w-40'>
-        {!user && (
-          <LoginButton>
-            <DropdownMenuItem>
-              <User className='h-4 w-4 mr-2' />
-              Login
-            </DropdownMenuItem>
-          </LoginButton>
-        )}
         {user && (
-          <LogoutButton>
-            <DropdownMenuItem>
-              <ExitIcon className='h-4 w-4 mr-2' />
-              Logout
+          <>
+            <DropdownMenuItem onClick={() => router.push('/profile')}>
+              <UserIcon className='h-4 w-4 mr-2' />
+              Profile
             </DropdownMenuItem>
-          </LogoutButton>
+            <LogoutButton>
+              <DropdownMenuItem>
+                <ExitIcon className='h-4 w-4 mr-2' />
+                Logout
+              </DropdownMenuItem>
+            </LogoutButton>
+          </>
         )}
       </DropdownMenuContent>
     </DropdownMenu>
