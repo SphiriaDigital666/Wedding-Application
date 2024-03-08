@@ -45,7 +45,7 @@ export default async function ChatLayout({
     <div>
       <div className='border border-[#adadad] rounded-xl pt-4 m-8'>
         <div className='flex items-center justify-center gap-4'>
-          <Link href='/chat/received' className=''>
+          <Link href='/chat' className=''>
             <p className='font-bold border-b-[3px] border-[#5BACE3]'>
               Received
             </p>
