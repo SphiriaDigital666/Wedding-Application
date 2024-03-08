@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import Criteria from "./_components/criteria";
-import ProfileId from "./_components/profile-id";
-import SavedSearch from "./_components/saved-search";
+import Criteria from "./_components/_by-criteria/criteria";
+import ProfileId from "./_components/_profile-id/profile-id";
+import SavedSearch from "./_components/_saved-search/saved-search";
 
 enum STEPS {
   By_Criteria,
@@ -48,7 +48,7 @@ const SearchPage = () => {
       <div className="w-full flex justify-center">
         <hr className="w-[97%]" />
       </div>
-      <CardContent>
+      <CardContent className="px-0">
         {currentStep === STEPS.By_Criteria && <Criteria />}
         {currentStep === STEPS.Profile_Id && <ProfileId />}
         {currentStep === STEPS.Saved_Search && <SavedSearch />}
