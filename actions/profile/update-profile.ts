@@ -7,73 +7,67 @@ import * as z from 'zod';
 
 export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
   const user = await currentUser();
+
+  if (!user) {
+    return { error: 'Unauthorized' };
+  }
+
   const validatedFields = ProfileSchema.safeParse(values);
 
   if (!validatedFields.success) {
     return { error: 'Invalid fields!' };
   }
 
-  const {
-    // about,
-    age,
-    gender,
-    body_type,
-    height,
-    language,
-    marital_status,
-    name,
-    physical_status,
-    weight,
-    drinking_habits,
-    eating_habits,
-    smoking_habits,
-    profile_image,
-    images,
-  } = validatedFields.data;
+  try {
+    const userProfile = await db.userProfile.findFirst({
+      where: {
+        userId: user.id,
+      },
+    });
 
-  const userProfile = await db.userProfile.findFirst({
-    where: {
-      userId: user?.id,
-    },
-  });
+    if (!userProfile) {
+      return { error: 'User profile not found!' };
+    }
 
-  if (!userProfile) {
-    return { error: 'User profile not found!' };
+    const {
+      bodyType,
+      weight,
+      college,
+      companyName,
+      eatingHabits,
+      drinkingHabits,
+      smokingHabits,
+      fatherOccupation,
+      motherOccupation,
+      hobbies,
+    } = validatedFields.data;
+
+    await db.userProfile.update({
+      where: {
+        id: userProfile.id,
+      },
+      data: {
+        bodyType,
+        weight: parseFloat(weight as string),
+        college,
+        companyName,
+        eatingHabits,
+        drinkingHabits,
+        smokingHabits,
+        fatherOccupation,
+        motherOccupation,
+        hobbies,
+      },
+    });
+
+    return { success: 'Profile updated successfully!' };
+  } catch (error: any) {
+    return { error: 'Error updating the profile.' + error.message };
   }
-
-  await db.userProfile.update({
-    where: {
-      id: userProfile.id,
-    },
-    data: {
-      age: parseFloat(age!),
-      height: parseFloat(height!),
-      language: language?.toLowerCase(),
-      martialStatus: marital_status,
-      physicalStatus: physical_status,
-      weight: parseFloat(weight!),
-      profileImage: profile_image,
-      drinkingHabits: drinking_habits,
-      eatingHabits: eating_habits,
-      smokingHabits: smoking_habits,
-      userId: user?.id,
-      ...validatedFields.data,
-    },
-  });
-
-  return { success: 'Profile updated successfully!' };
 };
 
 export const updateProfilePhoto = async (image: string | undefined) => {
   const user = await currentUser();
-  // const validatedFields = ProfileSchema.safeParse(values);
-
-  // if (!validatedFields.success) {
-  //   return { error: 'Invalid fields!' };
-  // }
-
-  // const { profile_image } = validatedFields.data;
-  console.log(image);
 
   const userProfile = await db.userProfile.findFirst({
     where: {
