@@ -14,6 +14,7 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
   const validatedFields = ProfileSchema.safeParse(values);
 
   if (!validatedFields.success) {
+    console.log(validatedFields.error);
     return { error: 'Invalid fields!' };
   }
 
@@ -23,6 +24,7 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
     dob,
     height,
     language,
+    physicalStatus,
     maritalStatus,
     name,
     profileImage,
@@ -34,9 +36,9 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
     employedSector,
     jobTitle,
     annualIncome,
-  } = values;
+  } = validatedFields.data;
 
-  console.log(values);
+  console.log(validatedFields.data);
 
   const userProfile = await db.userProfile.findFirst({
     where: {
@@ -56,6 +58,7 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
         dob,
         height: parseFloat(height!),
         language: language?.toLowerCase(),
+        physicalStatus,
         maritalStatus,
         name,
         religion,
@@ -66,7 +69,7 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
         education,
         employedSector,
         jobTitle,
-        annualIncome: parseFloat(annualIncome!),
+        annualIncome,
         userId: user?.id,
       },
     }),

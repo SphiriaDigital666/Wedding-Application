@@ -39,6 +39,8 @@ import { Loader2, Pencil } from 'lucide-react';
 import { FC, useState, useTransition } from 'react';
 import { toast } from 'sonner';
 import { EditablePreference } from './editable-preference';
+import { useSectionInView } from '@/hooks/useSectionInView';
+import { motion } from 'framer-motion';
 
 interface BasicPreferencesProps {
   preference: Preference | null;
@@ -88,30 +90,33 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
     }
   };
 
+  const { ref } = useSectionInView('Basic');
+
   return (
-    <div className='p-5'>
-      <span className='text-2xl'>Basic Preferences</span>
-      <div className='flex flex-col gap-4 mt-5'>
-        <div className='flex justify-between items-center'>
-          <div className='flex flex-col'>
+    <section id="basic" ref={ref} className="p-5">
+      <span className="text-2xl">Basic Preferences</span>
+      <div className="flex flex-col gap-4 mt-5">
+        <div className="flex justify-between items-center">
+          <div className="flex flex-col">
             <span>Age: </span>
-            <span className=' text-gray-600'>
-              {`${preference?.agestart}, ${preference?.ageTo}` || 'Not defined'}
+            <span className=" text-gray-600">
+              {`Age from: ${preference?.agestart} To ${preference?.ageTo}` ||
+                'Not defined'}
             </span>
           </div>
 
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <Pencil className='hover:cursor-pointer' />
+              <Pencil className="hover:cursor-pointer" />
             </DialogTrigger>
-            <DialogContent className='sm:max-w-[425px]'>
+            <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
-                <DialogTitle className='flex'>Preferred Age</DialogTitle>
+                <DialogTitle className="flex">Preferred Age</DialogTitle>
               </DialogHeader>
               <form onSubmit={(e) => onSubmit(e, formData)}>
-                <div className='flex flex-col'>
-                  <Accordion type='single' collapsible>
-                    <AccordionItem value='item-1'>
+                <div className="flex flex-col">
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="item-1">
                       <AccordionTrigger>From : </AccordionTrigger>
                       <AccordionContent>
                         <Select
@@ -120,8 +125,8 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
                             setFormData({ ...formData, agestart: event })
                           }
                         >
-                          <SelectTrigger className='w-full'>
-                            <SelectValue placeholder='Select age' />
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select age" />
                           </SelectTrigger>
                           <SelectContent>
                             {age.map((option, index) => (
@@ -135,9 +140,9 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
                     </AccordionItem>
                   </Accordion>
                 </div>
-                <div className='flex flex-col'>
-                  <Accordion type='single' collapsible>
-                    <AccordionItem value='item-1'>
+                <div className="flex flex-col">
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="item-1">
                       <AccordionTrigger>To :</AccordionTrigger>
                       <AccordionContent>
                         <Select
@@ -146,8 +151,8 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
                             setFormData({ ...formData, ageTo: event })
                           }
                         >
-                          <SelectTrigger className='w-full'>
-                            <SelectValue placeholder='Select age' />
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select age" />
                           </SelectTrigger>
                           <SelectContent>
                             {age.map((option, index) => (
@@ -162,8 +167,8 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
                   </Accordion>
                 </div>
                 <DialogFooter>
-                  <Button type='submit' className='mt-3'>
-                    {loading && <Loader2 className='mr-2' />}
+                  <Button type="submit" className="mt-3">
+                    {loading && <Loader2 className="mr-2" />}
                     Save changes
                   </Button>
                 </DialogFooter>
@@ -173,10 +178,10 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
         </div>
         <Separator />
 
-        <div className='flex justify-between items-center'>
-          <div className='flex flex-col'>
+        <div className="flex justify-between items-center">
+          <div className="flex flex-col">
             <span>Languages: </span>
-            <span className=' text-gray-600'>
+            <span className=" text-gray-600">
               {preference?.languages
                 ? preference.languages.join(', ')
                 : 'Not defined'}
@@ -184,16 +189,16 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
           </div>
           <Dialog>
             <DialogTrigger asChild>
-              <Pencil className='hover:cursor-pointer' />
+              <Pencil className="hover:cursor-pointer" />
             </DialogTrigger>
-            <DialogContent className='sm:max-w-[425px]'>
+            <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
-                <DialogTitle className='flex'>Preferred Languages</DialogTitle>
+                <DialogTitle className="flex">Preferred Languages</DialogTitle>
               </DialogHeader>
               <form onSubmit={(e) => onSubmit(e, formData)}>
-                <div className='flex flex-col'>
-                  <Accordion type='single' collapsible>
-                    <AccordionItem value='item-1'>
+                <div className="flex flex-col">
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="item-1">
                       <AccordionTrigger>Select Languages : </AccordionTrigger>
                       <AccordionContent>
                         <select
@@ -208,7 +213,7 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
                             })
                           }
                           multiple
-                          className='w-full'
+                          className="w-full"
                         >
                           {languages.map((option, index) => (
                             <option key={index} value={option.value}>
@@ -221,8 +226,8 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
                   </Accordion>
                 </div>
                 <DialogFooter>
-                  <Button type='submit' className='mt-3'>
-                    {loading && <Loader2 className='mr-2' />}
+                  <Button type="submit" className="mt-3">
+                    {loading && <Loader2 className="mr-2" />}
                     Save changes
                   </Button>
                 </DialogFooter>
@@ -232,25 +237,26 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
         </div>
         <Separator />
 
-        <div className='flex justify-between items-center'>
-          <div className='flex flex-col'>
+        <div className="flex justify-between items-center">
+          <div className="flex flex-col">
             <span>Height: </span>
-            <span className=' text-gray-600'>
-              {(preference?.heightFrom, preference?.heightTo || 'Not defined')}
+            <span className=" text-gray-600">
+              {`Height from: ${preference?.heightFrom} To ${preference?.heightTo}` ||
+                'Not defined'}
             </span>
           </div>
           <Dialog>
             <DialogTrigger asChild>
-              <Pencil className='hover:cursor-pointer' />
+              <Pencil className="hover:cursor-pointer" />
             </DialogTrigger>
-            <DialogContent className='sm:max-w-[425px]'>
+            <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
-                <DialogTitle className='flex'>Preferred Height</DialogTitle>
+                <DialogTitle className="flex">Preferred Height</DialogTitle>
               </DialogHeader>
               <form onSubmit={(e) => onSubmit(e, formData)}>
-                <div className='flex flex-col'>
-                  <Accordion type='single' collapsible>
-                    <AccordionItem value='item-1'>
+                <div className="flex flex-col">
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="item-1">
                       <AccordionTrigger>From : </AccordionTrigger>
                       <AccordionContent>
                         <Select
@@ -259,8 +265,8 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
                             setFormData({ ...formData, heightFrom: event })
                           }
                         >
-                          <SelectTrigger className='w-full'>
-                            <SelectValue placeholder='Select height' />
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select height" />
                           </SelectTrigger>
                           <SelectContent>
                             {heights.map((option, index) => (
@@ -274,9 +280,9 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
                     </AccordionItem>
                   </Accordion>
                 </div>
-                <div className='flex flex-col'>
-                  <Accordion type='single' collapsible>
-                    <AccordionItem value='item-1'>
+                <div className="flex flex-col">
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="item-1">
                       <AccordionTrigger>To :</AccordionTrigger>
                       <AccordionContent>
                         <Select
@@ -285,8 +291,8 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
                             setFormData({ ...formData, heightTo: event })
                           }
                         >
-                          <SelectTrigger className='w-full'>
-                            <SelectValue placeholder='Select height' />
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select height" />
                           </SelectTrigger>
                           <SelectContent>
                             {heights.map((option, index) => (
@@ -301,8 +307,8 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
                   </Accordion>
                 </div>
                 <DialogFooter>
-                  <Button type='submit' className='mt-3'>
-                    {loading && <Loader2 className='mr-2' />}
+                  <Button type="submit" className="mt-3">
+                    {loading && <Loader2 className="mr-2" />}
                     Save changes
                   </Button>
                 </DialogFooter>
@@ -313,7 +319,7 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
         <Separator />
 
         <EditablePreference
-          label='Body Type'
+          label="Body Type"
           value={formData.bodyType}
           onValueChange={(event: any) =>
             setFormData({ ...formData, bodyType: event })
@@ -323,7 +329,7 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
         />
 
         <EditablePreference
-          label='Physical Status'
+          label="Physical Status"
           value={formData.physicalStatus}
           onValueChange={(event: any) =>
             setFormData({ ...formData, physicalStatus: event })
@@ -333,7 +339,7 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
         />
 
         <EditablePreference
-          label='Marital Status'
+          label="Marital Status"
           value={formData.maritalStatus}
           onValueChange={(event: any) =>
             setFormData({ ...formData, maritalStatus: event })
@@ -343,7 +349,7 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
         />
 
         <EditablePreference
-          label='Eating Habits'
+          label="Eating Habits"
           value={formData.eatingHabits}
           onValueChange={(event: any) =>
             setFormData({ ...formData, eatingHabits: event })
@@ -353,7 +359,7 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
         />
 
         <EditablePreference
-          label='Drinking Habits'
+          label="Drinking Habits"
           value={formData.drinkingHabits}
           onValueChange={(event: any) =>
             setFormData({ ...formData, drinkingHabits: event })
@@ -363,7 +369,7 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
         />
 
         <EditablePreference
-          label='Smoking Habits'
+          label="Smoking Habits"
           value={formData.smokingHabits}
           onValueChange={(event: any) =>
             setFormData({ ...formData, smokingHabits: event })
@@ -372,7 +378,7 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
           formData={formData}
         />
       </div>
-    </div>
+    </section>
   );
 };
 
