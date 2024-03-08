@@ -90,6 +90,7 @@ export const OnboardingForm = () => {
     setValue,
     reset,
     trigger,
+
     formState: { errors },
   } = useForm<Inputs>({
     resolver: zodResolver(ProfileSchema),
@@ -111,6 +112,8 @@ export const OnboardingForm = () => {
       employedSector: '',
       jobTitle: '',
       annualIncome: '',
+      hobbies: [],
+      images: [],
     },
   });
 
@@ -178,7 +181,7 @@ export const OnboardingForm = () => {
     const fields = steps[currentStep].fields;
     const output = await trigger(fields as FieldName[], { shouldFocus: true });
 
-    console.log(output);
+    console.log(fields);
 
     if (!output) return;
 

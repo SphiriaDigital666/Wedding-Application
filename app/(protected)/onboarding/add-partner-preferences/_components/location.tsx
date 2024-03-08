@@ -3,6 +3,7 @@ import { cities, countries, states } from '@/constants';
 import { Preference } from '@prisma/client';
 import { FC, useState } from 'react';
 import { EditablePreference } from './editable-preference';
+import { useSectionInView } from '@/hooks/useSectionInView';
 
 interface LocationPreferencesProps {
   preference: Preference | null;
@@ -14,8 +15,11 @@ const LocationPreferences: FC<LocationPreferencesProps> = ({ preference }) => {
     city: preference?.city || undefined,
     state: preference?.state || undefined,
   });
+
+  const { ref } = useSectionInView("Location");
+
   return (
-    <div className='p-5'>
+    <section id='location' ref={ref} className='p-5'>
       <span className='text-2xl'>Location Preferences</span>
       <div className='flex flex-col gap-4 mt-5'>
         <EditablePreference
@@ -48,7 +52,7 @@ const LocationPreferences: FC<LocationPreferencesProps> = ({ preference }) => {
           formData={formData}
         />
       </div>
-    </div>
+    </section>
   );
 };
 

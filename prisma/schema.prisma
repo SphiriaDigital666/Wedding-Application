@@ -105,7 +105,7 @@ model UserProfile {
 
   images String[] @default([])
 
-  hobbies   String[]
+  hobbies String[]
 
   eatingHabits   String?
   drinkingHabits String?
@@ -129,7 +129,7 @@ model UserProfile {
   companyName       String?
   employmentDetails String?
   jobTitle          String?
-  annualIncome      Float?
+  annualIncome      String?
 
   relationshipType   String?
   maritalStatus      String?
