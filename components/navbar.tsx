@@ -23,6 +23,11 @@ const Navbar: FC<NavbarProps> = ({ user }) => {
   const sessionUser = useCurrentUser();
   const router = useRouter();
   const pathname = usePathname();
+
+  if (pathname.startsWith('/onboarding')) {
+    return null;
+  }
+
   return (
     <nav className='sticky top-0 z-50 bg-secondary flex justify-between items-center p-4 rounded-xl w-full shadow-sm mb-5'>
       <div className='flex justify-between w-full gap-x-2'>

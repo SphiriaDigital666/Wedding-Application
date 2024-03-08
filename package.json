@@ -27,6 +27,8 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
+    "@radix-ui/react-toggle": "^1.0.3",
+    "@radix-ui/react-toggle-group": "^1.0.4",
     "@uploadthing/react": "^6.2.4",
     "axios": "^1.6.7",
     "bcryptjs": "^2.4.3",
