@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 
 const Carousel: React.FC = () => {
@@ -38,7 +39,7 @@ const Carousel: React.FC = () => {
       >
         {photos.map((photo, index) => (
           <div key={index} className="w-full h-full relative">
-            <img
+            <Image
               src={photo}
               alt={`Slide ${index + 1}`}
               className="w-full h-[40vh] md:h-full object-cover"

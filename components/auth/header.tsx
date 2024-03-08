@@ -14,7 +14,11 @@ const font = Poppins({
 const Header: FC<HeaderProps> = ({ label }) => {
   return (
     <div className='w-full flex flex-col gap-y-4 items-center justify-center'>
-      <h1 className={cn('text-3xl font-semibold', font.className)}>Wedding App</h1>
+      <h1
+        className={cn('text-3xl font-semibold text-[#e5569b]', font.className)}
+      >
+        Wedding App
+      </h1>
       <p className='text-muted-foreground text-sm'>{label}</p>
     </div>
   );
