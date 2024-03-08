@@ -6,7 +6,7 @@ const SideBar = () => {
   const { activeSection, setActiveSection, setTimeOfLastClick } =
     useActiveSectionContext();
   return (
-    <div className="p-5 w-1/4 border rounded-md mt-10 h-[50vh]">
+    <div className="p-5 w-1/6 fixed border rounded-md mt-10 h-[50vh]">
       <span className="text-xl font-medium">Partner Preferences</span>
       <div className="flex flex-col gap-3 mt-5">
         <a
@@ -36,11 +36,15 @@ const SideBar = () => {
         >
           Professional
         </a>
-        <a href="#location"
+        <a
+          href="#location"
           onClick={() => {
             setActiveSection('Location');
             setTimeOfLastClick(Date.now());
-          }}>Location</a>
+          }}
+        >
+          Location
+        </a>
       </div>
     </div>
   );

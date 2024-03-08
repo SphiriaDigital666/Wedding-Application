@@ -6,6 +6,7 @@ import ProfessionalPreferences from './_components/professional';
 import ReligiousPreferences from './_components/religious';
 import SideBar from './_components/sidebar';
 import { redirect } from 'next/navigation';
+import { GoToProfileButton } from './_components/button';
 
 const PreferencePage = async () => {
   const user = await currentUser();
@@ -19,10 +20,11 @@ const PreferencePage = async () => {
       userId: user?.id!,
     },
   });
+
   return (
-    <div className="flex container gap-5">
+    <div className="flex container justify-between gap-5">
       <SideBar />
-      <div className="flex container p-5 mt-10 shadow-md rounded-md">
+      <div className="flex p-5 mt-10 ml-80 shadow-md rounded-md">
         <div>
           <div className="p-5">
             <div className="flex justify-between">
@@ -45,6 +47,7 @@ const PreferencePage = async () => {
               <LocationPreferences preference={userPreference} />
             </div>
           </div>
+          <GoToProfileButton />
         </div>
       </div>
     </div>

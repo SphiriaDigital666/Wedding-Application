@@ -40,6 +40,7 @@ import { FC, useState, useTransition } from 'react';
 import { toast } from 'sonner';
 import { EditablePreference } from './editable-preference';
 import { useSectionInView } from '@/hooks/useSectionInView';
+import { motion } from 'framer-motion';
 
 interface BasicPreferencesProps {
   preference: Preference | null;
@@ -89,7 +90,7 @@ const BasicPreferences: FC<BasicPreferencesProps> = ({ preference }) => {
     }
   };
 
-  const { ref } = useSectionInView("Basic");
+  const { ref } = useSectionInView('Basic');
 
   return (
     <section id="basic" ref={ref} className="p-5">

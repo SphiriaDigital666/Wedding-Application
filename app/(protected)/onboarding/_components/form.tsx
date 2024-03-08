@@ -76,7 +76,7 @@ export const OnboardingForm = () => {
   const [previewImage, setPreviewImage] = useState('');
   const [files, setFiles] = useState<File[]>([]);
   const [previousStep, setPreviousStep] = useState(0);
-  const [currentStep, setCurrentStep] = useState(4);
+  const [currentStep, setCurrentStep] = useState(0);
   const delta = currentStep - previousStep;
 
   const [showOTP, setShowOTP] = useState(false);
