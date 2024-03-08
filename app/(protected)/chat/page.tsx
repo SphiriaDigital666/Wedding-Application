@@ -6,37 +6,42 @@ import { ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import Received from './received/page';
 
-type friendsWithLastMessage= {
-    lastMessage: {
-        id: string;
-        senderId: string;
-        text: string;
-        chatId: string | null;
-        createdAt: Date;
-        updatedAt: Date;
-    } | null;
-    friendDetails?: {
+type friendsWithLastMessage = {
+  lastMessage: {
+    id: string;
+    senderId: string;
+    text: string;
+    chatId: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+  } | null;
+  friendDetails?:
+    | {
         id: string;
         userId: string;
         friendId: string;
         createdAt: Date;
         updatedAt: Date;
-    } | undefined;
-    userData?: {
+      }
+    | undefined;
+  userData?:
+    | {
         id: string;
         name: string | null;
         email: string | null;
         image: string | null;
-    } | undefined;
-}
+      }
+    | undefined;
+};
 
 const ChatPage = async ({}) => {
   const session = await auth();
   if (!session) notFound();
 
   // @ts-ignore
-  const friends: friendsWithLastMessage[]  = await getFriendsByUserId(
+  const friends: friendsWithLastMessage[] = await getFriendsByUserId(
     session?.user.id!
   );
 

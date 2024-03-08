@@ -23,9 +23,12 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
 export const LoginForm = () => {
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl');
-  const urlError = searchParams.get('error') === 'OAuthAccountNotLinked' ? 'Email already in use with another provider' : '';
+  const urlError =
+    searchParams.get('error') === 'OAuthAccountNotLinked'
+      ? 'Email already in use with another provider'
+      : '';
   const [isPending, startTransition] = useTransition();
 
   const [error, setError] = useState<string | undefined>('');
@@ -64,8 +67,8 @@ export const LoginForm = () => {
   };
   return (
     <CardWrapper
-      headerLabel='Welcome back'
-      backButtonLabel="Dont't have an account"
+      headerLabel='Please enter your login details below'
+      backButtonLabel="Dont't have an account? Register now"
       backButtonHref='/auth/register'
       showSocial
     >
@@ -77,14 +80,13 @@ export const LoginForm = () => {
                 control={form.control}
                 name='code'
                 render={({ field }) => (
-    
-  
                   <FormItem>
                     <FormLabel>Two Factor Code</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder='123456'                        disabled={isPending}
+                        placeholder='123456'
+                        disabled={isPending}
                       />
                     </FormControl>
                     <FormMessage />
@@ -133,7 +135,9 @@ export const LoginForm = () => {
                         asChild
                         className='px-0 font-normal'
                       >
-                        <Link href='/auth/reset'>Forgot password?</Link>
+                        <Link href='/auth/reset'>
+                          <p>Forgot password?</p>
+                        </Link>
                       </Button>
                       <FormMessage />
                     </FormItem>
@@ -144,9 +148,15 @@ export const LoginForm = () => {
           </div>
           <FormError message={error || urlError} />
           <FormSuccess message={success} />
-          <Button type='submit' className='w-full' disabled={isPending}>
-            {showTwoFactor ? 'Confirm' : 'Login'}
-          </Button>
+          <div className='flex justify-center'>
+            <Button
+              type='submit'
+              className=' bg-[#e75a9e] w-full px-8'
+              disabled={isPending}
+            >
+              {showTwoFactor ? 'Confirm' : 'Login'}
+            </Button>
+          </div>
         </form>
       </Form>
     </CardWrapper>

@@ -1,19 +1,19 @@
-import Image from "next/image";
-import AllMatches from "@/public/allMatches/all-matches-img.png";
-import ProfileCover from "@/public/allMatches/profile-cover.png";
-import ProfilePic from "@/public/allMatches/profile-pic.png";
-import ProfilePic02 from "@/public/allMatches/profile-pic02.png";
+import Image from 'next/image';
+import AllMatches from '@/public/allMatches/all-matches-img.png';
+import ProfileCover from '@/public/allMatches/profile-cover.png';
+import ProfilePic from '@/public/allMatches/profile-pic.png';
+import ProfilePic02 from '@/public/allMatches/profile-pic02.png';
 
-import Advertisement01 from "@/public/allMatches/ads/ad1.png";
-import Advertisement02 from "@/public/allMatches/ads/ad2.png";
-import Advertisement03 from "@/public/allMatches/ads/ad3.png";
-import Advertisement04 from "@/public/allMatches/ads/ad4.png";
+import Advertisement01 from '@/public/allMatches/ads/ad1.png';
+import Advertisement02 from '@/public/allMatches/ads/ad2.png';
+import Advertisement03 from '@/public/allMatches/ads/ad3.png';
+import Advertisement04 from '@/public/allMatches/ads/ad4.png';
 
-import Advertisement02_01 from "@/public/allMatches/ads/02ad1.png";
-import Advertisement02_02 from "@/public/allMatches/ads/02ad2.png";
+import Advertisement02_01 from '@/public/allMatches/ads/02ad1.png';
+import Advertisement02_02 from '@/public/allMatches/ads/02ad2.png';
 
-import SelectComponent from "./_component/selectComponent";
-import { MdBrightness1, MdOutlineDone, MdOutlineClose } from "react-icons/md";
+import SelectComponent from './_component/selectComponent';
+import { MdBrightness1, MdOutlineDone, MdOutlineClose } from 'react-icons/md';
 
 export default function page() {
   return (
