@@ -8,6 +8,7 @@ import {
 import { Preference } from '@prisma/client';
 import { FC, useState } from 'react';
 import { EditablePreference } from './editable-preference';
+import { useSectionInView } from '@/hooks/useSectionInView';
 
 interface ProfessionalPreferencesProps {
   preference: Preference | null;
@@ -23,8 +24,11 @@ const ProfessionalPreferences: FC<ProfessionalPreferencesProps> = ({
     jobTitle: preference?.jobTitle || undefined,
     annualIncome: preference?.annualIncome || undefined,
   });
+
+  const { ref } = useSectionInView("Professional");
+
   return (
-    <div className='p-5'>
+    <section id='professional' ref={ref} className='p-5'>
       <span className='text-2xl'>Professional Preferences</span>
       <div className='flex flex-col gap-4 mt-5'>
         <EditablePreference
@@ -67,7 +71,7 @@ const ProfessionalPreferences: FC<ProfessionalPreferencesProps> = ({
           formData={formData}
         />
       </div>
-    </div>
+    </section>
   );
 };
 

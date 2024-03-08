@@ -5,7 +5,7 @@ import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import { SessionProvider } from 'next-auth/react';
 import { Inter, Sofia_Sans } from 'next/font/google';
-import "@uploadthing/react/styles.css";
+import '@uploadthing/react/styles.css';
 import './globals.css';
 import ActiveStatus from '@/components/active-status';
 import { ModalProvider } from '@/components/providers/modal-provider';
@@ -30,10 +30,10 @@ export default async function RootLayout({
 }>) {
   const session = await auth();
   return (
-    <html lang='en'>
+    <html lang="en">
       <SessionProvider session={session}>
         <body className={sofia_init.className}>
-          <div className=''>
+          <div className="">
             <ToastProviders>{children}</ToastProviders>
           </div>
           <Toaster />

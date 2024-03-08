@@ -90,7 +90,7 @@ export const ProfileSchema = z.object({
   companyName: z.string().min(1).optional(),
   fatherOccupation: z.string().min(1).optional(),
   motherOccupation: z.string().min(1).optional(),
-  hobbies: z.array(z.string().min(1).optional()),
+  hobbies: z.string().array().optional(),
 });
 
 export const AddFriendSchema = z.object({
