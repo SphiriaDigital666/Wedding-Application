@@ -9,12 +9,12 @@ import Image from 'next/image';
 
 import profilePhoto from '@/public/chat/profilePhoto.png';
 
-////////////////////////////////////////////////
+/////////////////////////////////////////////////
 
 import Message_bg from '@/public/chat//message-cover.jpg';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-///////////////////////////////////////////////
+////////////////////////////////////////////////
 export default async function ChatLayout({
   children,
 }: Readonly<{
