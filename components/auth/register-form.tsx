@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { CardWrapper } from './card-wrapper';
 
-import { register } from '@/actions/register';
+import { register } from '@/actions/auth/register';
 import { FormError } from '@/components/form-error';
 import { FormSuccess } from '@/components/form-success';
 import { Button } from '@/components/ui/button';

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { CardWrapper } from './card-wrapper';
 
-import { reset } from '@/actions/reset';
+import { newPassword } from '@/actions/auth/new-password';
 import { FormError } from '@/components/form-error';
 import { FormSuccess } from '@/components/form-success';
 import { Button } from '@/components/ui/button';
@@ -18,9 +18,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { NewPasswordSchema } from '@/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState, useTransition } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { newPassword } from '@/actions/new-password';
+import { useState, useTransition } from 'react';
 
 export const NewPasswordForm = () => {
   const searchparams = useSearchParams();
