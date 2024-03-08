@@ -39,6 +39,7 @@
     "embla-carousel-react": "^8.0.0-rc21",
     "framer-motion": "^11.0.5",
     "image-size": "^1.1.1",
+    "input-otp": "^1.0.1",
     "lucide-react": "^0.315.0",
     "next": "14.1.0",
     "next-auth": "^5.0.0-beta.5",

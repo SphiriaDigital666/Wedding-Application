@@ -35,6 +35,8 @@ import { useUploadThing } from '@/lib/uploadthing';
 import { createProfile } from '@/actions/profile/create-profile';
 import { useRouter } from 'next/navigation';
 import { compressImage } from '@/lib/image-compress';
+import { OTPInput, SlotProps } from 'input-otp';
+import { FakeDash, Slot } from './otpInput';
 
 type Inputs = z.infer<typeof ProfileSchema>;
 
@@ -66,7 +68,7 @@ const steps = [
     name: 'Professional',
     fields: ['education', 'employedSector', 'jobTitle', 'annualIncome'],
   },
-  { id: 'Step 5', name: 'Complete' },
+  { id: 'Step 5', name: 'Mobile Number Verification' },
 ];
 
 export const OnboardingForm = () => {
@@ -74,8 +76,15 @@ export const OnboardingForm = () => {
   const [previewImage, setPreviewImage] = useState('');
   const [files, setFiles] = useState<File[]>([]);
   const [previousStep, setPreviousStep] = useState(0);
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(4);
   const delta = currentStep - previousStep;
+
+  const [showOTP, setShowOTP] = useState(false);
+  const [showMobile, setShowMobile] = useState(true);
+  const [verified, setVerified] = useState(false);
+  const [otp, setOtp] = useState('');
+
+  const OTP = '123123';
 
   const [isPending, startTransition] = useTransition();
 
@@ -223,6 +232,13 @@ export const OnboardingForm = () => {
       } catch (error) {
         console.error('Error compressing image:', error);
       }
+    }
+  };
+
+  const checkVerification = () => {
+    if (otp === OTP) {
+      setVerified(true);
+      setShowOTP(false);
     }
   };
 
@@ -662,18 +678,67 @@ export const OnboardingForm = () => {
               subtitle="Verify your mobile number to continue"
             />
             <div className="mt-10 flex items-center justify-between">
-              <div className="flex flex-col justify-center items-center gap-2 w-full max-w-sm">
-                {/* <Label htmlFor="employedSector">Number</Label>
-                <Input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                  className="w-[300px]"
-                /> */}
-                <Button type="submit" onClick={handleSubmit(onSubmit)}>
-                  Create Profile
-                </Button>
+              <div className="flex flex-col justify-center gap-2 w-full max-w-sm">
+                {showMobile && (
+                  <>
+                    <Label htmlFor="employedSector">Number</Label>
+                    <Input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                      className="w-[300px]"
+                    />
+                    <Button
+                      onClick={() => {
+                        setShowOTP(true);
+                        setShowMobile(false);
+                      }}
+                    >
+                      Send Code
+                    </Button>
+                  </>
+                )}
+                {showOTP && (
+                  <>
+                    <OTPInput
+                      onComplete={checkVerification}
+                      onChange={setOtp}
+                      value={otp ?? ''}
+                      maxLength={6}
+                      containerClassName="group flex items-center has-[:disabled]:opacity-30"
+                      render={({ slots }) => (
+                        <>
+                          <div className="flex">
+                            {slots.slice(0, 3).map((slot, idx) => (
+                              <Slot key={idx} {...slot} />
+                            ))}
+                          </div>
+
+                          <FakeDash />
+
+                          <div className="flex">
+                            {slots.slice(3).map((slot, idx) => (
+                              <Slot key={idx} {...slot} />
+                            ))}
+                          </div>
+                        </>
+                      )}
+                    />
+                    {/* <Button
+                      onClick={() => {
+                        setShowOTP(false);
+                      }}
+                    >
+                      Verify
+                    </Button> */}
+                  </>
+                )}
+                {verified && (
+                  <Button type="submit" onClick={handleSubmit(onSubmit)}>
+                    Create Profile
+                  </Button>
+                )}
               </div>
             </div>
           </motion.div>
