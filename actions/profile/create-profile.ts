@@ -73,10 +73,10 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
         userId: user?.id,
       },
     }),
-    db.user.update({
-      where: { id: user.id },
-      data: { isNewUser: false },
-    }),
+    // db.user.update({
+    //   where: { id: user.id },
+    //   data: { isNewUser: false },
+    // }),
     db.preference.create({
       data: {
         userId: user.id!,

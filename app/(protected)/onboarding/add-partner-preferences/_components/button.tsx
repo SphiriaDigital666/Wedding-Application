@@ -1,18 +1,29 @@
 'use client';
 
-import React from 'react';
+import { updateNewUserStatus } from '@/actions/update-new-user.ts';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+import { startTransition } from 'react';
 
 export const GoToProfileButton = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push('/profile');
+    startTransition(() => {
+      updateNewUserStatus().then((data) => {
+        if (data?.error) {
+          console.log(data.error);
+        }
+
+        if (data?.success) {
+          router.push('/profile');
+        }
+      });
+    });
   };
 
   return (
-    <Button onClick={handleClick} className="mt-5 mb-10 ml-12">
+    <Button onClick={handleClick} className='mt-5 mb-10 ml-12'>
       Go to Profile
     </Button>
   );
