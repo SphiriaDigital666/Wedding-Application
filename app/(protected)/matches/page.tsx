@@ -1,8 +1,5 @@
-import Image from 'next/image';
 import AllMatches from '@/public/allMatches/all-matches-img.png';
-import ProfileCover from '@/public/allMatches/profile-cover.png';
-import ProfilePic from '@/public/allMatches/profile-pic.png';
-import ProfilePic02 from '@/public/allMatches/profile-pic02.png';
+import Image from 'next/image';
 
 import Advertisement01 from '@/public/allMatches/ads/ad1.png';
 import Advertisement02 from '@/public/allMatches/ads/ad2.png';
@@ -12,10 +9,12 @@ import Advertisement04 from '@/public/allMatches/ads/ad4.png';
 import Advertisement02_01 from '@/public/allMatches/ads/02ad1.png';
 import Advertisement02_02 from '@/public/allMatches/ads/02ad2.png';
 
+import db from '@/lib/db';
+import { MatchCard } from './_component/match-card';
 import SelectComponent from './_component/selectComponent';
-import { MdBrightness1, MdOutlineDone, MdOutlineClose } from 'react-icons/md';
 
-export default function page() {
+export default async function page() {
+  const matches = await db.userProfile.findMany({});
   return (
     <div>
       <div className=''>
@@ -56,7 +55,6 @@ export default function page() {
               <p>Shortlisted You</p>
               <p>Viewed By You</p>
               <p>Shortlisted By You</p>
-              <p>More</p>
             </div>
           </div>
         </section>
@@ -67,124 +65,11 @@ export default function page() {
           </div>
 
           <div className='col-span-6 '>
-            {/* <section>
-             
-              <div className="mb-16">
-                <div className="flex items-center justify-center ">
-                  <Image
-                    src={ProfileCover}
-                    alt="Main Image"
-                    width={776}
-                    height={102}
-                    className="rounded-lg"
-                  />
-                </div>
-                <div className="">
-                  <div className="flex items-center justify-center mt-[-50px]">
-                    <div className="rounded-lg w-[700px] bg-[#fff] bg-opacity-80 drop-shadow-md px-8">
-                      <div className="flex justify-end">
-                        <div>
-                          <p className="text-[10px] text-[#445159] font-bold pt-3 mb-2">
-                            Interested in her?
-                          </p>
-                          <p className="text-[8px] text-[#fff] font-bold bg-[#5BACE3] w-[80px] px-2 py-1 rounded-md text-center mb-2">
-                            Send Interest
-                          </p>
-                          <p className="text-[8px] text-[#5BACE3] font-bold  w-[80px] px-2 py-1 border-2 border-[#5BACE3] rounded-md text-center">
-                            Dont Show
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-center mt-[-120px]">
-                        <div className="border-[4px] border-[#5BACE3] w-[110px] h-[110px] rounded-full relative">
-                          <Image
-                            src={ProfilePic}
-                            alt="Main Image"
-                            width={106}
-                            height={106}
-                            className="rounded-lg"
-                          />
-
-                          <div className="w-[15px] h-[15px] bg-[#36D21D] rounded-full absolute bottom-[6px] right-[8px]"></div>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center justify-center">
-                        <div className="text-center">
-                          <p className="text-[13px] text-[#000] font-bold mt-1">
-                            Granthali Ramteke
-                          </p>
-                          <p className="text-[7px] text-[#A6A2A2] font-normal">
-                            M9574643 | Last seen few week ago
-                          </p>
-
-                          <div className="text-[9px] text-[#445159] font-normal flex items-center gap-3 mt-1">
-                            <p>22 Yrs {""} |</p>
-                            <p> 5’2” |</p>
-                            <p>Others |</p>
-                            <p>B.A |</p>
-                            <p>Teaching/Acadamian</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            {matches.map((match) => (
+              <div key={match.id}>
+                <MatchCard match={match}/>
               </div>
-              
-            </section> */}
-
-            <section>
-              <div className='flex items-center gap-6 border border-[#5bace3] rounded-md p-4'>
-                <Image
-                  src={ProfilePic02}
-                  alt='Main Image'
-                  width={200}
-                  height={200}
-                  className='rounded-lg'
-                />
-                <div>
-                  <p className='font-bold text-[16px] text-[#000]'>
-                    Granthali Ramteke
-                  </p>
-                  <div className='flex gap-2 text-[14px] text-[#b1afaf]'>
-                    <p>M9658480</p>
-                    <p>|</p>
-                    <p>Last seen an hour ago</p>
-                  </div>
-                  <div className='flex gap-4 items-center text-[14px] text-[#141414]'>
-                    <p>30 yrs</p>
-                    <MdBrightness1 className='text-[#b1afaf] text-[6px]' />
-                    <p>5&apos; 9&apos;</p>
-                    <MdBrightness1 className='text-[#b1afaf] text-[6px]' />
-                    <p>Chettiar</p>
-                    <MdBrightness1 className='text-[#b1afaf] text-[6px]' />
-                    <p>Software Engineering</p>
-                    <MdBrightness1 className='text-[#b1afaf] text-[6px]' />
-                  </div>
-                  <div className='flex gap-2 items-center mb-8'>
-                    <p>Fashion Designer</p>
-                    <MdBrightness1 className='text-[#b1afaf] text-[6px]' />
-                    <p>Ts. 9 Lakhs</p>
-                    <MdBrightness1 className='text-[#b1afaf] text-[6px]' />
-                    <p>Chennai</p>
-                  </div>
-                  <p>Interested in him?</p>
-                  <p>Connect Now</p>
-                  <div className='flex items-center gap-3 mt-1'>
-                    <div className='flex items-center justify-center gap-1 border border-[#b1afaf] text-[#b1afaf] text-[14px] w-max rounded-full py-[3px] px-3'>
-                      <MdOutlineClose />
-                      <p>Don&apos;t Show</p>
-                    </div>
-
-                    <div className='flex items-center gap-1 border bg-[#5bace3] border-[#5bace3] text-[#fff] text-[14px] w-max rounded-full py-[3px] px-3'>
-                      <MdOutlineDone />
-                      <p>Send Interest</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
+            ))}
           </div>
 
           <div className='col-span-3'>
