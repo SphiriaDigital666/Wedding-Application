@@ -66,47 +66,27 @@ export const LoginForm = () => {
     });
   };
   return (
-    <CardWrapper
-      headerLabel='Please enter your login details below'
-      backButtonLabel="Dont't have an account? Register now"
-      backButtonHref='/auth/register'
-      showSocial
-    >
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
-          <div className='space-y-4'>
-            {showTwoFactor && (
-              <FormField
-                control={form.control}
-                name='code'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Two Factor Code</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder='123456'
-                        disabled={isPending}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            )}
-            {!showTwoFactor && (
-              <>
+    <div>
+      <CardWrapper
+        headerLabel='Please enter your login details below'
+        backButtonLabel="Dont't have an account? Register now"
+        backButtonHref='/auth/register'
+        showSocial
+      >
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+            <div className='space-y-4'>
+              {showTwoFactor && (
                 <FormField
                   control={form.control}
-                  name='email'
+                  name='code'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>Two Factor Code</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          placeholder='john.doe@example.com'
-                          type='email'
+                          placeholder='123456'
                           disabled={isPending}
                         />
                       </FormControl>
@@ -114,51 +94,73 @@ export const LoginForm = () => {
                     </FormItem>
                   )}
                 />
+              )}
+              {!showTwoFactor && (
+                <>
+                  <FormField
+                    control={form.control}
+                    name='email'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder='john.doe@example.com'
+                            type='email'
+                            disabled={isPending}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                <FormField
-                  control={form.control}
-                  name='password'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          placeholder='******'
-                          type='password'
-                          disabled={isPending}
-                        />
-                      </FormControl>
-                      <Button
-                        size='sm'
-                        variant='link'
-                        asChild
-                        className='px-0 font-normal'
-                      >
-                        <Link href='/auth/reset'>
-                          <p>Forgot password?</p>
-                        </Link>
-                      </Button>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </>
-            )}
-          </div>
-          <FormError message={error || urlError} />
-          <FormSuccess message={success} />
-          <div className='flex justify-center'>
-            <Button
-              type='submit'
-              className=' bg-[#e75a9e] w-full px-8'
-              disabled={isPending}
-            >
-              {showTwoFactor ? 'Confirm' : 'Login'}
-            </Button>
-          </div>
-        </form>
-      </Form>
-    </CardWrapper>
+                  <FormField
+                    control={form.control}
+                    name='password'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder='******'
+                            type='password'
+                            disabled={isPending}
+                          />
+                        </FormControl>
+                        <Button
+                          size='sm'
+                          variant='link'
+                          asChild
+                          className='px-0 font-normal'
+                        >
+                          <Link href='/auth/reset'>
+                            <p>Forgot password?</p>
+                          </Link>
+                        </Button>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
+            </div>
+            <FormError message={error || urlError} />
+            <FormSuccess message={success} />
+            <div className='flex justify-center'>
+              <Button
+                type='submit'
+                className=' bg-[#e75a9e] w-full px-8'
+                disabled={isPending}
+              >
+                {showTwoFactor ? 'Confirm' : 'Login'}
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </CardWrapper>
+    </div>
   );
 };

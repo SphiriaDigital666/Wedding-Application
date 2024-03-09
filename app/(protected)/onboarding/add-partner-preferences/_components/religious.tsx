@@ -3,6 +3,7 @@ import { caste, ethnicities, religions } from '@/constants';
 import { Preference } from '@prisma/client';
 import { FC, useState } from 'react';
 import { EditablePreference } from './editable-preference';
+import { useSectionInView } from '@/hooks/useSectionInView';
 
 interface ReligiousPreferencesProps {
   preference: Preference | null;
@@ -16,8 +17,11 @@ const ReligiousPreferences: FC<ReligiousPreferencesProps> = ({
     ethnicity: preference?.ethnicity || undefined,
     caste: preference?.caste || undefined,
   });
+
+  const { ref } = useSectionInView("Religion");
+
   return (
-    <div className='p-5'>
+    <section id='religion' className='p-5' ref={ref}>
       <span className='text-2xl'>Religious Preferences</span>
       <div className='flex flex-col gap-4 mt-5'>
         <EditablePreference
@@ -50,7 +54,7 @@ const ReligiousPreferences: FC<ReligiousPreferencesProps> = ({
           formData={formData}
         />
       </div>
-    </div>
+    </section>
   );
 };
 

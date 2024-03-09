@@ -11,6 +11,7 @@ import { updateProfile } from '@/actions/profile/update-profile';
 import { useRouter } from 'next/navigation';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { hobbies } from '@/constants';
+import { toast } from 'sonner';
 
 type Inputs = z.infer<typeof ProfileSchema>;
 
@@ -47,7 +48,8 @@ export const HobbiesForm = () => {
 
           if (data?.success) {
             setSuccess(data.success);
-            router.push('/profile');
+            toast('Hobbies added successfully!');
+            router.push('/onboarding/add-partner-preferences');
           }
         })
         .catch(() => setError('Something went wrong!'));
@@ -55,16 +57,6 @@ export const HobbiesForm = () => {
 
     reset();
   };
-
-  const chunkArray = (arr: any[], chunkSize: number) => {
-    const chunkedArray = [];
-    for (let i = 0; i < arr.length; i += chunkSize) {
-      chunkedArray.push(arr.slice(i, i + chunkSize));
-    }
-    return chunkedArray;
-  };
-
-  const chunkedHobbies = chunkArray(hobbies, Math.ceil(hobbies.length / 5));
 
   return (
     <form className="py-12" onSubmit={handleSubmit(onSubmit)}>
@@ -75,26 +67,25 @@ export const HobbiesForm = () => {
             subtitle="Provide your hobbies and interests."
           />
         </div>
-        <div className="flex flex-col gap-5 ml-5">
-          {chunkedHobbies.map((row, rowIndex) => (
-            <div key={rowIndex} className="flex flex-wrap justify-start">
-              <ToggleGroup
-                type="multiple"
-                variant="outline"
-                onValueChange={(event) => setValue('hobbies', event)}
-              >
-                {row.map((option, index) => (
-                  <ToggleGroupItem
-                    key={index}
-                    value={option.value}
-                    aria-label={`Toggle ${option.label}`}
-                  >
-                    {option.label}
-                  </ToggleGroupItem>
-                ))}
-              </ToggleGroup>
-            </div>
-          ))}
+        <div className="flex flex-col gap-5 ml-5 max-w-[53rem] scroll-mt-28">
+          <section className="mb-28 max-w-[53rem] scroll-mt-28 text-center sm:mb-40">
+            <ToggleGroup
+              type="multiple"
+              className="flex flex-wrap justify-center gap-2 text-lg text-gray-800"
+              variant="outline"
+              onValueChange={(event) => setValue('hobbies', event)}
+            >
+              {hobbies.map((hobby, index) => (
+                <ToggleGroupItem
+                  className="bg-white borderBlack rounded-xl px-5 py-3 dark:bg-white/10 dark:text-white/80"
+                  key={index}
+                  value={hobby.value}
+                >
+                  {hobby.label}
+                </ToggleGroupItem>
+              ))}
+            </ToggleGroup>
+          </section>
           {errors.hobbies && (
             <p className="text-destructive mt-1">{errors.hobbies.message}</p>
           )}
