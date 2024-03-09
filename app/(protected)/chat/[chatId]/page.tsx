@@ -1,14 +1,13 @@
-import { auth } from "@/auth";
-import db from "@/lib/db";
-import { MessageSchema } from "@/schemas";
-import { User } from "@prisma/client";
-import { notFound } from "next/navigation";
-import { FC } from "react";
-import * as z from "zod";
-import ChatHeader from "./_components/chat-header";
-import ChatInput from "./_components/chat-input";
-import Messages from "./_components/messages";
-import Awaiting_response from "../_components/awaiting_response";
+import { auth } from '@/auth';
+import db from '@/lib/db';
+import { MessageSchema } from '@/schemas';
+import { User } from '@prisma/client';
+import { notFound } from 'next/navigation';
+import { FC } from 'react';
+import * as z from 'zod';
+import ChatHeader from './_components/chat-header';
+import ChatInput from './_components/chat-input';
+import Messages from './_components/messages';
 
 export const messageArrayValidator = z.array(MessageSchema);
 
@@ -28,7 +27,7 @@ const Page: FC<pageProps> = async ({ params }) => {
 
   const { user } = session;
 
-  const [userId1, userId2] = chatId.split("--");
+  const [userId1, userId2] = chatId.split('--');
 
   if (user.id !== userId1 && user.id !== userId2) {
     notFound();
@@ -43,11 +42,11 @@ const Page: FC<pageProps> = async ({ params }) => {
 
   const initialMessages = await db.message.findMany({
     where: { chatId: chatId },
-    orderBy: { createdAt: "desc" }, // Adjust the order based on your requirements
+    orderBy: { createdAt: 'desc' }, // Adjust the order based on your requirements
   });
 
   return (
-    <div className="flex-1 justify-between flex flex-col h-full max-h-[calc(100vh-6rem)]">
+    <div className='flex-1 justify-between flex flex-col h-full max-h-[calc(100vh-6rem)]'>
       <ChatHeader chatPartner={chatPartner} />
 
       <Messages
