@@ -42,7 +42,7 @@ export default async function ChatLayout({
   const unseenRequestCount = unseenRequests.length;
 
   return (
-    <div>
+    <div className='container'>
       <div className='border border-[#adadad] rounded-xl pt-4 m-8'>
         <div className='flex items-center justify-center gap-4'>
           <Link href='/chat' className=''>
@@ -124,8 +124,7 @@ export default async function ChatLayout({
                     </ul>
                   </nav>
                 </div>
-                {/* ////////////////////////////////////////////////////////////////////////// */}
-                <aside className='max-h-screen container py-16 md:py-12 w-full'>
+                <aside className=' py-16 md:py-12 w-full'>
                   {children}
                 </aside>
               </div>

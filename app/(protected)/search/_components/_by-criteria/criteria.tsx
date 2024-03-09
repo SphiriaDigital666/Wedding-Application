@@ -58,7 +58,7 @@ const Criteria = () => {
         {/* Profile Type */}
         <ProfileType onSelectChange={handleSelectChange} />
       </div>
-      <div className="w-[90%] fixed bottom-0 flex justify-around">
+      <div className="w-[100%] bottom-0 flex justify-around">
         <div className="w-[100%] flex justify-center items-center col-span-1 h-[70px] bg-slate-200 space-x-6">
           <p>2 matches based on your preferences</p>
           <Button className="bg-[#5BACE3]">View Search Results</Button>

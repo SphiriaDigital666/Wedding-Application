@@ -1,6 +1,6 @@
 'use client';
 
-import { updateNewUserStatus } from '@/actions/update-new-user.ts';
+import { updateNewUserStatus } from '@/actions/auth/update-new-user.ts';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { startTransition } from 'react';
