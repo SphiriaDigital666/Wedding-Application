@@ -43,7 +43,7 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
   const { setValue } = useForm<z.infer<typeof ProfileSchema>>({
     resolver: zodResolver(ProfileSchema),
     defaultValues: {
-      profile_image: '',
+      profileImage: '',
     },
   });
 
@@ -102,7 +102,7 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
 
         fileReader.onload = (event) => {
           const imageDataUrl = event.target?.result?.toString() || '';
-          setValue('profile_image', imageDataUrl);
+          setValue('profileImage', imageDataUrl);
           setPreviewImage(imageDataUrl);
         };
 
