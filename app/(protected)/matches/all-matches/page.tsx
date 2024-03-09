@@ -7,10 +7,10 @@ export default async function AllMatchesPage() {
   const session = await auth();
 
   const currentUserId = session?.user.id;
-  const allUsers = await db.userProfile.findMany(); // Assuming 'prisma' is your Prisma client instance
+  const allUsers = await db.userProfile.findMany();
 
   // Fetch the current user's profile
-  const currentUseProfile = await db.userProfile.findFirst({
+  const currentUserProfile = await db.userProfile.findFirst({
     where: {
       userId: currentUserId,
     },
@@ -19,10 +19,25 @@ export default async function AllMatchesPage() {
     },
   });
 
-  // Calculate compatibility scores for all users
+  // Calculate compatibility scores for all profiles
   const compatibilityScores = await Promise.all(
     allUsers
-      .filter((profile) => profile.id !== currentUseProfile?.id) // Exclude the current profile
+      .filter((profile) => profile.id !== currentUserProfile?.id) // Exclude the current profile
+      // TODO: uncomment bellow on production
+      // .filter((profile) => {
+      //   // Check gender compatibility based on user preferences
+      //   if (
+      //     currentUserProfile?.preference &&
+      //     currentUserProfile.preference.length > 0
+      //   ) {
+      //     const userGender = currentUserProfile.gender;
+      //     const partnerGender = profile.gender;
+
+      //     return userGender !== partnerGender;
+      //   }
+
+      //   return true; // If no preference is set, include all genders
+      // })
       .map(async (profile) => {
         // Fetch the profile's profile details
         const userProfile = await db.userProfile.findFirst({
@@ -32,7 +47,7 @@ export default async function AllMatchesPage() {
         });
 
         // Calculate compatibility score
-        const score = calculateCompatibility(currentUseProfile, userProfile);
+        const score = calculateCompatibility(currentUserProfile, userProfile);
 
         return { profile, score };
       })
@@ -46,8 +61,6 @@ export default async function AllMatchesPage() {
   // Get the top N recommendations (adjust N based on your preference)
   const topRecommendations = potentialPartners.slice(0, 10);
 
-  // Output the top recommendations
-  console.log('Top Recommendations:', topRecommendations);
 
   return (
     <div className='col-span-6 '>
