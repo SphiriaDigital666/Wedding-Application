@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FC } from 'react';
@@ -30,14 +30,7 @@ export const MatchesNav: FC<MatchesNavProps> = ({}) => {
         >
           Nearby Matches
         </Link>
-        <Link
-          href='/matches/viewed-by-you'
-          className={
-            pathname.includes('/viewed-by-you') ? 'text-[#5bade3]' : ''
-          }
-        >
-          Viewed By You
-        </Link>
+
         <Link
           href='/matches/shortlisted-by-you'
           className={
