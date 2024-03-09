@@ -43,7 +43,7 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
   const { setValue } = useForm<z.infer<typeof ProfileSchema>>({
     resolver: zodResolver(ProfileSchema),
     defaultValues: {
-      profile_image: '',
+      profileImage: '',
     },
   });
 
@@ -54,7 +54,7 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
       console.log(imgRes && imgRes[0].url);
 
       if (imgRes && imgRes[0].url) {
-        const values = imgRes[0].url || undefined ; // Constructing object with profile_image field
+        const values = imgRes[0].url || undefined; // Constructing object with profileImage field
         startTransition(() => {
           updateProfilePhoto(values)
             .then((data) => {
@@ -87,7 +87,6 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
     }
   };
 
-
   const handleImage = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
@@ -102,7 +101,7 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
 
         fileReader.onload = (event) => {
           const imageDataUrl = event.target?.result?.toString() || '';
-          setValue('profile_image', imageDataUrl);
+          setValue('profileImage', imageDataUrl);
           setPreviewImage(imageDataUrl);
         };
 
@@ -136,33 +135,33 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
   };
 
   return (
-    <div className='container p-5'>
-      <div className='flex justify-between items-center p-10'>
-        <div className='flex flex-row items-center relative gap-5'>
-          <Card className='w-56 h-56 relative -top-36 rounded-full'>
+    <div className="container p-5">
+      <div className="flex justify-between items-center p-10">
+        <div className="flex flex-row items-center relative gap-5">
+          <Card className="w-56 h-56 relative -top-36 rounded-full">
             <>
               {profile?.profileImage ? (
                 <CardContent
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={() => setIsHovered(false)}
-                  className='flex aspect-square items-center justify-center '
+                  className="flex aspect-square items-center justify-center "
                 >
-                  <div className='relative'>
+                  <div className="relative">
                     <Image
                       src={profile.profileImage}
-                      alt='Image'
+                      alt="Image"
                       width={200}
                       height={200}
-                      className='mt-6 rounded-full'
+                      className="mt-6 rounded-full"
                     />
                     {isHovered && (
-                      <div className='absolute top-0 right-0 m-2'>
+                      <div className="absolute top-0 right-0 m-2">
                         <button
                           onClick={() => handleDeletePhoto()}
-                          className='flex items-center bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600'
+                          className="flex items-center bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
                         >
                           {isPending && (
-                            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                           )}
                           Remove
                         </button>
@@ -173,36 +172,36 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
               ) : (
                 <CardContent>
                   {previewImage ? (
-                    <div className='relative'>
+                    <div className="relative">
                       <Image
                         src={previewImage}
                         width={200}
                         height={200}
-                        alt='Picture of the user'
-                        className='mt-6 rounded-md opacity-60'
+                        alt="Picture of the user"
+                        className="mt-6 rounded-md opacity-60"
                       />
-                      <div className='absolute bottom-0 right-0 m-2'>
+                      <div className="absolute bottom-0 right-0 m-2">
                         <Button onClick={() => onSubmit()}>
                           {imageUploadLoading && (
-                            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                           )}
                           Upload
                         </Button>
                       </div>
                     </div>
                   ) : (
-                    <div className='flex flex-col items-center justify-center my-auto'>
+                    <div className="flex flex-col items-center justify-center my-auto">
                       <input
-                        type='file'
-                        accept='image/*'
-                        className='bg-slate-50 md:w-[180px]'
+                        type="file"
+                        accept="image/*"
+                        className="bg-slate-50 md:w-[180px]"
                         style={{ display: 'none' }} // Hide the input element
                         onChange={(e) => handleImage(e)}
                         ref={inputRef} // Assign a ref to the input element if needed
                       />
-                      <span className='text-lg font-medium'>Add Photos</span>
+                      <span className="text-lg font-medium">Add Photos</span>
                       <Plus
-                        className='w-8 h-8 hover:cursor-pointer'
+                        className="w-8 h-8 hover:cursor-pointer"
                         onClick={() => inputRef?.current?.click()}
                       />{' '}
                     </div>
@@ -211,25 +210,25 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
               )}
             </>
           </Card>
-          <div className='flex flex-col gap-2'>
-            <h1 className='text-2xl font-semibold'>Jon Doe</h1>
-            <span>25 Years, 5 Ft 7 In / 170 Cms</span>
-            <span>Buddhist, (Caste No Bar)</span>
-            <span>Kandy, Central Province, Sri Lanka</span>
-            <span>B.Sc IT/ Computer Science, Software Engineer</span>
+          <div className="flex flex-col gap-2">
+            <h1 className="text-2xl font-semibold">{profile?.name}</h1>
+            <span>
+              {profile?.age}, {profile?.height}
+            </span>
+            <span>
+              {profile?.religion}, {profile?.caste}
+            </span>
+            <span>
+              {profile?.city}, {profile?.state}, {profile?.country}
+            </span>
+            <span>{profile?.education}</span>
           </div>
         </div>
-        <div className='flex flex-col gap-5'>
-          <span className='flex gap-5'>
-            <Phone /> 0729837800
-          </span>
-          <span className='flex gap-5'>
-            <MessageSquareMore /> Message
-          </span>
-          <Button variant='secondary' size='lg'>
+        <div className="flex flex-col gap-5">
+          <Button variant="secondary" size="lg">
             Preview
           </Button>
-          <span className='text-gray-400'>
+          <span className="text-gray-400">
             How your profile looks to others
           </span>
         </div>

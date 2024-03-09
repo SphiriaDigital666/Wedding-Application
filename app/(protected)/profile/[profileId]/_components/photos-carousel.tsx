@@ -1,28 +1,31 @@
 'use client';
 
-import { Card, CardContent } from '@/components/ui/card';
-import Image from 'next/image';
-import React, { ChangeEvent, FC, useRef, useState, useTransition } from 'react';
-import { Loader2, Plus } from 'lucide-react';
-import { UserProfile } from '@prisma/client';
-import { isBase64Image } from '@/lib/utils';
-import { useUploadThing } from '@/lib/uploadthing';
 import { removeImage, updateImages } from '@/actions/profile/update-images';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
 import { updateProfilePhoto } from '@/actions/profile/update-profile';
-import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { compressImage } from '@/lib/image-compress';
+import { useUploadThing } from '@/lib/uploadthing';
+import { isBase64Image } from '@/lib/utils';
 import { ProfileSchema } from '@/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { UserProfile } from '@prisma/client';
+import { Loader2, Plus } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { ChangeEvent, FC, useRef, useState, useTransition } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import * as z from 'zod';
 
 interface PhotosCarouselProps {
-  profile: UserProfile;
+  profile: UserProfile | null;
 }
 
 const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
   const router = useRouter();
+  const { data: session, update } = useSession();
   const [files, setFiles] = useState<File[]>([]);
   const [image, setImage] = useState('');
   const [previewImage, setPreviewImage] = useState('');
@@ -40,7 +43,7 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
   const { setValue } = useForm<z.infer<typeof ProfileSchema>>({
     resolver: zodResolver(ProfileSchema),
     defaultValues: {
-      profile_image: '',
+      profileImage: '',
     },
   });
 
@@ -56,8 +59,6 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
 
         if (imgRes && imgRes[0].url) {
           values = imgRes[0].url;
-
-          // Call createProfile only after the image is uploaded successfully
           startTransition(() => {
             updateImages(values)
               .then((data) => {
@@ -85,56 +86,63 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
     }
   };
 
-  const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImage = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-
-    const fileReader = new FileReader();
 
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      setFiles(Array.from(e.target.files));
 
-      if (!file.type.includes('image')) return;
+      try {
+        const compressedFile = await compressImage(file);
+        setFiles([compressedFile]);
 
-      fileReader.onload = async (event) => {
-        const imageDataUrl = event.target?.result?.toString() || '';
-        setImage(imageDataUrl); // Setting the value here
-        setPreviewImage(imageDataUrl); // Set the preview image
-      };
+        const fileReader = new FileReader();
 
-      fileReader.readAsDataURL(file);
+        fileReader.onload = (event) => {
+          const imageDataUrl = event.target?.result?.toString() || '';
+          setImage(imageDataUrl);
+          setPreviewImage(imageDataUrl);
+        };
+
+        fileReader.readAsDataURL(compressedFile);
+      } catch (error) {
+        console.error('Error compressing image:', error);
+      }
     }
   };
 
-  const handleProfileImage = async (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  const handleProfileImage = async (imageUrl: string | undefined) => {
+    try {
+      startTransition(() => {
+        updateProfilePhoto(imageUrl)
+          .then((data) => {
+            if (data?.error) {
+              setError(data.error);
+              toast(data.error);
+            }
 
-    const fileReader = new FileReader();
+            if (data?.success) {
+              setSuccess(data.success);
+              toast(data.success);
+              // Update session user information with the new profile image
+              update({
+                ...session,
+                user: { ...session?.user, image: imageUrl },
+              });
+              router.refresh();
 
-    if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
-      setFiles(Array.from(e.target.files));
-
-      if (!file.type.includes('image')) return;
-
-      fileReader.onload = async (event) => {
-        const imageDataUrl = event.target?.result?.toString() || '';
-
-        // Set profile image URL
-        setValue('profile_image', imageDataUrl);
-
-        // Set preview image
-        setPreviewImage(imageDataUrl);
-      };
-
-      fileReader.readAsDataURL(file);
+              setPreviewImage('');
+            }
+          })
+          .catch(() => setError('Something went wrong!'));
+      });
+    } catch (error) {
+      console.error('Error uploading image:', error);
     }
   };
 
   const handleDeletePhoto = async (index: number, id: string) => {
     try {
-      // const res = await utapi.deleteFiles(id);
-      // console.log(res);
       startTransition(() => {
         removeImage(index)
           .then((data) => {
@@ -145,6 +153,13 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
 
             if (data?.success) {
               setSuccess(data.success);
+              fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/images`, {
+                method: 'POST',
+                body: JSON.stringify({ id }), // Assuming 'id' is an object or a string
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              });
               toast(data.success);
               router.refresh();
             }
@@ -157,46 +172,55 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
     }
   };
 
+  const handleDropdownChange = (index: number) => {
+    setHoveredIndex(hoveredIndex === index ? null : index);
+  };
+
   return (
     <div className="container p-5 -mt-16 shadow-md rounded-md">
-      <div className="justify-between p-5">
+      <div className="p-5">
         <div className="flex justify-between">
           <span className="text-2xl">Photos</span>
         </div>
-        <div className="flex gap-5 mt-4 ">
+        <div className="flex justify-between mt-4 ">
           {profile.images?.map((image, index) => (
             <Card key={image} className="w-56 h-56 relative">
               <CardContent
                 className="flex aspect-square items-center justify-center"
-                onMouseEnter={() => setHoveredIndex(index - 1)}
-                onMouseLeave={() => setHoveredIndex(null)}
+                onMouseEnter={() => handleDropdownChange(index)}
+                onMouseLeave={() => handleDropdownChange(index)}
               >
                 <div className="relative">
-                  {hoveredIndex === index - 1 && (
-                    <>
-                      <div className="absolute top-0 right-0 m-2">
-                        <button
-                          onClick={() => handleDeletePhoto(index, image)}
-                          className="flex items-center bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                  {hoveredIndex === index && (
+                    <div className="absolute top-0 right-0 m-2">
+                      <div className="relative inline-block text-left">
+                        {/* Dropdown menu */}
+                        <div
+                          className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+                          role="menu"
+                          aria-orientation="vertical"
+                          aria-labelledby={`options-menu-${index}`}
                         >
-                          {isPending && (
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          )}
-                          Delete
-                        </button>
+                          <div className="py-1 w-full" role="none">
+                            <button
+                              // @ts-ignore
+                              onClick={() => handleProfileImage(image)}
+                              className="block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                              role="menuitem"
+                            >
+                              Make Profile Picture
+                            </button>
+                            <button
+                              onClick={() => handleDeletePhoto(index, image)}
+                              className="block px-4 py-2 text-sm w-full text-destructive hover:bg-destructive/10 hover:text-gray-900"
+                              role="menuitem"
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        </div>
                       </div>
-                      <div className="absolute bottom-0 left-1 m-2">
-                        <button
-                          onClick={(e) => handleProfileImage(e)}
-                          className="flex items-center bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                        >
-                          {isPending && (
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          )}
-                          Make Profile Picture
-                        </button>
-                      </div>
-                    </>
+                    </div>
                   )}
                   <Image
                     src={image || ''}

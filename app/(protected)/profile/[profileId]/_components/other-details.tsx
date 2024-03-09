@@ -7,37 +7,36 @@ import EditProfessional from './edit/edit-professional';
 import EditFamily from './edit/edit-family';
 
 interface OtherDetailsProps {
-  user: UserProfile | undefined;
+  profile: UserProfile | null;
 }
 
-const OtherDetails: FC<OtherDetailsProps> = ({ user }) => {
+const OtherDetails: FC<OtherDetailsProps> = ({ profile }) => {
   return (
     <div className="flex-col container p-5 mt-10 shadow-md rounded-md justify-between ">
       <div className="flex">
         <div className="w-1/2 p-5">
           <div className="flex justify-between">
             <span className="text-2xl">Religion Details</span>
-            <EditReligion user={user} />
           </div>
-          <div className="grid grid-cols-3 justify-between gap-5 mt-4">
+          <div className="grid grid-cols-1 justify-between gap-5 mt-4">
             <div className="flex gap-x-2 items-center">
               <span>Religion: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.religion || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Ethnicity: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.ethnicity || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Caste: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.caste || 'Not defined'}
               </span>
             </div>
           </div>
@@ -46,41 +45,40 @@ const OtherDetails: FC<OtherDetailsProps> = ({ user }) => {
         <div className="w-1/2 p-5">
           <div className="flex justify-between">
             <span className="text-2xl">Location Details</span>
-            <EditLocation user={user} />
           </div>
-          <div className="grid grid-cols-3 justify-between gap-5 mt-4">
+          <div className="grid grid-cols-2 justify-between gap-5 mt-4">
             <div className="flex gap-x-2 items-center">
               <span>Country: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.country || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>City: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.city || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>State: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.state || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Citizenship: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.citizenship || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Residential Status: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.residentialStatus || 'Not defined'}
               </span>
             </div>
           </div>
@@ -90,55 +88,54 @@ const OtherDetails: FC<OtherDetailsProps> = ({ user }) => {
         <div className="w-1/2 p-5">
           <div className="flex justify-between">
             <span className="text-2xl">Professional Details</span>
-            <EditProfessional user={user} />
           </div>
           <div className="grid grid-cols-2 justify-between gap-5 mt-4">
             <div className="flex gap-x-2 items-center">
               <span>Education: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.education || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Education in Detail: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.educationDetails || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>College / Institue: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.college || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Employed Sector: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.employedSector || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Company Name: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.companyName || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Job Title: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.jobTitle || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Annual Income: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.annualIncome || 'Not defined'}
               </span>
             </div>
           </div>
@@ -147,48 +144,47 @@ const OtherDetails: FC<OtherDetailsProps> = ({ user }) => {
         <div className="w-1/2 p-5">
           <div className="flex justify-between">
             <span className="text-2xl">Family Details</span>
-            <EditFamily user={user} />
           </div>
-          <div className="grid grid-cols-3 justify-between gap-5 mt-4">
+          <div className="grid grid-cols-2 justify-between gap-5 mt-4">
             <div className="flex gap-x-2 items-center">
               <span>Family Values: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.familyValues || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Family Type: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.familyType || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Family Status: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.familyStatus || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Family Details: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.familyDetails || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Siblings: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.siblings || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>No. of Siblings: </span>
               <span className=" text-gray-600">
-                {user?.name || 'Not defined'}
+                {profile?.siblings || 'Not defined'}
               </span>
             </div>
           </div>
