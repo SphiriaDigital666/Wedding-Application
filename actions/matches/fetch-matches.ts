@@ -10,8 +10,8 @@ export async function fetchAllMatches(page: number) {
 
     const currentUserId = session?.user.id;
     const allUsers = await db.userProfile.findMany({
-      skip: (page - 1)* 10,
-      take: 10
+      skip: (page - 1) * 10,
+      take: 10,
     });
 
     // Fetch the current user's profile
