@@ -71,9 +71,9 @@ const Navbar: FC<NavbarProps> = ({ user }) => {
 
               <Button
                 asChild
-                variant={pathname === '/matches' ? 'default' : 'outline'}
+                variant={pathname.startsWith('/matches') ? 'default' : 'outline'}
               >
-                <Link href='/matches'>
+                <Link href='/matches/all-matches'>
                   <MdHowToReg className='text-[20px] mr-1' /> Matches
                 </Link>
               </Button>
