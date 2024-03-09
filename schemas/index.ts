@@ -90,6 +90,9 @@ export const ProfileSchema = z.object({
   companyName: z.string().min(1).optional(),
   fatherOccupation: z.string().min(1).optional(),
   motherOccupation: z.string().min(1).optional(),
+  city: z.string().min(1).optional(),
+  country: z.string().min(1).optional(),
+  state: z.string().min(1).optional(),
   hobbies: z.string().array().optional(),
 });
 

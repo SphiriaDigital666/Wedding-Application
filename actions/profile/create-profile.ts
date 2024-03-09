@@ -36,6 +36,9 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
     employedSector,
     jobTitle,
     annualIncome,
+    city,
+    country,
+    state,
   } = validatedFields.data;
 
   console.log(validatedFields.data);
@@ -70,6 +73,9 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
         employedSector,
         jobTitle,
         annualIncome,
+        city,
+        country,
+        state,
         userId: user?.id,
       },
     }),

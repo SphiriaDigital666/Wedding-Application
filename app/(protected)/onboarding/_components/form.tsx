@@ -19,6 +19,8 @@ import {
 } from '@/components/ui/select';
 import {
   annualIncomes,
+  cities,
+  countries,
   educationalQualifications,
   employeeSectors,
   familyStatus,
@@ -28,6 +30,7 @@ import {
   maritalStatus,
   occupations,
   physicalStatus,
+  states,
 } from '@/constants';
 import { Button } from '@/components/ui/button';
 import { isBase64Image } from '@/lib/utils';
@@ -121,6 +124,9 @@ export const OnboardingForm = () => {
       employedSector: '',
       jobTitle: '',
       annualIncome: '',
+      country: '',
+      city: '',
+      state: '',
       hobbies: [],
       images: [],
     },
@@ -357,6 +363,68 @@ export const OnboardingForm = () => {
                 {errors.language && (
                   <p className="text-destructive mt-1">
                     {errors.language.message}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="mt-10 flex items-center justify-between">
+              <div className="w-full max-w-sm">
+                <Label htmlFor="city">City</Label>
+                <Select onValueChange={(event) => setValue('city', event)}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select City" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {cities.map((option, index) => (
+                      <SelectItem key={index} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {errors.city && (
+                  <p className="text-destructive mt-1">{errors.city.message}</p>
+                )}
+              </div>
+
+              <div className="w-full max-w-sm">
+                <Label htmlFor="state">State</Label>
+                <Select onValueChange={(event) => setValue('state', event)}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select State" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {states.map((option, index) => (
+                      <SelectItem key={index} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {errors.state && (
+                  <p className="text-destructive mt-1">
+                    {errors.state.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="w-full max-w-sm">
+                <Label htmlFor="country">Country</Label>
+                <Select onValueChange={(event) => setValue('country', event)}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select Country" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {countries.map((option, index) => (
+                      <SelectItem key={index} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {errors.country && (
+                  <p className="text-destructive mt-1">
+                    {errors.country.message}
                   </p>
                 )}
               </div>
