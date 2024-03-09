@@ -1,14 +1,33 @@
 "use client";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { FC, useEffect, useState } from 'react';
 
-const RecentlyActiveProfile = () => {
+interface ProfileTypeProps {
+  onSelectChange: (data: object) => void;
+}
+
+const RecentlyActiveProfile: FC<ProfileTypeProps> = ({ onSelectChange }) => {
   const [selectedButton, setSelectedButton] = useState<String>("");
+  const [data, setData] = useState<object>({
+    profileBtn: "",
+  });
+
+
+  
+
 
   const handleButtonClick = (buttonName: String) => {
     setSelectedButton(buttonName);
+    setData({
+      ...data,
+      profileBtn: buttonName,
+    });
   };
+
+  useEffect(() => {
+    onSelectChange(data);
+  }, [data]);
 
   return (
     <div className="md:col-span-1">

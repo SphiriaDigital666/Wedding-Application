@@ -18,13 +18,13 @@ const stepLabels = {
 };
 
 const SearchPage = () => {
-  const [currentStep, setCurrentStep] = useState<STEPS>(STEPS.By_Criteria);
+  const [currentStep, setCurrentStep] = useState<String>("By Criteria");
 
-  const changeState = (step: STEPS) => {
+  const changeState = (step: String) => {
     setCurrentStep(step);
   };
 
-  const handleStepClick = (step: STEPS) => {
+  const handleStepClick = (step: String) => {
     changeState(step);
   };
 
@@ -32,7 +32,7 @@ const SearchPage = () => {
     <Card className="w-[90%] m-auto">
       <CardHeader>
         <div className="text-md text-start flex gap-3">
-          {Object.values(STEPS).map((step) => (
+          {["By Criteria", "By Profile Id", "Saved Search"].map((step) => (
             <p
               key={step}
               className={`p-0 ${
@@ -40,7 +40,7 @@ const SearchPage = () => {
               }`}
               onClick={() => handleStepClick(step)}
             >
-              {stepLabels[step]}
+              {step}
             </p>
           ))}
         </div>
@@ -49,9 +49,9 @@ const SearchPage = () => {
         <hr className="w-[97%]" />
       </div>
       <CardContent className="px-0">
-        {currentStep === STEPS.By_Criteria && <Criteria />}
-        {currentStep === STEPS.Profile_Id && <ProfileId />}
-        {currentStep === STEPS.Saved_Search && <SavedSearch />}
+        {currentStep === "By Criteria" && <Criteria />}
+        {currentStep === "By Profile Id" && <ProfileId />}
+        {currentStep === "Saved Search" && <SavedSearch />}
       </CardContent>
     </Card>
   );
