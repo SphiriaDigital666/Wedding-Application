@@ -1,9 +1,9 @@
 import db from '@/lib/db';
-import MainDetails from './_components/main-details';
-import PhotosCarousel from './_components/photos-carousel';
 import { currentUser } from '@/lib/auth';
 import Image from 'next/image';
 import AllMatches from '@/public/allMatches/all-matches-img.png';
+import MainDetails from './_components/main-details';
+import PhotosCarousel from './_components/photos-carousel';
 import AboutAndBasic from './_components/about-me';
 import OtherDetails from './_components/other-details';
 import Verification from './_components/verification';

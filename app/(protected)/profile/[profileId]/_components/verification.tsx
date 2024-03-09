@@ -47,7 +47,7 @@ const AboutAndBasic: FC<AboutAndBasicProps> = ({ profile }) => {
             <div className="flex gap-x-2 items-center">
               <span>Address: </span>
               <span className=" text-gray-600">
-                {profile?.name || 'Not defined'}
+                {profile?.city || 'Not defined'}
               </span>
             </div>
 

@@ -213,7 +213,7 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
           <div className="flex flex-col gap-2">
             <h1 className="text-2xl font-semibold">{profile?.name}</h1>
             <span>
-              {profile?.age}, {profile?.height}
+              Age: {profile?.age}, Height: {profile?.height}
             </span>
             <span>
               {profile?.religion}, {profile?.caste}
