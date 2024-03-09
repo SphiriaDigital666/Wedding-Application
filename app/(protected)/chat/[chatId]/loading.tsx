@@ -3,7 +3,7 @@ import Skeleton from 'react-loading-skeleton';
 
 interface loadingProps {}
 
-const loading: FC<loadingProps> = ({}) => {
+const loading: import { FC } from 'react';oadingProps> = ({}) => {
   return (
     <div className='flex flex-col h-full items-center'>
       <Skeleton className='mb-4' height={40} width={400} />
