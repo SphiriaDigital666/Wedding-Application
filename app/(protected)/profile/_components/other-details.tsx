@@ -5,6 +5,7 @@ import EditReligion from './edit/edit-religion';
 import EditLocation from './edit/edit-location';
 import EditProfessional from './edit/edit-professional';
 import EditFamily from './edit/edit-family';
+import { Separator } from '@/components/ui/separator';
 
 interface OtherDetailsProps {
   profile: UserProfile | null;
@@ -41,6 +42,7 @@ const OtherDetails: FC<OtherDetailsProps> = ({ profile }) => {
               </span>
             </div>
           </div>
+          <Separator className="mt-10" />
         </div>
 
         <div className="w-1/2 p-5">
@@ -84,8 +86,10 @@ const OtherDetails: FC<OtherDetailsProps> = ({ profile }) => {
               </span>
             </div>
           </div>
+          <Separator className="mt-10" />
         </div>
       </div>
+
       <div className="flex">
         <div className="w-1/2 p-5">
           <div className="flex justify-between">

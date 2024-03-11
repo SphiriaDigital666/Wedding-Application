@@ -79,6 +79,8 @@ export const ProfileSchema = z.object({
   profileImage: z.string().optional(),
   images: z.string().array().optional(),
   religion: z.string().min(1).optional(),
+  ethnicity: z.string().min(1).optional(),
+  caste: z.string().min(1).optional(),
   familyStatus: z.string().min(1).optional(),
   familyType: z.string().min(1).optional(),
   familyValues: z.string().min(1).optional(),

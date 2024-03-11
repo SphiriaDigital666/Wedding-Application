@@ -63,11 +63,11 @@ const EditBasic: FC<EditBasicDetailsProps> = ({ profile }) => {
     resolver: zodResolver(ProfileSchema),
     defaultValues: {
       name: profile?.name ?? '',
-      age: profile?.age!.toString(),
+      age: profile?.age!?.toString() ?? '',
       city: profile?.city ?? '',
       language: profile?.language ?? '',
-      height: profile?.height?.toString(),
-      weight: profile?.weight?.toString(),
+      height: profile?.height?.toString() ?? '',
+      weight: profile?.weight?.toString() ?? '',
       bodyType: profile?.bodyType ?? '',
       physicalStatus: profile?.physicalStatus ?? '',
       maritalStatus: profile?.maritalStatus ?? '',
@@ -137,7 +137,7 @@ const EditBasic: FC<EditBasicDetailsProps> = ({ profile }) => {
               <div className="flex items-center gap-3 w-full">
                 <Label htmlFor="age">Age</Label>
                 <Select
-                  defaultValue={profile?.age!.toString()}
+                  defaultValue={profile?.age!?.toString()}
                   onValueChange={(event) => setValue('age', event)}
                 >
                   <SelectTrigger className="w-full">
@@ -207,7 +207,7 @@ const EditBasic: FC<EditBasicDetailsProps> = ({ profile }) => {
               <div className="flex items-center gap-3 w-full">
                 <Label htmlFor="height">Height</Label>
                 <Select
-                  defaultValue={profile?.height!.toString()}
+                  defaultValue={profile?.height!?.toString()}
                   onValueChange={(event) => setValue('height', event)}
                 >
                   <SelectTrigger className="w-full">
@@ -231,7 +231,7 @@ const EditBasic: FC<EditBasicDetailsProps> = ({ profile }) => {
               <div className="flex items-center gap-3 w-full">
                 <Label htmlFor="weight">Weight</Label>
                 <Select
-                  defaultValue={profile?.weight!.toString()}
+                  defaultValue={profile?.weight!?.toString()}
                   onValueChange={(event) => setValue('weight', event)}
                 >
                   <SelectTrigger className="w-full">

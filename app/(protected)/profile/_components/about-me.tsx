@@ -11,7 +11,7 @@ interface AboutAndBasicProps {
 
 const AboutAndBasic: FC<AboutAndBasicProps> = ({ profile }) => {
   return (
-    <div className="p-5 mt-10 shadow-md rounded-md">
+    <div className="p-5 mt-10 h-full shadow-md rounded-md">
       <div className="p-5">
         <div className="flex justify-between">
           <span className="text-2xl">About Me</span>
