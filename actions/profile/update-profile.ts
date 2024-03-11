@@ -31,6 +31,13 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
 
     const {
       bio,
+      name,
+      age,
+      city,
+      language,
+      height,
+      physicalStatus,
+      maritalStatus,
       bodyType,
       weight,
       college,
@@ -49,7 +56,14 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
       },
       data: {
         bio,
+        name,
+        age: parseFloat(age!),
+        city,
+        language,
+        height: parseFloat(height as string),
         bodyType,
+        physicalStatus,
+        maritalStatus,
         weight: parseFloat(weight as string),
         college,
         companyName,
@@ -61,6 +75,8 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
         hobbies,
       },
     });
+
+    revalidatePath('/profile');
 
     return { success: 'Profile updated successfully!' };
   } catch (error: any) {
