@@ -24,10 +24,10 @@ import {
 import { useForm } from 'react-hook-form';
 
 interface EditBasicDetailsProps {
-  user: UserProfile | undefined;
+  profile: UserProfile | undefined;
 }
 
-const EditBasic: FC<EditBasicDetailsProps> = ({ user }) => {
+const EditBasic: FC<EditBasicDetailsProps> = ({ profile }) => {
   const form = useForm();
   return (
     <Dialog>
@@ -53,7 +53,7 @@ const EditBasic: FC<EditBasicDetailsProps> = ({ user }) => {
                   <FormItem className="flex items-center gap-3">
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder={user?.name || 'Name'} {...field}  />
+                      <Input placeholder={profile?.name || 'Name'} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -67,7 +67,7 @@ const EditBasic: FC<EditBasicDetailsProps> = ({ user }) => {
                   <FormItem className="flex items-center gap-3">
                     <FormLabel>Age</FormLabel>
                     <FormControl>
-                      <Input placeholder={user?.age || 'Age'} {...field} />
+                      <Input placeholder={profile?.age || 'Age'} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -82,7 +82,7 @@ const EditBasic: FC<EditBasicDetailsProps> = ({ user }) => {
                     <FormLabel>Address</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={user?.address || 'Address'}
+                        placeholder={profile?.address || 'Address'}
                         {...field}
                       />
                     </FormControl>
@@ -99,7 +99,7 @@ const EditBasic: FC<EditBasicDetailsProps> = ({ user }) => {
                     <FormLabel>Language</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={user?.language || 'Language'}
+                        placeholder={profile?.language || 'Language'}
                         {...field}
                       />
                     </FormControl>
@@ -117,7 +117,7 @@ const EditBasic: FC<EditBasicDetailsProps> = ({ user }) => {
                     <FormLabel>Hieght</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={user?.height || 'Height'}
+                        placeholder={profile?.height || 'Height'}
                         {...field}
                       />
                     </FormControl>
@@ -134,7 +134,7 @@ const EditBasic: FC<EditBasicDetailsProps> = ({ user }) => {
                     <FormLabel>Weight</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={user?.weight || 'Weight'}
+                        placeholder={profile?.weight || 'Weight'}
                         {...field}
                       />
                     </FormControl>
@@ -150,7 +150,7 @@ const EditBasic: FC<EditBasicDetailsProps> = ({ user }) => {
                     <FormLabel>Body Type</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={user?.bodyType || 'Body Type'}
+                        placeholder={profile?.bodyType || 'Body Type'}
                         {...field}
                       />
                     </FormControl>
@@ -166,7 +166,9 @@ const EditBasic: FC<EditBasicDetailsProps> = ({ user }) => {
                     <FormLabel>Physical Status</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={user?.physicalStatus || 'Physical Status'}
+                        placeholder={
+                          profile?.physicalStatus || 'Physical Status'
+                        }
                         {...field}
                       />
                     </FormControl>
@@ -184,7 +186,7 @@ const EditBasic: FC<EditBasicDetailsProps> = ({ user }) => {
                     <FormLabel>Marital Status</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={user?.maritalStatus || 'Marital Status'}
+                        placeholder={profile?.maritalStatus || 'Marital Status'}
                         {...field}
                       />
                     </FormControl>
@@ -201,7 +203,7 @@ const EditBasic: FC<EditBasicDetailsProps> = ({ user }) => {
                     <FormLabel>Eating Habits</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={user?.eatingHabits || 'Eating Habits'}
+                        placeholder={profile?.eatingHabits || 'Eating Habits'}
                         {...field}
                       />
                     </FormControl>
@@ -217,7 +219,9 @@ const EditBasic: FC<EditBasicDetailsProps> = ({ user }) => {
                     <FormLabel>Drinking Habits</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={user?.drinkingHabits || 'Drinking Habits'}
+                        placeholder={
+                          profile?.drinkingHabits || 'Drinking Habits'
+                        }
                         {...field}
                       />
                     </FormControl>
@@ -233,7 +237,7 @@ const EditBasic: FC<EditBasicDetailsProps> = ({ user }) => {
                     <FormLabel>Smoking Habits</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={user?.smokingHabits || 'Smoking Habits'}
+                        placeholder={profile?.smokingHabits || 'Smoking Habits'}
                         {...field}
                       />
                     </FormControl>

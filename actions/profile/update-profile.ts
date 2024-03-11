@@ -30,6 +30,16 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
     }
 
     const {
+      bio,
+      name,
+      age,
+      city,
+      country,
+      state,
+      language,
+      height,
+      physicalStatus,
+      maritalStatus,
       bodyType,
       weight,
       college,
@@ -40,6 +50,16 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
       fatherOccupation,
       motherOccupation,
       hobbies,
+      religion,
+      ethnicity,
+      caste,
+      education,
+      employedSector,
+      jobTitle,
+      annualIncome,
+      familyType,
+      familyValues,
+      familyStatus,
     } = validatedFields.data;
 
     await db.userProfile.update({
@@ -47,7 +67,17 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
         id: userProfile.id,
       },
       data: {
+        bio,
+        name,
+        age: parseFloat(age!),
+        city,
+        country,
+        state,
+        language,
+        height: parseFloat(height as string),
         bodyType,
+        physicalStatus,
+        maritalStatus,
         weight: parseFloat(weight as string),
         college,
         companyName,
@@ -57,8 +87,20 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
         fatherOccupation,
         motherOccupation,
         hobbies,
+        religion,
+        ethnicity,
+        caste,
+        education,
+        employedSector,
+        jobTitle,
+        annualIncome,
+        familyType,
+        familyValues,
+        familyStatus,
       },
     });
+
+    revalidatePath('/profile');
 
     return { success: 'Profile updated successfully!' };
   } catch (error: any) {
