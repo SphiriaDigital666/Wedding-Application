@@ -11,3 +11,8 @@ type TopRecommendation =
       score: number;
     }[]
   | undefined;
+
+  interface ExtendedMessage extends Message {
+    senderImg: string;
+    senderName: string;
+  }

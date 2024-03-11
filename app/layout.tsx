@@ -1,14 +1,15 @@
 import { auth } from '@/auth';
+import ActiveStatus from '@/components/active-status';
 import ProfileModal from '@/components/modals/profile-modal';
+import { ModalProvider } from '@/components/providers/modal-provider';
 import ToastProviders from '@/components/providers/toast-provider';
 import { Toaster } from '@/components/ui/sonner';
+import { UnseenChatToastProvider } from '@/components/unseen-chat-toast';
+import '@uploadthing/react/styles.css';
 import type { Metadata } from 'next';
 import { SessionProvider } from 'next-auth/react';
 import { Inter, Sofia_Sans } from 'next/font/google';
-import '@uploadthing/react/styles.css';
 import './globals.css';
-import ActiveStatus from '@/components/active-status';
-import { ModalProvider } from '@/components/providers/modal-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -30,16 +31,17 @@ export default async function RootLayout({
 }>) {
   const session = await auth();
   return (
-    <html lang="en">
+    <html lang='en'>
       <SessionProvider session={session}>
         <body className={sofia_init.className}>
-          <div className="">
+          <div className=''>
             <ToastProviders>{children}</ToastProviders>
           </div>
           <Toaster />
           <ProfileModal />
           <ModalProvider />
           <ActiveStatus />
+          <UnseenChatToastProvider />
         </body>
       </SessionProvider>
     </html>

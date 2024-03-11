@@ -1,17 +1,13 @@
 import { auth } from '@/auth';
+import { Input } from '@/components/ui/input';
 import { getFriendsByUserId } from '@/helpers/get-friends-by-user-id';
 import db from '@/lib/db';
 import Link from 'next/link';
 import SidebarChatList from './_components/sidebar-chat-list';
 import FriendRequestSidebarOptions from './add/_components/friend-request-sidebar-options';
-import { Input } from '@/components/ui/input';
-import Image from 'next/image';
-
-import profilePhoto from '@/public/chat/profilePhoto.png';
 
 /////////////////////////////////////////////////
 
-import Message_bg from '@/public/chat//message-cover.jpg';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 ////////////////////////////////////////////////
@@ -124,9 +120,7 @@ export default async function ChatLayout({
                     </ul>
                   </nav>
                 </div>
-                <aside className=' py-16 md:py-12 w-full'>
-                  {children}
-                </aside>
+                <aside className=' py-16 md:py-12 w-full'>{children}</aside>
               </div>
             </TabsContent>
           </Tabs>
