@@ -30,6 +30,7 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
     }
 
     const {
+      bio,
       bodyType,
       weight,
       college,
@@ -47,6 +48,7 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
         id: userProfile.id,
       },
       data: {
+        bio,
         bodyType,
         weight: parseFloat(weight as string),
         college,

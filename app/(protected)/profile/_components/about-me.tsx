@@ -17,12 +17,7 @@ const AboutAndBasic: FC<AboutAndBasicProps> = ({ profile }) => {
           <span className="text-2xl">About Me</span>
           <EditAbout />
         </div>
-        <div className="flex gap-5 mt-4">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur quos
-          repudiandae excepturi, dolorum laboriosam ducimus, nulla voluptatem,
-          labore expedita ea quas porro architecto nesciunt veritatis unde quod
-          perferendis aspernatur voluptatibus?
-        </div>
+        <div className="flex gap-5 mt-4">{profile?.bio || 'Not defined'}</div>
       </div>
 
       <div className="justify-between p-5">

@@ -62,7 +62,7 @@ export const SettingsSchema = z
   );
 
 export const ProfileSchema = z.object({
-  // bio: z.string().min(1).optional(),
+  bio: z.string().min(1).optional(),
   name: z.string().min(1).optional(),
   age: z.string().min(1).optional(),
   gender: z.string().min(1).optional(),
