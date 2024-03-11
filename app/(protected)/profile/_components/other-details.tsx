@@ -153,27 +153,6 @@ const OtherDetails: FC<OtherDetailsProps> = ({ profile }) => {
                 {profile?.familyStatus || 'Not defined'}
               </span>
             </div>
-
-            <div className="flex gap-x-2 items-center">
-              <span>Family Details: </span>
-              <span className=" text-gray-600">
-                {profile?.familyDetails || 'Not defined'}
-              </span>
-            </div>
-
-            <div className="flex gap-x-2 items-center">
-              <span>Siblings: </span>
-              <span className=" text-gray-600">
-                {profile?.siblings || 'Not defined'}
-              </span>
-            </div>
-
-            <div className="flex gap-x-2 items-center">
-              <span>No. of Siblings: </span>
-              <span className=" text-gray-600">
-                {profile?.siblings || 'Not defined'}
-              </span>
-            </div>
           </div>
         </div>
       </div>

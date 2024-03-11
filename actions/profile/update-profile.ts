@@ -57,6 +57,9 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
       employedSector,
       jobTitle,
       annualIncome,
+      familyType,
+      familyValues,
+      familyStatus,
     } = validatedFields.data;
 
     await db.userProfile.update({
@@ -91,6 +94,9 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
         employedSector,
         jobTitle,
         annualIncome,
+        familyType,
+        familyValues,
+        familyStatus,
       },
     });
 
