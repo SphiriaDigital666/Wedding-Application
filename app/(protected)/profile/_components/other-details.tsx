@@ -71,20 +71,6 @@ const OtherDetails: FC<OtherDetailsProps> = ({ profile }) => {
                 {profile?.state || 'Not defined'}
               </span>
             </div>
-
-            <div className="flex gap-x-2 items-center">
-              <span>Citizenship: </span>
-              <span className=" text-gray-600">
-                {profile?.citizenship || 'Not defined'}
-              </span>
-            </div>
-
-            <div className="flex gap-x-2 items-center">
-              <span>Residential Status: </span>
-              <span className=" text-gray-600">
-                {profile?.residentialStatus || 'Not defined'}
-              </span>
-            </div>
           </div>
           <Separator className="mt-10" />
         </div>
