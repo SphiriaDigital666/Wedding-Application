@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { CardWrapper } from './card-wrapper';
 
-import { login } from '@/actions/login';
+import { login } from '@/actions/auth/login';
 import { FormError } from '@/components/form-error';
 import { FormSuccess } from '@/components/form-success';
 import { Button } from '@/components/ui/button';
@@ -18,9 +18,9 @@ import {
 import { Input } from '@/components/ui/input';
 import { LoginSchema } from '@/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState, useTransition } from 'react';
-import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { useState, useTransition } from 'react';
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();

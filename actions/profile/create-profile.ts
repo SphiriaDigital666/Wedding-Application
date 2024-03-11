@@ -53,42 +53,39 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
     return { error: 'User already has a profile' };
   }
 
-  await db.$transaction([
-    db.userProfile.create({
-      data: {
-        age: parseFloat(age!),
-        gender,
-        dob,
-        height: parseFloat(height!),
-        language: language?.toLowerCase(),
-        physicalStatus,
-        maritalStatus,
-        name,
-        religion,
-        profileImage,
-        familyStatus,
-        familyType,
-        familyValues,
-        education,
-        employedSector,
-        jobTitle,
-        annualIncome,
-        city,
-        country,
-        state,
-        userId: user?.id,
+  const createdProfile = await db.userProfile.create({
+    data: {
+      age: parseFloat(age!),
+      gender,
+      dob,
+      height: parseFloat(height!),
+      language: language?.toLowerCase(),
+      physicalStatus,
+      maritalStatus,
+      name,
+      religion,
+      profileImage,
+      familyStatus,
+      familyType,
+      familyValues,
+      education,
+      employedSector,
+      jobTitle,
+      annualIncome,
+      userId: user?.id,
+    },
+  });
+
+  await db.preference.create({
+    data: {
+      userId: user.id!,
+      userProfile: {
+        connect: {
+          id: createdProfile.id,
+        },
       },
-    }),
-    // db.user.update({
-    //   where: { id: user.id },
-    //   data: { isNewUser: false },
-    // }),
-    db.preference.create({
-      data: {
-        userId: user.id!,
-      },
-    }),
-  ]);
+    },
+  });
 
   return { success: 'Profile created successfully!' };
 };
