@@ -91,14 +91,7 @@ const OtherDetails: FC<OtherDetailsProps> = ({ profile }) => {
             </div>
 
             <div className="flex gap-x-2 items-center">
-              <span>Education in Detail: </span>
-              <span className=" text-gray-600">
-                {profile?.educationDetails || 'Not defined'}
-              </span>
-            </div>
-
-            <div className="flex gap-x-2 items-center">
-              <span>College / Institue: </span>
+              <span>College: </span>
               <span className=" text-gray-600">
                 {profile?.college || 'Not defined'}
               </span>
@@ -119,7 +112,7 @@ const OtherDetails: FC<OtherDetailsProps> = ({ profile }) => {
             </div>
 
             <div className="flex gap-x-2 items-center">
-              <span>Job Title: </span>
+              <span>Occupation: </span>
               <span className=" text-gray-600">
                 {profile?.jobTitle || 'Not defined'}
               </span>
