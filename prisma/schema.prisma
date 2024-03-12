@@ -126,7 +126,7 @@ model UserProfile {
   college          String?
 
   email  String?
-  mobile Int?
+  mobile String?
 
   employedSector    String?
   companyName       String?
