@@ -1,34 +1,37 @@
 'use client';
 
-import React, { ChangeEvent, FC, useRef, useState, useTransition } from 'react';
-import { Button } from '@/components/ui/button';
-import Image from 'next/image';
-import { UserProfile } from '@prisma/client';
-import { Card, CardContent } from '@/components/ui/card';
 import {
   removeProfilePhoto,
   updateProfilePhoto,
 } from '@/actions/profile/update-profile';
-import { useRouter } from 'next/navigation';
-import { Loader2, MessageSquareMore, Phone, Plus } from 'lucide-react';
-import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { compressImage } from '@/lib/image-compress';
+import { useUploadThing } from '@/lib/uploadthing';
 import { ProfileSchema } from '@/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { isBase64Image } from '@/lib/utils';
-import { useUploadThing } from '@/lib/uploadthing';
+import { UserProfile } from '@prisma/client';
+import { Loader2, MessageSquareMore, Phone, Plus } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { ChangeEvent, FC, useRef, useState, useTransition } from 'react';
+import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import * as z from 'zod';
 
 interface MainDetailsProps {
-  profile: UserProfile;
+  profile: UserProfile | null;
 }
 
 const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
   const router = useRouter();
+  const { data: session, update } = useSession();
 
   const [isHovered, setIsHovered] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [isPending, startTransition] = useTransition();
+  const [imageUploadLoading, setimageUploadLoading] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -40,17 +43,18 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
   const { setValue } = useForm<z.infer<typeof ProfileSchema>>({
     resolver: zodResolver(ProfileSchema),
     defaultValues: {
-      profile_image: '',
+      profileImage: '',
     },
   });
 
   const onSubmit = async () => {
     try {
+      setimageUploadLoading(true);
       const imgRes = await startUpload(files);
       console.log(imgRes && imgRes[0].url);
 
       if (imgRes && imgRes[0].url) {
-        const values = { profile_image: imgRes[0].url }; // Constructing object with profile_image field
+        const values = imgRes[0].url || undefined; // Constructing object with profileImage field
         startTransition(() => {
           updateProfilePhoto(values)
             .then((data) => {
@@ -62,6 +66,11 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
               if (data?.success) {
                 setSuccess(data.success);
                 toast(data.success);
+                // Update session user information with the new profile image
+                update({
+                  ...session,
+                  user: { ...session?.user, image: values },
+                });
                 router.refresh();
 
                 setPreviewImage('');
@@ -73,35 +82,52 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
     } catch (error) {
       setError('Error uploading image');
       console.error('Error uploading image:', error);
+    } finally {
+      setimageUploadLoading(false);
     }
   };
 
-  const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImage = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-
-    const fileReader = new FileReader();
 
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      setFiles(Array.from(e.target.files));
 
-      if (!file.type.includes('image')) return;
+      try {
+        const compressedFile = await compressImage(file);
+        setFiles([compressedFile]);
 
-      fileReader.onload = async (event) => {
-        const imageDataUrl = event.target?.result?.toString() || '';
-        setValue('profile_image', imageDataUrl); // Setting the value here
-        setPreviewImage(imageDataUrl);
-      };
+        const fileReader = new FileReader();
 
-      fileReader.readAsDataURL(file);
+        fileReader.onload = (event) => {
+          const imageDataUrl = event.target?.result?.toString() || '';
+          setValue('profileImage', imageDataUrl);
+          setPreviewImage(imageDataUrl);
+        };
+
+        fileReader.readAsDataURL(compressedFile);
+      } catch (error) {
+        console.error('Error compressing image:', error);
+      }
     }
   };
 
-  const handleDeletePhoto = async () => {
-    startTransition(() => {
+  const handleDeletePhoto = () => {
+    startTransition(async () => {
       try {
-        removeProfilePhoto();
-        router.refresh();
+        removeProfilePhoto().then((data) => {
+          if (data?.error) {
+            setError(data.error);
+            console.log(data.error);
+          }
+
+          if (data?.success) {
+            setSuccess(data.success);
+            toast(data.success);
+            fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/images`);
+            router.refresh();
+          }
+        });
       } catch (error) {
         console.error('Error deleting profile image:', error);
       }
@@ -137,7 +163,7 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
                           {isPending && (
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                           )}
-                          Delete
+                          Remove
                         </button>
                       </div>
                     )}
@@ -156,7 +182,7 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
                       />
                       <div className="absolute bottom-0 right-0 m-2">
                         <Button onClick={() => onSubmit()}>
-                          {isPending && (
+                          {imageUploadLoading && (
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                           )}
                           Upload
@@ -164,7 +190,7 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
                       </div>
                     </div>
                   ) : (
-                    <div className="flex flex-col items-center justify-center">
+                    <div className="flex flex-col items-center justify-center my-auto">
                       <input
                         type="file"
                         accept="image/*"
@@ -178,7 +204,6 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
                         className="w-8 h-8 hover:cursor-pointer"
                         onClick={() => inputRef?.current?.click()}
                       />{' '}
-                      {/* Trigger click on the hidden input */}
                     </div>
                   )}
                 </CardContent>
@@ -186,11 +211,17 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
             </>
           </Card>
           <div className="flex flex-col gap-2">
-            <h1 className="text-2xl font-semibold">Jon Doe</h1>
-            <span>25 Years, 5 Ft 7 In / 170 Cms</span>
-            <span>Buddhist, (Caste No Bar)</span>
-            <span>Kandy, Central Province, Sri Lanka</span>
-            <span>B.Sc IT/ Computer Science, Software Engineer</span>
+            <h1 className="text-2xl font-semibold">{profile?.name}</h1>
+            <span>
+              Age: {profile?.age}, Height: {profile?.height}
+            </span>
+            <span>
+              {profile?.religion}, {profile?.caste}
+            </span>
+            <span>
+              {profile?.city}, {profile?.state}, {profile?.country}
+            </span>
+            <span>{profile?.education}</span>
           </div>
         </div>
         <div className="flex flex-col gap-5">

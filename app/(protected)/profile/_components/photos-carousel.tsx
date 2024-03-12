@@ -43,7 +43,7 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
   const { setValue } = useForm<z.infer<typeof ProfileSchema>>({
     resolver: zodResolver(ProfileSchema),
     defaultValues: {
-      profile_image: '',
+      profileImage: '',
     },
   });
 
@@ -111,9 +111,7 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
     }
   };
 
-  const handleProfileImage = async (
-    imageUrl: string | undefined
-  ) => {
+  const handleProfileImage = async (imageUrl: string | undefined) => {
     try {
       startTransition(() => {
         updateProfilePhoto(imageUrl)
@@ -179,43 +177,43 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
   };
 
   return (
-    <div className='container p-5 -mt-16 shadow-md rounded-md'>
-      <div className='justify-between p-5'>
-        <div className='flex justify-between'>
-          <span className='text-2xl'>Photos</span>
+    <div className="container p-5 -mt-16 shadow-md rounded-md">
+      <div className="p-5">
+        <div className="flex justify-between">
+          <span className="text-2xl">Photos</span>
         </div>
-        <div className='flex gap-5 mt-4 '>
+        <div className="flex justify-between mt-4 ">
           {profile.images?.map((image, index) => (
-            <Card key={image} className='w-56 h-56 relative'>
+            <Card key={image} className="w-56 h-56 relative">
               <CardContent
-                className='flex aspect-square items-center justify-center'
+                className="flex aspect-square items-center justify-center"
                 onMouseEnter={() => handleDropdownChange(index)}
                 onMouseLeave={() => handleDropdownChange(index)}
               >
-                <div className='relative'>
+                <div className="relative">
                   {hoveredIndex === index && (
-                    <div className='absolute top-0 right-0 m-2'>
-                      <div className='relative inline-block text-left'>
+                    <div className="absolute top-0 right-0 m-2">
+                      <div className="relative inline-block text-left">
                         {/* Dropdown menu */}
                         <div
-                          className='origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5'
-                          role='menu'
-                          aria-orientation='vertical'
+                          className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+                          role="menu"
+                          aria-orientation="vertical"
                           aria-labelledby={`options-menu-${index}`}
                         >
-                          <div className='py-1 w-full' role='none'>
+                          <div className="py-1 w-full" role="none">
                             <button
-                            // @ts-ignore
+                              // @ts-ignore
                               onClick={() => handleProfileImage(image)}
-                              className='block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                              role='menuitem'
+                              className="block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                              role="menuitem"
                             >
                               Make Profile Picture
                             </button>
                             <button
                               onClick={() => handleDeletePhoto(index, image)}
-                              className='block px-4 py-2 text-sm w-full text-destructive hover:bg-destructive/10 hover:text-gray-900'
-                              role='menuitem'
+                              className="block px-4 py-2 text-sm w-full text-destructive hover:bg-destructive/10 hover:text-gray-900"
+                              role="menuitem"
                             >
                               Remove
                             </button>
@@ -229,49 +227,49 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
                     width={200}
                     height={200}
                     alt={`Picture  of the user`}
-                    className='rounded-md mt-6'
+                    className="rounded-md mt-6"
                   />
                 </div>
               </CardContent>
             </Card>
           ))}
           {profile.images.length < 5 && (
-            <Card className='w-56 h-56 relative'>
+            <Card className="w-56 h-56 relative">
               <CardContent
-                className='flex aspect-square items-center justify-center'
+                className="flex aspect-square items-center justify-center"
                 onMouseLeave={() => setHoveredIndex(null)}
               >
                 {previewImage ? (
-                  <div className='relative'>
+                  <div className="relative">
                     <Image
                       src={previewImage}
                       width={200}
                       height={200}
-                      alt='Picture of the user'
-                      className='mt-6 rounded-md opacity-60'
+                      alt="Picture of the user"
+                      className="mt-6 rounded-md opacity-60"
                     />
-                    <div className='absolute bottom-0 right-0 m-2'>
+                    <div className="absolute bottom-0 right-0 m-2">
                       <Button onClick={() => onSubmit(previewImage)}>
                         {isPending && (
-                          <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         )}
                         Upload
                       </Button>
                     </div>
                   </div>
                 ) : (
-                  <div className='flex flex-col items-center justify-center'>
+                  <div className="flex flex-col items-center justify-center">
                     <input
-                      type='file'
-                      accept='image/*'
-                      className='bg-slate-50 md:w-[180px]'
+                      type="file"
+                      accept="image/*"
+                      className="bg-slate-50 md:w-[180px]"
                       style={{ display: 'none' }} // Hide the input element
                       onChange={(e) => handleImage(e)}
                       ref={inputRef} // Assign a ref to the input element if needed
                     />
-                    <span className='text-lg font-medium'>Add Photos</span>
+                    <span className="text-lg font-medium">Add Photos</span>
                     <Plus
-                      className='w-8 h-8 hover:cursor-pointer'
+                      className="w-8 h-8 hover:cursor-pointer"
                       onClick={() => inputRef?.current?.click()}
                     />{' '}
                     {/* Trigger click on the hidden input */}
