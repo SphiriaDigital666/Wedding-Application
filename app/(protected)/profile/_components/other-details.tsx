@@ -20,7 +20,7 @@ const OtherDetails: FC<OtherDetailsProps> = ({ profile }) => {
             <span className="text-2xl">Religion Details</span>
             <EditReligion profile={profile} />
           </div>
-          <div className="grid grid-cols-1 justify-between gap-5 mt-4">
+          <div className="grid grid-cols-2 justify-between gap-5 mt-4">
             <div className="flex gap-x-2 items-center">
               <span>Religion: </span>
               <span className=" text-gray-600">

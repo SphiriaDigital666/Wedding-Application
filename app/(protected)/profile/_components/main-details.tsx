@@ -19,6 +19,8 @@ import { ChangeEvent, FC, useRef, useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { convertHeight } from '@/helpers/convert-height';
 
 interface MainDetailsProps {
   profile: UserProfile | null;
@@ -134,11 +136,13 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
     });
   };
 
+  
+
   return (
     <div className="container p-5">
       <div className="flex justify-between items-center p-10">
-        <div className="flex flex-row items-center relative gap-5">
-          <Card className="w-56 h-56 relative -top-36 rounded-full">
+        <div className="flex flex-row items-center gap-10">
+          <Card className="w-64 h-64 relative -top-36 rounded-full">
             <>
               {profile?.profileImage ? (
                 <CardContent
@@ -146,13 +150,13 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
                   onMouseLeave={() => setIsHovered(false)}
                   className="flex aspect-square items-center justify-center "
                 >
-                  <div className="relative">
+                  <div className="flex items-center justify-center m-auto">
                     <Image
                       src={profile.profileImage}
                       alt="Image"
-                      width={200}
-                      height={200}
-                      className="mt-6 rounded-full"
+                      height={400}
+                      width={400}
+                      className="rounded-full object-cover mt-4 max-w-[220px] max-h-[220px]"
                     />
                     {isHovered && (
                       <div className="absolute top-0 right-0 m-2">
@@ -178,19 +182,19 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
                         width={200}
                         height={200}
                         alt="Picture of the user"
-                        className="mt-6 rounded-md opacity-60"
+                        className="mt-6 rounded-full opacity-60"
                       />
                       <div className="absolute bottom-0 right-0 m-2">
                         <Button onClick={() => onSubmit()}>
                           {imageUploadLoading && (
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                           )}
-                          Upload
+                          {imageUploadLoading ? 'Uploadind' : 'Upload'}
                         </Button>
                       </div>
                     </div>
                   ) : (
-                    <div className="flex flex-col items-center justify-center my-auto">
+                    <div className="flex flex-col items-center justify-center my-auto mt-24">
                       <input
                         type="file"
                         accept="image/*"
@@ -199,7 +203,7 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
                         onChange={(e) => handleImage(e)}
                         ref={inputRef} // Assign a ref to the input element if needed
                       />
-                      <span className="text-lg font-medium">Add Photos</span>
+                      <span className="text-lg font-medium">Add Image</span>
                       <Plus
                         className="w-8 h-8 hover:cursor-pointer"
                         onClick={() => inputRef?.current?.click()}
@@ -210,10 +214,10 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
               )}
             </>
           </Card>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col relative -top-10 gap-3">
             <h1 className="text-2xl font-semibold">{profile?.name}</h1>
             <span>
-              Age: {profile?.age}, Height: {profile?.height}
+              Age: {profile?.age}, Height: {convertHeight(profile?.height!)} 
             </span>
             <span>
               {profile?.religion}, {profile?.caste}
@@ -223,14 +227,6 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
             </span>
             <span>{profile?.education}</span>
           </div>
-        </div>
-        <div className="flex flex-col gap-5">
-          <Button variant="secondary" size="lg">
-            Preview
-          </Button>
-          <span className="text-gray-400">
-            How your profile looks to others
-          </span>
         </div>
       </div>
     </div>
