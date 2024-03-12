@@ -20,7 +20,7 @@ const DashboardPage = async () => {
   console.log(userProfile);
   return (
     <>
-      <div className="flex flex-col container items-center justify-center">
+      <div className="flex flex-col container ">
         <div className="flex items-center justify-center">
           <Image
             src={AllMatches}
@@ -40,10 +40,10 @@ const DashboardPage = async () => {
         <PhotosCarousel profile={userProfile} />
 
         <div className="flex gap-5">
-          <div className="w-1/2">
+          <div className="w-full">
             <AboutAndBasic profile={userProfile} />
           </div>
-          <div className="w-1/2">
+          <div className="w-full">
             <Verification profile={userProfile} />
           </div>
         </div>

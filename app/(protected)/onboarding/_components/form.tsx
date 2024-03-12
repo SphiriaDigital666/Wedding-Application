@@ -43,6 +43,8 @@ import { useRouter } from 'next/navigation';
 import { compressImage } from '@/lib/image-compress';
 import { OTPInput, SlotProps } from 'input-otp';
 import { FakeDash, Slot } from './otpInput';
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
 
 type Inputs = z.infer<typeof ProfileSchema>;
 
@@ -50,7 +52,17 @@ const steps = [
   {
     id: 'Step 1',
     name: 'Personal Information',
-    fields: ['name', 'age', 'dob', 'gender', 'religion', 'language'],
+    fields: [
+      'name',
+      'email',
+      'mobile',
+      'age',
+      'dob',
+      'gender',
+      'city',
+      'state',
+      'country',
+    ],
   },
   {
     id: 'Step 2',
@@ -64,6 +76,8 @@ const steps = [
       'maritalStatus',
       'height',
       'physicalStatus',
+      'religion',
+      'language',
       'familyStatus',
       'familyType',
       'familyValues',
@@ -89,6 +103,8 @@ export const OnboardingForm = () => {
   const [showMobile, setShowMobile] = useState(true);
   const [verified, setVerified] = useState(false);
   const [otp, setOtp] = useState('');
+
+  // const [mobileValue, setMobileValue] = useState();
 
   const OTP = '123123';
 
@@ -303,7 +319,7 @@ export const OnboardingForm = () => {
               title="Personal Information"
               subtitle="Provide your personal details."
             />
-            <div className="mt-10 flex items-center justify-between">
+            <div className="mt-10 flex items-center gap-4 justify-between">
               <div className="w-full max-w-sm">
                 <Label htmlFor="name">Name</Label>
                 <Input
@@ -334,7 +350,14 @@ export const OnboardingForm = () => {
 
               <div className="w-full max-w-sm">
                 <Label htmlFor="mobile">Mobile</Label>
-                <Input type="tel" id="mobile" {...register('mobile')} />
+                <Input type="text" id="mobile" {...register('mobile')} />
+                {/* <PhoneInput
+                  placeholder="Enter phone number"
+                  value={mobileValue}
+                  onChange={setMobileValue}
+                  {...register('mobile')}
+                /> */}
+
                 {errors.mobile && (
                   <p className="text-destructive mt-1">
                     {errors.mobile.message}
@@ -342,7 +365,7 @@ export const OnboardingForm = () => {
                 )}
               </div>
             </div>
-            <div className="mt-10 flex items-center justify-between">
+            <div className="mt-10 flex items-center gap-4 justify-between">
               <div className="w-full max-w-sm">
                 <Label htmlFor="age">Age</Label>
                 <Select onValueChange={(event) => setValue('age', event)}>
@@ -387,7 +410,7 @@ export const OnboardingForm = () => {
                 )}
               </div>
             </div>
-            <div className="mt-10 flex items-center justify-between">
+            <div className="mt-10 flex items-center gap-4 justify-between">
               <div className="w-full max-w-sm">
                 <Label htmlFor="city">City</Label>
                 <Select onValueChange={(event) => setValue('city', event)}>
@@ -509,7 +532,7 @@ export const OnboardingForm = () => {
               title="Personal Background"
               subtitle="Provide your background details."
             />
-            <div className="mt-10 flex items-center justify-between">
+            <div className="mt-10 flex items-center gap-4 justify-between">
               <div className="w-full max-w-sm">
                 <Label htmlFor="maritalStatus">Marital Status</Label>
                 <Select
@@ -578,7 +601,7 @@ export const OnboardingForm = () => {
               </div>
             </div>
 
-            <div className="mt-10 flex items-center gap-5">
+            <div className="mt-10 flex items-center gap-4">
               <div className="w-full">
                 <Label htmlFor="religion">Religion</Label>
                 <Select onValueChange={(event) => setValue('religion', event)}>
@@ -622,7 +645,7 @@ export const OnboardingForm = () => {
               </div>
             </div>
 
-            <div className="mt-10 flex items-center justify-between">
+            <div className="mt-10 flex items-center gap-4 justify-between">
               <div className="w-full max-w-sm">
                 <Label htmlFor="familyStatus">Family Status</Label>
                 <Select
@@ -706,7 +729,7 @@ export const OnboardingForm = () => {
               title="Professional Details"
               subtitle="Provide your professional details."
             />
-            <div className="mt-10 flex items-center justify-between">
+            <div className="mt-10 flex items-center gap-4 justify-between">
               <div className="w-full max-w-sm">
                 <Label htmlFor="education">Education</Label>
                 <Select onValueChange={(event) => setValue('education', event)}>

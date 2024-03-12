@@ -177,7 +177,7 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
   };
 
   return (
-    <div className="container p-5 -mt-24 shadow-md rounded-md">
+    <div className="container p-5 -mt-32 shadow-md rounded-md">
       <div className="p-5">
         <div className="flex justify-between">
           <span className="text-2xl">Photos</span>
