@@ -1,27 +1,88 @@
-'use client'
-import Image from 'next/image';
-import { FC } from 'react'
-import { MdBrightness1, MdOutlineClose, MdOutlineDone } from 'react-icons/md';
+'use client';
+import { addFriend } from '@/actions/friends/add-friend';
+import { hideMatch,removeHideMatch } from '@/actions/matches/hide-matches';
+import { Button } from '@/components/ui/button';
 import ProfilePic02 from '@/public/allMatches/profile-pic02.png';
+import { AddFriendSchema } from '@/schemas';
 import { UserProfile } from '@prisma/client';
+import { format } from 'date-fns';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-
+import { FC, startTransition } from 'react';
+import { MdBrightness1, MdOutlineClose, MdOutlineDone } from 'react-icons/md';
+import { toast } from 'sonner';
+import * as z from 'zod';
 
 interface MatchCardProps {
-  match: UserProfile
+  match: UserProfile;
 }
 
-export const MatchCard: FC<MatchCardProps> = ({match}) => {
-  const router = useRouter()
+export const MatchCard: FC<MatchCardProps> = ({ match }) => {
+  const router = useRouter();
+
+  const currentDateTime = Date.now();
+
+  const formattedDateTime = format(
+    currentDateTime,
+    "EEEE, MMMM dd, yyyy 'at' h:mm a"
+  );
+
+  const onSubmit = (email: z.infer<typeof AddFriendSchema>) => {
+    startTransition(() => {
+      addFriend(email).then((data) => {
+        if (data.error) {
+          toast.error(data.error);
+        }
+        if (data.success) {
+          toast.success(data.success);
+        }
+      });
+    });
+  };
+
+  const handleHideMatch = (matchId: string) => {
+    startTransition(() => {
+      hideMatch(matchId).then((data) => {
+        if (data.error) {
+          toast.error(data.error);
+        }
+        if (data.success) {
+          toast(data.success, {
+            description: formattedDateTime,
+            action: {
+              label: 'Undo',
+              onClick: () => handleUndoHideMatch(matchId),
+            },
+          });
+        }
+      });
+    });
+  };
+
+  const handleUndoHideMatch = (matchId: string) => {
+    startTransition(() => {
+      removeHideMatch(matchId).then((data) => {
+        if (data.error) {
+          toast.error(data.error);
+        }
+        if (data.success) {
+          toast.success(data.success);
+        }
+      });
+    });
+    
+  };
+
   return (
-    <section className='mb-3 hover:cursor-pointer' onClick={()=>router.push(`/profile/${match.id}`)}>
+    <section className='mb-3 hover:cursor-pointer'>
       <div className='flex items-center gap-6 border border-[#5bace3] rounded-md p-4'>
         <Image
           src={match.profileImage || ProfilePic02}
           alt='Main Image'
           width={200}
           height={200}
-          className='rounded-lg'
+          className='rounded-lg cursor-pointer'
+          onClick={() => router.push(`/profile/${match.id}`)}
         />
         <div>
           <p className='font-bold text-[16px] text-[#000]'>{match.name}</p>
@@ -50,18 +111,25 @@ export const MatchCard: FC<MatchCardProps> = ({match}) => {
           <p>Interested in {match.gender === 'male' ? 'him' : 'her'}?</p>
           <p>Connect Now</p>
           <div className='flex items-center gap-3 mt-1'>
-            <div className='flex items-center justify-center gap-1 border border-[#b1afaf] text-[#b1afaf] text-[14px] w-max rounded-full py-[3px] px-3'>
+            <Button
+              variant='outline'
+              className='flex items-center justify-center gap-1 border border-[#b1afaf] text-[#b1afaf] text-[14px] w-max rounded-full'
+              onClick={() => handleHideMatch(match.id)}
+            >
               <MdOutlineClose />
               <p>Don&apos;t Show</p>
-            </div>
+            </Button>
 
-            <div className='flex items-center gap-1 border bg-[#5bace3] border-[#5bace3] text-[#fff] text-[14px] w-max rounded-full py-[3px] px-3'>
+            <Button
+              className='flex items-center gap-1 border bg-[#5bace3] hover:bg-white hover:text-[#5bace3] border-[#5bace3] text-[#fff] text-[14px] w-max rounded-full'
+              onClick={() => onSubmit({ email: match.email! })}
+            >
               <MdOutlineDone />
               <p>Send Interest</p>
-            </div>
+            </Button>
           </div>
         </div>
       </div>
     </section>
   );
-}
+};
