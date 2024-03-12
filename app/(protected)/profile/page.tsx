@@ -27,7 +27,7 @@ const DashboardPage = async () => {
             alt="Main Image"
             width={1920}
             height={312}
-            className="-mt-5"
+            className="rounded-md"
           />
           <div className="absolute text-center">
             <p className="text-[35px] text-[#fff] font-bold">

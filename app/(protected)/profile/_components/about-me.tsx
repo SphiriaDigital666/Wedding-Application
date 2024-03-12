@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { UserProfile } from '@prisma/client';
 import EditBasic from './edit/edit-basic';
 import EditAbout from './edit/edit-about';
+import { convertHeight } from '@/helpers/convert-height';
 
 interface AboutAndBasicProps {
   profile: UserProfile | null;
@@ -44,7 +45,7 @@ const AboutAndBasic: FC<AboutAndBasicProps> = ({ profile }) => {
             <div className="flex gap-x-2 items-center">
               <span>Address: </span>
               <span className=" text-gray-600">
-                {profile?.city || 'Not defined'}
+                {`${profile?.city}, ${profile?.state}` || 'Not defined'}
               </span>
             </div>
 
@@ -58,14 +59,14 @@ const AboutAndBasic: FC<AboutAndBasicProps> = ({ profile }) => {
             <div className="flex gap-x-2 items-center">
               <span>Hieght: </span>
               <span className=" text-gray-600">
-                {profile?.height || 'Not defined'}
+                {convertHeight(profile?.height!) || 'Not defined'}
               </span>
             </div>
 
             <div className="flex gap-x-2 items-center">
               <span>Weight: </span>
               <span className=" text-gray-600">
-                {profile?.weight || 'Not defined'}
+                {profile?.weight || 'Not defined'} Kg
               </span>
             </div>
           </div>

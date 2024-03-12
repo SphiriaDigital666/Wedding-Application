@@ -177,13 +177,13 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
   };
 
   return (
-    <div className="container p-5 -mt-16 shadow-md rounded-md">
+    <div className="container p-5 -mt-24 shadow-md rounded-md">
       <div className="p-5">
         <div className="flex justify-between">
           <span className="text-2xl">Photos</span>
         </div>
-        <div className="flex justify-between mt-4 ">
-          {profile.images?.map((image, index) => (
+        <div className="flex gap-8 mt-4 ">
+          {profile?.images?.map((image, index) => (
             <Card key={image} className="w-56 h-56 relative">
               <CardContent
                 className="flex aspect-square items-center justify-center"
@@ -227,7 +227,7 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
                     width={200}
                     height={200}
                     alt={`Picture  of the user`}
-                    className="rounded-md mt-6"
+                    className="rounded-md object-cover max-w-[210px] max-h-[200px] mt-3"
                   />
                 </div>
               </CardContent>
@@ -253,7 +253,7 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
                         {isPending && (
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         )}
-                        Upload
+                        {isPending ? 'Uploading' : 'Upload'}
                       </Button>
                     </div>
                   </div>
