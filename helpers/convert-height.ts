@@ -1,6 +1,9 @@
-export function convertHeight(height: number = 0) {
+export function convertHeight(height: string | number = '0') {
+  // Ensure height is a string
+  const heightString = typeof height === 'string' ? height : height.toString();
+
   // Split the height into feet and inches
-  const [feet, inches] = height?.toString().split('.') || ['0', '0'];
+  const [feet, inches] = heightString.split('.') || ['0', '0'];
 
   // Convert feet and inches to inches
   const totalInches = parseInt(feet) * 12 + parseInt(inches);

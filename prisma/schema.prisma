@@ -91,15 +91,15 @@ model UserProfile {
   id             String  @id @default(cuid()) @map("_id")
   userId         String?
   preferenceId   String?
-  age            Int?
+  age            String?
   name           String?
   gender         String?
   dob            String?
   bio            String?
   language       String?
   profileImage   String?
-  height         Float?
-  weight         Float?
+  height         String?
+  weight         String?
   bodyType       String?
   physicalStatus String?
 
@@ -230,9 +230,9 @@ model Preference {
 }
 
 model HiddenMatch {
-  id      String @id @default(cuid()) @map("_id")
-  userId  String
-  matchId String
+  id        String   @id @default(cuid()) @map("_id")
+  userId    String
+  matchId   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

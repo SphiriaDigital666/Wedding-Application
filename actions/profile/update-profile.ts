@@ -69,16 +69,16 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
       data: {
         bio,
         name,
-        age: parseFloat(age!),
+        age,
         city,
         country,
         state,
         language,
-        height: parseFloat(height as string),
+        height,
         bodyType,
         physicalStatus,
         maritalStatus,
-        weight: parseFloat(weight as string),
+        weight ,
         college,
         companyName,
         eatingHabits,
@@ -107,6 +107,7 @@ export const updateProfile = async (values: z.infer<typeof ProfileSchema>) => {
     return { error: 'Error updating the profile.' + error.message };
   }
 };
+
 
 export const updateProfilePhoto = async (image: string | undefined) => {
   const user = await currentUser();

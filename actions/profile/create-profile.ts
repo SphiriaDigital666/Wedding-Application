@@ -40,8 +40,6 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
     email,
   } = validatedFields.data;
 
-  console.log(validatedFields.data);
-
   const userProfile = await db.userProfile.findFirst({
     where: {
       userId: user.id,
@@ -54,10 +52,10 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
 
   const createdProfile = await db.userProfile.create({
     data: {
-      age: parseFloat(age!),
+      age,
       gender,
       dob,
-      height: parseFloat(height!),
+      height,
       language: language?.toLowerCase(),
       physicalStatus,
       maritalStatus,
