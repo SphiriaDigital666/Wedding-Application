@@ -228,3 +228,13 @@ model Preference {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model HiddenMatch {
+  id      String @id @default(cuid()) @map("_id")
+  userId  String
+  matchId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, matchId])
+}

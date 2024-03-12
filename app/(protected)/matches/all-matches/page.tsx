@@ -12,7 +12,7 @@ export default async function AllMatchesPage() {
           <MatchCard match={profile} />
         </div>
       ))}
-      <LoadMore/>
+      <LoadMore />
     </div>
   );
 }
