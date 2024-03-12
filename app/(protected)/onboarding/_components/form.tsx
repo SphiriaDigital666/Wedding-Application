@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import {
+  age,
   annualIncomes,
   cities,
   countries,
@@ -27,9 +28,11 @@ import {
   familyTypes,
   familyValues,
   heights,
+  languages,
   maritalStatus,
   occupations,
   physicalStatus,
+  religions,
   states,
 } from '@/constants';
 import { Button } from '@/components/ui/button';
@@ -129,6 +132,8 @@ export const OnboardingForm = () => {
       state: '',
       hobbies: [],
       images: [],
+      email: '',
+      mobile: '',
     },
   });
 
@@ -313,8 +318,45 @@ export const OnboardingForm = () => {
               </div>
 
               <div className="w-full max-w-sm">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  type="email"
+                  id="email"
+                  {...register('email')}
+                  className="w-full"
+                />
+                {errors.email && (
+                  <p className="text-destructive mt-1">
+                    {errors.email.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="w-full max-w-sm">
+                <Label htmlFor="mobile">Mobile</Label>
+                <Input type="tel" id="mobile" {...register('mobile')} />
+                {errors.mobile && (
+                  <p className="text-destructive mt-1">
+                    {errors.mobile.message}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="mt-10 flex items-center justify-between">
+              <div className="w-full max-w-sm">
                 <Label htmlFor="age">Age</Label>
-                <Input type="string" id="age" {...register('age')} />
+                <Select onValueChange={(event) => setValue('age', event)}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select Age" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {age.map((option, index) => (
+                      <SelectItem key={index} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 {errors.age && (
                   <p className="text-destructive mt-1">{errors.age.message}</p>
                 )}
@@ -327,8 +369,6 @@ export const OnboardingForm = () => {
                   <p className="text-destructive mt-1">{errors.dob.message}</p>
                 )}
               </div>
-            </div>
-            <div className="mt-10 flex items-center justify-between">
               <div className="w-full max-w-sm">
                 <Label htmlFor="gender">Gender</Label>
                 <Select onValueChange={(event) => setValue('gender', event)}>
@@ -343,26 +383,6 @@ export const OnboardingForm = () => {
                 {errors.gender && (
                   <p className="text-destructive mt-1">
                     {errors.gender.message}
-                  </p>
-                )}
-              </div>
-
-              <div className="w-full max-w-sm">
-                <Label htmlFor="religion">Religion</Label>
-                <Input type="string" id="religion" {...register('religion')} />
-                {errors.religion && (
-                  <p className="text-destructive mt-1">
-                    {errors.religion.message}
-                  </p>
-                )}
-              </div>
-
-              <div className="w-full max-w-sm">
-                <Label htmlFor="language">Language</Label>
-                <Input type="string" id="language" {...register('language')} />
-                {errors.language && (
-                  <p className="text-destructive mt-1">
-                    {errors.language.message}
                   </p>
                 )}
               </div>
@@ -557,6 +577,51 @@ export const OnboardingForm = () => {
                 )}
               </div>
             </div>
+
+            <div className="mt-10 flex items-center gap-5">
+              <div className="w-full">
+                <Label htmlFor="religion">Religion</Label>
+                <Select onValueChange={(event) => setValue('religion', event)}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select Religion" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {religions.map((option, index) => (
+                      <SelectItem key={index} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {errors.religion && (
+                  <p className="text-destructive mt-1">
+                    {errors.religion.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="w-full">
+                <Label htmlFor="language">Language</Label>
+                <Select onValueChange={(event) => setValue('language', event)}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select Language" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {languages.map((option, index) => (
+                      <SelectItem key={index} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {errors.language && (
+                  <p className="text-destructive mt-1">
+                    {errors.language.message}
+                  </p>
+                )}
+              </div>
+            </div>
+
             <div className="mt-10 flex items-center justify-between">
               <div className="w-full max-w-sm">
                 <Label htmlFor="familyStatus">Family Status</Label>

@@ -96,6 +96,8 @@ export const ProfileSchema = z.object({
   country: z.string().min(1).optional(),
   state: z.string().min(1).optional(),
   hobbies: z.string().array().optional(),
+  email: z.string().min(1).email().optional(),
+  mobile: z.string().min(10).optional(),
 });
 
 export const AddFriendSchema = z.object({
