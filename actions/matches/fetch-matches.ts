@@ -24,10 +24,24 @@ export async function fetchAllMatches(page: number) {
       },
     });
 
+    // Fetch hidden match IDs
+    const hiddenMatches = await db.hiddenMatch.findMany({
+      where: {
+        userId: currentUserId,
+      },
+    });
+    console.log("🚀 ~ fetchAllMatches ~ hiddenMatches:", hiddenMatches)
+
     // Calculate compatibility scores for all profiles
     const compatibilityScores = await Promise.all(
       allUsers
-        .filter((profile) => profile.id !== currentUserProfile?.id) // Exclude the current profile
+        .filter((profile) => profile.id !== currentUserProfile?.id)
+        .filter(
+          (profile) =>
+            !hiddenMatches.some(
+              (hiddenMatch) => hiddenMatch.matchId === profile.id
+            )
+        )
         // TODO: uncomment bellow on production
         // .filter((profile) => {
         //   // Check gender compatibility based on user preferences
