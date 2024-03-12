@@ -62,7 +62,7 @@ export const SettingsSchema = z
   );
 
 export const ProfileSchema = z.object({
-  // bio: z.string().min(1).optional(),
+  bio: z.string().min(1).optional(),
   name: z.string().min(1).optional(),
   age: z.string().min(1).optional(),
   gender: z.string().min(1).optional(),
@@ -79,6 +79,8 @@ export const ProfileSchema = z.object({
   profileImage: z.string().optional(),
   images: z.string().array().optional(),
   religion: z.string().min(1).optional(),
+  ethnicity: z.string().min(1).optional(),
+  caste: z.string().min(1).optional(),
   familyStatus: z.string().min(1).optional(),
   familyType: z.string().min(1).optional(),
   familyValues: z.string().min(1).optional(),
@@ -90,6 +92,9 @@ export const ProfileSchema = z.object({
   companyName: z.string().min(1).optional(),
   fatherOccupation: z.string().min(1).optional(),
   motherOccupation: z.string().min(1).optional(),
+  city: z.string().min(1).optional(),
+  country: z.string().min(1).optional(),
+  state: z.string().min(1).optional(),
   hobbies: z.string().array().optional(),
 });
 
