@@ -71,7 +71,7 @@ export const createProfile = async (values: z.infer<typeof ProfileSchema>) => {
       employedSector,
       jobTitle,
       annualIncome,
-      mobile: parseFloat(mobile!),
+      mobile,
       email,
       userId: user?.id,
     },
