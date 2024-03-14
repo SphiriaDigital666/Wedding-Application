@@ -183,7 +183,7 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
           <span className="text-2xl">Photos</span>
         </div>
         <div className="flex justify-between mt-4 ">
-          {profile.images?.map((image, index) => (
+          {profile?.images?.map((image, index) => (
             <Card key={image} className="w-56 h-56 relative">
               <CardContent
                 className="flex aspect-square items-center justify-center"
@@ -233,7 +233,7 @@ const PhotosCarousel: FC<PhotosCarouselProps> = ({ profile }) => {
               </CardContent>
             </Card>
           ))}
-          {profile.images.length < 5 && (
+          {profile?.images && profile?.images?.length < 5 && (
             <Card className="w-56 h-56 relative">
               <CardContent
                 className="flex aspect-square items-center justify-center"
