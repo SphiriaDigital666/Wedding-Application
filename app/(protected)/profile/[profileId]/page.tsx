@@ -11,6 +11,7 @@ import LocationDetails from './_components/location-details';
 import BasicDetails from './_components/basic';
 import ProfessionalDetails from './_components/professional-details';
 import FamilyDetails from './_components/family-details';
+import OtherImages from './_components/photos-carousel';
 
 interface ProfileIdPageProps {
   params: {
@@ -109,7 +110,7 @@ const ProfileIdPage: FC<ProfileIdPageProps> = async ({ params }) => {
 
         <MainDetails profile={userProfile} />
         {/* <PhotosCarousel profile={userProfile} /> */}
-        <div className="grid grid-cols-3 gap-3">
+        {/* <div className="grid grid-cols-3 gap-3">
           {userProfile?.images.map((image, index) => (
             <div key={index} className="">
               <DirectionAwareHover imageUrl={image}>
@@ -118,7 +119,9 @@ const ProfileIdPage: FC<ProfileIdPageProps> = async ({ params }) => {
               </DirectionAwareHover>
             </div>
           ))}
-        </div>
+        </div> */}
+        <OtherImages params={params} />
+        {/* <LayoutGridDemo /> */}
         <About profile={userProfile} />
 
         <div className="h-[20rem] md:h-[30rem] [perspective:1000px] relative b flex flex-col  mx-auto w-full  items-start justify-start my-10">

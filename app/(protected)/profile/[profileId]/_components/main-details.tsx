@@ -137,94 +137,92 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
   };
 
   return (
-    <div className="container p-5">
-      <div className="flex justify-between items-center p-10">
-        <div className="flex flex-row items-center gap-10">
-          <Card className="w-64 h-64 relative -top-36 rounded-full">
-            <>
-              {profile?.profileImage ? (
-                <CardContent
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
-                  className="flex aspect-square items-center justify-center "
-                >
-                  <div className="flex items-center justify-center m-auto">
-                    <Image
-                      src={profile.profileImage}
-                      alt="Image"
-                      height={400}
-                      width={400}
-                      className="rounded-full object-cover mt-4 max-w-[220px] max-h-[220px]"
-                    />
-                    {isHovered && (
-                      <div className="absolute top-0 right-0 m-2">
-                        <button
-                          onClick={() => handleDeletePhoto()}
-                          className="flex items-center bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-                        >
-                          {isPending && (
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          )}
-                          Remove
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </CardContent>
-              ) : (
-                <CardContent>
-                  {previewImage ? (
-                    <div className="relative">
-                      <Image
-                        src={previewImage}
-                        width={200}
-                        height={200}
-                        alt="Picture of the user"
-                        className="mt-6 rounded-full opacity-60"
-                      />
-                      <div className="absolute bottom-0 right-0 m-2">
-                        <Button onClick={() => onSubmit()}>
-                          {imageUploadLoading && (
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          )}
-                          {imageUploadLoading ? 'Uploadind' : 'Upload'}
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col items-center justify-center my-auto mt-24">
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="bg-slate-50 md:w-[180px]"
-                        style={{ display: 'none' }} // Hide the input element
-                        onChange={(e) => handleImage(e)}
-                        ref={inputRef} // Assign a ref to the input element if needed
-                      />
-                      <span className="text-lg font-medium">Add Image</span>
-                      <Plus
-                        className="w-8 h-8 hover:cursor-pointer"
-                        onClick={() => inputRef?.current?.click()}
-                      />{' '}
+    <div className="container shadow-md m-10 rounded-md p-5">
+      <div className="flex items-center gap-10">
+        <Card className="w-64 h-64">
+          <>
+            {profile?.profileImage ? (
+              <CardContent
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                className="flex aspect-square items-center justify-center "
+              >
+                <div className="flex items-center justify-center m-auto">
+                  <Image
+                    src={profile.profileImage}
+                    alt="Image"
+                    height={400}
+                    width={400}
+                    className="rounded-md object-cover mt-3 max-w-[230px] max-h-[230px]"
+                  />
+                  {isHovered && (
+                    <div className="absolute top-0 right-0 m-2">
+                      <button
+                        onClick={() => handleDeletePhoto()}
+                        className="flex items-center bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                      >
+                        {isPending && (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        )}
+                        Remove
+                      </button>
                     </div>
                   )}
-                </CardContent>
-              )}
-            </>
-          </Card>
-          <div className="flex flex-col relative -top-10 gap-3">
-            <h1 className="text-2xl font-semibold">{profile?.name}</h1>
-            <span>
-              Age: {profile?.age}, Height: {convertHeight(profile?.height!)}
-            </span>
-            <span>
-              {profile?.religion}, {profile?.caste}
-            </span>
-            <span>
-              {profile?.city}, {profile?.state}, {profile?.country}
-            </span>
-            <span>{profile?.education}</span>
-          </div>
+                </div>
+              </CardContent>
+            ) : (
+              <CardContent>
+                {previewImage ? (
+                  <div className="relative">
+                    <Image
+                      src={previewImage}
+                      width={200}
+                      height={200}
+                      alt="Picture of the user"
+                      className="mt-6 rounded-md opacity-60"
+                    />
+                    <div className="absolute bottom-0 right-0 m-2">
+                      <Button onClick={() => onSubmit()}>
+                        {imageUploadLoading && (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        )}
+                        {imageUploadLoading ? 'Uploading' : 'Upload'}
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center my-auto mt-24">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="bg-slate-50 md:w-[180px]"
+                      style={{ display: 'none' }} // Hide the input element
+                      onChange={(e) => handleImage(e)}
+                      ref={inputRef} // Assign a ref to the input element if needed
+                    />
+                    <span className="text-lg font-medium">Add Image</span>
+                    <Plus
+                      className="w-8 h-8 hover:cursor-pointer"
+                      onClick={() => inputRef?.current?.click()}
+                    />{' '}
+                  </div>
+                )}
+              </CardContent>
+            )}
+          </>
+        </Card>
+        <div className="flex flex-col relative -top-10 gap-3">
+          <h1 className="text-2xl font-semibold">{profile?.name}</h1>
+          <span>
+            Age: {profile?.age}, Height: {convertHeight(profile?.height!)}
+          </span>
+          <span>
+            {profile?.religion}, {profile?.caste}
+          </span>
+          <span>
+            {profile?.city}, {profile?.state}, {profile?.country}
+          </span>
+          <span>{profile?.education}</span>
         </div>
       </div>
     </div>
