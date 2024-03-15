@@ -9,7 +9,8 @@ import BasicDetails from './_components/basic';
 import ProfessionalDetails from './_components/professional-details';
 import FamilyDetails from './_components/family-details';
 import OtherImages from './_components/photos-carousel';
-import { Button } from '@/components/ui/button';
+import { NavigationButtons } from './_components/navigation-buttons';
+import { fetchAllMatches } from '@/actions/matches/fetch-matches';
 
 interface ProfileIdPageProps {
   params: {
@@ -18,6 +19,8 @@ interface ProfileIdPageProps {
 }
 
 const ProfileIdPage: FC<ProfileIdPageProps> = async ({ params }) => {
+  const topRecommendations: TopRecommendation = await fetchAllMatches(1);
+
   const userProfile = await db.userProfile.findUnique({
     where: {
       id: params?.profileId,
@@ -89,13 +92,12 @@ const ProfileIdPage: FC<ProfileIdPageProps> = async ({ params }) => {
 
   return (
     <>
-      <div className="container flex justify-between">
-        <Button>Previous</Button>
-        <Button>Next</Button>
-      </div>
+      <NavigationButtons topRecommendations={topRecommendations} />
+
       <div className="flex flex-col container items-center justify-center">
         <MainDetails profile={userProfile} />
         <OtherImages params={params} />
+
         <About profile={userProfile} />
 
         <div className="h-[20rem] md:h-[30rem] [perspective:1000px] relative b flex flex-col  mx-auto w-full  items-start justify-start my-10">

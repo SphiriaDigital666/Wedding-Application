@@ -6,7 +6,7 @@ import { convertHeight } from '@/helpers/convert-height';
 import { FC } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
-import { Check, X } from 'lucide-react';
+import { Check, Phone, Star, X } from 'lucide-react';
 
 interface MainDetailsProps {
   profile: UserProfile | null;
@@ -15,7 +15,7 @@ interface MainDetailsProps {
 const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
   return (
     <div className="container shadow-md m-10 rounded-md p-5">
-      <div className="flex items-center gap-10">
+      <div className="flex items-start gap-10">
         <div>
           <Card>
             <CardContent className="flex aspect-square items-center justify-center ">
@@ -59,6 +59,9 @@ const MainDetails: FC<MainDetailsProps> = ({ profile }) => {
             </div>
           </div>
         </div>
+        <Button variant={'outline'} className="ml-20 gap-3">
+          <Star /> Shortlist
+        </Button>
       </div>
     </div>
   );
