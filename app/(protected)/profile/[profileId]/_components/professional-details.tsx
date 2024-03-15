@@ -7,9 +7,9 @@ interface ProfessionalDetailsProps {
 
 const ProfessionalDetails: FC<ProfessionalDetailsProps> = ({ profile }) => {
   return (
-    <div className="flex">
-      <div className="w-1/2 p-5">
-        <div className="grid grid-cols-2 gap-5 mt-4">
+    <div className="p-5">
+      <div className="grid grid-cols-2 justify-between gap-44">
+        <div className="flex flex-col gap-5 mt-4">
           <div className="flex gap-x-2 items-center">
             <span>Education: </span>
             <span className=" text-gray-600">
@@ -27,10 +27,12 @@ const ProfessionalDetails: FC<ProfessionalDetailsProps> = ({ profile }) => {
           <div className="flex gap-x-2 items-center">
             <span>Employed Sector: </span>
             <span className=" text-gray-600">
-              {profile?.employedSector || 'Not defined'}
+              {`${profile?.employedSector}, ${profile?.state}` || 'Not defined'}
             </span>
           </div>
+        </div>
 
+        <div className="flex flex-col gap-5 mt-4">
           <div className="flex gap-x-2 items-center">
             <span>Company Name: </span>
             <span className=" text-gray-600">

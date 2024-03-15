@@ -32,7 +32,7 @@ const ProfileIdPage: FC<ProfileIdPageProps> = async ({ params }) => {
       title: 'Basic Details',
       value: 'basic details',
       content: (
-        <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 bg-gradient-to-br from-gray-100 to-white">
+        <div className="w-full flex flex-col justify-center items-center overflow-hidden relative h-full rounded-2xl p-10 bg-gradient-to-br from-gray-100 to-white">
           <span className="text-2xl font-bold">Basic Details</span>
           <BasicDetails profile={userProfile} />
         </div>
@@ -42,7 +42,7 @@ const ProfileIdPage: FC<ProfileIdPageProps> = async ({ params }) => {
       title: 'Religion Details',
       value: 'religion details',
       content: (
-        <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 bg-gradient-to-br from-gray-100 to-white">
+        <div className="w-full flex flex-col justify-start items-center overflow-hidden relative h-full rounded-2xl p-10 bg-gradient-to-br from-gray-100 to-white">
           <span className="text-2xl font-bold">Religion Details</span>
           <ReligionDetails profile={userProfile} />
         </div>
@@ -52,7 +52,7 @@ const ProfileIdPage: FC<ProfileIdPageProps> = async ({ params }) => {
       title: 'Location Details',
       value: 'location details',
       content: (
-        <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 bg-gradient-to-br from-gray-100 to-white">
+        <div className="w-full flex flex-col justify-start items-center overflow-hidden relative h-full rounded-2xl p-10 bg-gradient-to-br from-gray-100 to-white">
           <span className="text-2xl font-bold">Location Details</span>
           <LocationDetails profile={userProfile} />
         </div>
@@ -62,7 +62,7 @@ const ProfileIdPage: FC<ProfileIdPageProps> = async ({ params }) => {
       title: 'Professional Details',
       value: 'professional details',
       content: (
-        <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 bg-gradient-to-br from-gray-100 to-white">
+        <div className="w-full flex flex-col justify-start items-center overflow-hidden relative h-full rounded-2xl p-10 bg-gradient-to-br from-gray-100 to-white">
           <span className="text-2xl font-bold">Professional Details</span>
           <ProfessionalDetails profile={userProfile} />
         </div>
@@ -72,7 +72,7 @@ const ProfileIdPage: FC<ProfileIdPageProps> = async ({ params }) => {
       title: 'Family Details',
       value: 'family details',
       content: (
-        <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 bg-gradient-to-br from-gray-100 to-white">
+        <div className="w-full flex flex-col justify-start items-center overflow-hidden relative h-full rounded-2xl p-10 bg-gradient-to-br from-gray-100 to-white">
           <span className="text-2xl font-bold">Family Details</span>
           <FamilyDetails profile={userProfile} />
         </div>
@@ -100,7 +100,7 @@ const ProfileIdPage: FC<ProfileIdPageProps> = async ({ params }) => {
 
         <About profile={userProfile} />
 
-        <div className="h-[20rem] md:h-[30rem] [perspective:1000px] relative b flex flex-col  mx-auto w-full  items-start justify-start my-10">
+        <div className="h-[20rem] md:h-[30rem] [perspective:1000px] relative flex flex-col mx-auto w-full justify-center items-center my-10">
           <AnimatedTabs tabs={tabs} />
         </div>
       </div>

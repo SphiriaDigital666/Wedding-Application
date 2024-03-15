@@ -8,8 +8,8 @@ interface FamilyDetailsProps {
 const FamilyDetails: FC<FamilyDetailsProps> = ({ profile }) => {
   return (
     <div className="flex">
-      <div className="w-1/2 p-5">
-        <div className="flex justify-between gap-5 mt-4">
+      <div className="p-5">
+        <div className="flex justify-between gap-20 mt-4">
           <div className="flex gap-x-2 items-center">
             <span>Family Values: </span>
             <span className=" text-gray-600">

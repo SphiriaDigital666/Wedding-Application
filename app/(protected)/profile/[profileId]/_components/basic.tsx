@@ -11,7 +11,7 @@ interface BasicDetailsProps {
 const BasicDetails: FC<BasicDetailsProps> = ({ profile }) => {
   return (
     <div className="p-5">
-      <div className="grid grid-cols-2 justify-between">
+      <div className="grid grid-cols-2 justify-between gap-44">
         <div className="flex flex-col gap-5 mt-4">
           <div className="flex gap-x-2 items-center">
             <span>Name: </span>
