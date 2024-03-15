@@ -93,7 +93,7 @@ const ProfileIdPage: FC<ProfileIdPageProps> = async ({ params }) => {
   return (
     <>
       <div className="flex flex-col container items-center justify-center">
-        <div className="flex items-center justify-center">
+        {/* <div className="flex items-center justify-center">
           <Image
             src={AllMatches}
             alt="Main Image"
@@ -106,7 +106,7 @@ const ProfileIdPage: FC<ProfileIdPageProps> = async ({ params }) => {
               The biggest and most trusted Matrimony service for Tamils!
             </p>
           </div>
-        </div>
+        </div> */}
 
         <MainDetails profile={userProfile} />
         {/* <PhotosCarousel profile={userProfile} /> */}
