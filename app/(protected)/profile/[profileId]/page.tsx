@@ -1,8 +1,5 @@
 import { AnimatedTabs } from '@/components/ui/animated-tabs';
-import { DirectionAwareHover } from '@/components/ui/direction-aware-hover';
 import db from '@/lib/db';
-import AllMatches from '@/public/allMatches/all-matches-img.png';
-import Image from 'next/image';
 import { FC } from 'react';
 import About from './_components/about-me';
 import MainDetails from './_components/main-details';
@@ -31,7 +28,6 @@ const ProfileIdPage: FC<ProfileIdPageProps> = async ({ params }) => {
       title: 'Basic Details',
       value: 'basic details',
       content: (
-        // <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl font-bold text-white bg-gradient-to-br from-sky-300 to-sky-7pdate 00">
         <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 bg-gradient-to-br from-gray-100 to-white">
           <span className="text-2xl font-bold">Basic Details</span>
           <BasicDetails profile={userProfile} />
@@ -93,35 +89,8 @@ const ProfileIdPage: FC<ProfileIdPageProps> = async ({ params }) => {
   return (
     <>
       <div className="flex flex-col container items-center justify-center">
-        {/* <div className="flex items-center justify-center">
-          <Image
-            src={AllMatches}
-            alt="Main Image"
-            width={1920}
-            height={312}
-            className="rounded-md"
-          />
-          <div className="absolute text-center">
-            <p className="text-[35px] text-[#fff] font-bold">
-              The biggest and most trusted Matrimony service for Tamils!
-            </p>
-          </div>
-        </div> */}
-
         <MainDetails profile={userProfile} />
-        {/* <PhotosCarousel profile={userProfile} /> */}
-        {/* <div className="grid grid-cols-3 gap-3">
-          {userProfile?.images.map((image, index) => (
-            <div key={index} className="">
-              <DirectionAwareHover imageUrl={image}>
-                <p className="font-bold text-xl">{userProfile.name}</p>
-                <p className="font-normal text-sm">{userProfile.age} years</p>
-              </DirectionAwareHover>
-            </div>
-          ))}
-        </div> */}
         <OtherImages params={params} />
-        {/* <LayoutGridDemo /> */}
         <About profile={userProfile} />
 
         <div className="h-[20rem] md:h-[30rem] [perspective:1000px] relative b flex flex-col  mx-auto w-full  items-start justify-start my-10">

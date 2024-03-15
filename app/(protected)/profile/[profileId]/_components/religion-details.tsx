@@ -1,10 +1,5 @@
 import React, { FC } from 'react';
-import { Button } from '@/components/ui/button';
 import { UserProfile } from '@prisma/client';
-import EditReligion from './edit/edit-religion';
-import EditLocation from './edit/edit-location';
-import EditProfessional from './edit/edit-professional';
-import EditFamily from './edit/edit-family';
 
 interface ReligionDetailsProps {
   profile: UserProfile | null;

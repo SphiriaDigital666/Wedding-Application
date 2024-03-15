@@ -1,9 +1,6 @@
 'use client';
 import React, { FC, useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
 import { UserProfile } from '@prisma/client';
-import EditBasic from './edit/edit-basic';
-import EditAbout from './edit/edit-about';
 
 interface AboutAndBasicProps {
   profile: UserProfile | null;
