@@ -7,7 +7,12 @@ const nextConfig = {
     missingSuspenseWithCSRBailout: false,
   },
   images: {
+    domains: ['source.unsplash.com'],
     remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'imgs.bharatmatrimony.com',
+      },
       {
         protocol: 'https',
         hostname: 'img.clerk.com',
