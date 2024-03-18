@@ -30,7 +30,6 @@ export async function fetchAllMatches(page: number) {
         userId: currentUserId,
       },
     });
-    console.log("🚀 ~ fetchAllMatches ~ hiddenMatches:", hiddenMatches)
 
     // Calculate compatibility scores for all profiles
     const compatibilityScores = await Promise.all(
