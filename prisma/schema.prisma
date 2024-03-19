@@ -151,7 +151,8 @@ model UserProfile {
 
   user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  preference Preference[]
+  preference         Preference[]
+  shortlistedPartners ShortlistedPartner[]
 }
 
 model Chat {
@@ -237,4 +238,15 @@ model HiddenMatch {
   updatedAt DateTime @updatedAt
 
   @@unique([userId, matchId])
+}
+
+model ShortlistedPartner {
+  id             String       @id @default(cuid()) @map("_id")
+  userId         String
+  partnerId      String
+  partnerProfile UserProfile? @relation(fields: [partnerId], references: [id])
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@unique([userId, partnerId])
 }
