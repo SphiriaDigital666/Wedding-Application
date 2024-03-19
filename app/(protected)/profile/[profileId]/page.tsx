@@ -11,6 +11,7 @@ import FamilyDetails from './_components/family-details';
 import OtherImages from './_components/photos-carousel';
 import { NavigationButtons } from './_components/navigation-buttons';
 import { fetchAllMatches } from '@/actions/matches/fetch-matches';
+import { currentUser } from '@/lib/auth';
 
 interface ProfileIdPageProps {
   params: {
@@ -19,6 +20,7 @@ interface ProfileIdPageProps {
 }
 
 const ProfileIdPage: FC<ProfileIdPageProps> = async ({ params }) => {
+  const user = await currentUser();
   const topRecommendations: TopRecommendation = await fetchAllMatches(1);
 
   const userProfile = await db.userProfile.findUnique({
@@ -26,6 +28,15 @@ const ProfileIdPage: FC<ProfileIdPageProps> = async ({ params }) => {
       id: params?.profileId,
     },
   });
+
+  const isShortlistedRecord = await db.shortlistedPartner.findFirst({
+    where: {
+      userId: user?.id,
+      partnerId: params?.profileId,
+    },
+  });
+
+  const isShortlisted = !!isShortlistedRecord; 
 
   const tabs = [
     {
@@ -94,13 +105,13 @@ const ProfileIdPage: FC<ProfileIdPageProps> = async ({ params }) => {
     <>
       <NavigationButtons topRecommendations={topRecommendations} />
 
-      <div className="flex flex-col container items-center justify-center">
-        <MainDetails profile={userProfile} />
+      <div className='flex flex-col container items-center justify-center'>
+        <MainDetails profile={userProfile} isShortlisted={isShortlisted} />
         <OtherImages params={params} />
 
         <About profile={userProfile} />
 
-        <div className="h-[20rem] md:h-[30rem] [perspective:1000px] relative flex flex-col mx-auto w-full justify-center items-center my-10">
+        <div className='h-[20rem] md:h-[30rem] [perspective:1000px] relative flex flex-col mx-auto w-full justify-center items-center my-10'>
           <AnimatedTabs tabs={tabs} />
         </div>
       </div>

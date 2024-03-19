@@ -2,7 +2,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 const LoadingState = () => {
   return (
-    <div className='flex-col'>
+    <div className='flex-col w-[400px]'>
       <div className='flex gap-x-8 mb-3 w-[400px]'>
         <div>
           <Skeleton className='h-[200px] w-[200px]' />
