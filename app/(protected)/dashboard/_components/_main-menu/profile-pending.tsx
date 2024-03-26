@@ -19,7 +19,7 @@ const ProfilePending = () => {
       </p>
       <Button
         variant="outline"
-        className="border-2 border-[#5BACE3] bg-[#5BACE3] rounded-full text-base"
+        className="border-2 border-[#5BACE3] bg-[#5BACE3] rounded-full text-base "
       >
         Verify Profile
       </Button>
